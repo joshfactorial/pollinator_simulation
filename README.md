@@ -1,14 +1,7 @@
+# Monarch Butterfly simulation
+
+This was initially designed for class as:
 # 590PR Final_Project
-Fork from here to create your final project repository.
-
-Two things are different than all the previous assignments in 590PR regarding the permissions settings:
-
-1. Please KEEP the "All_Students" team to have Read access.  
-2. Whenever you choose to, you are welcome to change your Final Project repository to public.  This will enable you to list it in your resume, website, or other portfolio.
-
-DELETE these lines from TEMPLATE up.
-
-TEMPLATE for your report to fill out:
 
 # Title: 
 Monarch Butterfly Monte Carlo (MBMC) simulation
@@ -112,8 +105,10 @@ So, 95% of each acre is going toward crops, which the farmer needs to survive. I
 a field configuration that outperforms the middle-shelter config, and can we increase the crop area and still maintain 
 a high survival rate of the species.
 
-However, I was not able to complete those tests before the deadline. I will go ahead and post more updates as I continue
-to improve the code, however.
+I ran a simulation on random placement of resources, and I wasn't able to find anything significant over 1000 trials.
+Maybe more would happen across a really optimal solution, but 1000 wasn't enough to find anything. The highest performing
+field in the same category in terms of crop yield as the break in the middle had only a 59.9% survival rate. I will think
+about a way to make an adaptive environment design that takes the best of the other designs and begins to improve on it.
 
 ## Instructions on how to use the program:
 A test field can be created by making a list of lists and converting it to a field using the field object. Anything
@@ -134,6 +129,7 @@ to 50 km to be my standard distance. [monarch lab FAQ](https://monarchlab.org/bi
 The average farm size in Illinois in 2018 was 358 acres [average farm size](https://farmdocdaily.illinois.edu/2013/08/trends-illinois-farmland-parcel-size.html),
 which translates to about 1.4 square kilometers, so I'll base it on 1.5 km to make it easier.
 
+I welcome anyone who can point me to some sources for some of the simulation parameters
 
-
-
+## Updates since final project committ
+I plan to keep developing this project, since I find it interesting. One thing I learned was that it might be better to model smaller fields. I also messed up when I orginially was trying to get it to work and made my fields entirely too big. This messed up my food calculations. So I plan to go back and correct some of that. Any updates to this will be made on or after 8/5/2018, since the project was due midnight the previous day. I have tons of ideas for improvements.
