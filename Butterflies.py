@@ -96,6 +96,16 @@ class Butterfly:
     This class creates the butterfly object. It's main parameters are food level, status, and starting position
     Food level and starting position are random, though starting position is  based on the size of the Field
     and it always enters on an edge.
+    >>> f = Field([[1, 2, 2, 1], [1, 2, 2, 1], [1, 2, 2, 1], [1, 2, 2, 1], [1, 2, 2, 1]])
+    >>> b1 = Butterfly(f)
+    >>> b1.food_level = 100
+    >>> b1.position = [1,3]
+    >>> print(b1.food_level)
+    100
+    >>> b1.position
+    [1, 3]
+    >>> b1
+    Monarch butterfly with 100% food at [1, 3]
 
     """
     def __init__(self, area):
@@ -139,28 +149,26 @@ class Butterfly:
         # a near-zero threshold it dies automatically
         roll_die = np.random.random_sample()
         if self.food_level > 50.0:
-            if roll_die < 0.001:
+            if roll_die < 0.01:
                 self.status = 'dead'
                 return self
             else:
                 return self
         elif 25.0 < self.food_level <= 50.0:
-            if roll_die <= 0.01:
+            if roll_die <= 0.1:
                 self.status = 'dead'
                 return self
             else:
                 return self
         elif 0.0001 < self.food_level <= 25.0:
-            if roll_die < 0.4:
+            if roll_die < 0.5:
                 self.status = 'dead'
                 return self
             else:
                 return self
-        elif 0 <= self.food_level <= 0.0001:
+        else:
             self.status = 'dead'
             return self
-        else:
-            raise ValueError('Food level below zero')
 
     def random_move(self):
         # The Monarch moves randomly
@@ -172,37 +180,50 @@ class Butterfly:
         direction = np.random.choice((-1, 1))
         if coord == 0:
             # Move east-west
-            if self.width > self.position[0] + (direction * math.ceil(max(self.area.shape)/4)) >= 0:
+            if self.width > self.position[0] + (direction * math.ceil(max(self.area.shape)/4)) >= 0\
+                    and self.food_level - (0.0225 * math.ceil(max(self.area.shape)/4)) >= 0:
                 self.position[0] = self.position[0] + (direction * math.ceil(max(self.area.shape)/4))
-                self.food_level = self.food_level * 0.3
-            elif self.width > self.position[0] + (direction * math.ceil(max(self.area.shape)/10)) >= 0:
+                self.food_level -= 0.0225 * math.ceil(max(self.area.shape)/4)
+            elif self.width > self.position[0] + (direction * math.ceil(max(self.area.shape)/10)) >= 0\
+                    and self.food_level - (0.0225 * math.ceil(max(self.area.shape)/10)) >= 0:
                 self.position[0] = self.position[0] + (direction * math.ceil(max(self.area.shape)/10))
-                self.food_level = self.food_level * 0.5
-            elif self.width > self.position[0] + (direction * math.ceil(max(self.area.shape)/100)) >= 0:
+                self.food_level -= 0.0225 * math.ceil(max(self.area.shape)/10)
+            elif self.width > self.position[0] + (direction * math.ceil(max(self.area.shape)/100)) >= 0\
+                    and self.food_level - (0.0225 * math.ceil(max(self.area.shape)/100)) >= 0:
                 self.position[0] = self.position[0] + (direction * math.ceil(max(self.area.shape)/100))
-                self.food_level = self.food_level * 0.9
-            elif self.width > self.position[0] + direction >= 0:
+                self.food_level -= 0.0225 * math.ceil(max(self.area.shape)/100)
+            elif self.width > self.position[0] + direction >= 0 and self.food_level >= 0.0225:
                 self.position[0] = self.position[0] + direction
-                self.food_level = self.food_level * 0.99
+                self.food_level -= 0.0225
             else:
+                self.check_for_death()
+                if self.status == 'dead':
+                    return self
                 pass
         else:
             direction = 1
             # move north. I initially allowed it to randomly move south, but it slowed the simulation down to the point
             # where it was taking hours to complete
-            if self.width > self.position[1] + (direction * math.ceil(max(self.area.shape)/4)) >= 0:
+            if self.width > self.position[1] + (direction * math.ceil(max(self.area.shape)/4)) >= 0\
+                    and self.food_level - (0.0225 * math.ceil(max(self.area.shape)/4)) > 0:
                 self.position[1] = self.position[1] + (direction * math.ceil(max(self.area.shape)/4))
-                self.food_level = self.food_level * 0.3
-            elif self.width > self.position[1] + (direction * math.ceil(max(self.area.shape)/10)) >= 0:
+                self.food_level -= 0.0225 * math.ceil(max(self.area.shape)/4)
+            elif self.width > self.position[1] + (direction * math.ceil(max(self.area.shape)/10)) >= 0 \
+                    and self.food_level - (0.0225 * math.ceil(max(self.area.shape) / 10)) > 0:
                 self.position[1] = self.position[1] + (direction * math.ceil(max(self.area.shape)/10))
-                self.food_level = self.food_level * 0.5
-            elif self.width > self.position[1] + (direction * math.ceil(max(self.area.shape)/100)) >= 0:
+                self.food_level -= 0.0225 * math.ceil(max(self.area.shape)/10)
+            elif self.width > self.position[1] + (direction * math.ceil(max(self.area.shape)/100)) >= 0 \
+                    and self.food_level - (0.0225 * math.ceil(max(self.area.shape) / 100)) > 0:
                 self.position[1] = self.position[1] + (direction * math.ceil(max(self.area.shape)/100))
-                self.food_level = self.food_level * 0.9
-            elif self.width > self.position[1] + direction >= 0:
+                self.food_level -= 0.0225 * math.ceil(max(self.area.shape)/100)
+            elif self.width > self.position[1] + direction >= 0.0225 \
+                    and self.food_level> 0:
                 self.position[1] = self.position[1] + direction
-                self.food_level = self.food_level * 0.99
+                self.food_level -= 0.0225
             else:
+                self.check_for_death()
+                if self.status == 'dead':
+                    return self
                 pass
         return self
 
@@ -215,13 +236,14 @@ class Butterfly:
                 roll_die = np.random.random_sample()
                 if self.food_level < 25:
                     self.sheltered = False
+                    self.random_move()
                 elif roll_die < 0.5:
                     self.sheltered = False
                 else:
                     pass
                 if self.area[self.position[0]][self.position[1]] != '*':
                     self.sheltered = False
-                self.food_level = self.food_level * 0.9
+                self.food_level -= 0.0112
                 # I had to add in a lot of death checks because I was having a bunch of zombie butterflies in my sim
                 self.check_for_death()
                 if self.status != 'alive':
@@ -231,32 +253,38 @@ class Butterfly:
             if self.food_level >= 50.0:
                 # if it's belly is full, move with a preference toward North
                 roll_die = np.random.random_sample()
-                if roll_die <= 0.988:
+                if roll_die <= 0.97:
                     # Northly
-                    if self.position[1] > math.ceil(max(self.area.shape)/10):
+                    if self.position[1] > math.ceil(max(self.area.shape)/10) \
+                            and self.food_level - (0.0225 * math.ceil(max(self.area.shape)/10)) > 0:
                         self.position[1] -= math.ceil(max(self.area.shape)/10)
-                        self.food_level = self.food_level * 0.3
-                    elif self.position[1] > math.ceil(max(self.area.shape)/100):
+                        self.food_level -= 0.0225 * math.ceil(max(self.area.shape)/10)
+                    elif self.position[1] > math.ceil(max(self.area.shape)/100) \
+                            and self.food_level - (0.0225 * math.ceil(max(self.area.shape)/100)) > 0:
                         self.position[1] -= math.ceil(max(self.area.shape)/100)
-                        self.food_level = self.food_level * 0.5
-                    elif self.position[1] > 0:
+                        self.food_level -= 0.0225 * math.ceil(max(self.area.shape)/100)
+                    elif self.position[1] > 0 and self.food_level > 0:
                         self.position[1] -= 1
-                        self.food_level = self.food_level * 0.99
-                    elif self.position[1] <= 10:
+                        self.food_level -= 0.0225
+                    elif self.position[1] == 0:
                         second_die = np.random.random_sample()
                         if second_die > 0.01:
                             self.check_for_death()
                             if self.status == 'dead':
                                 return self
-                            self.status = "exit"
-                            return self
+                            else:
+                                self.status = "exit"
+                                return self
                         else:
                             self.check_for_death()
                             if self.status == 'dead':
                                 return self
-                            self.food_level -= 2.25
+                            if self.food_level > 2.25:
+                                self.food_level -= 2.25
+                            else:
+                                self.food_level = 0
                             pass
-                    elif self.position[0] == 0 or self.position[0] == self.width - 1:
+                    elif self.position[0] == 0:
                         second_die = np.random.random_sample()
                         if second_die > 0.90:
                             self.check_for_death()
@@ -264,20 +292,23 @@ class Butterfly:
                                 return self
                             self.status = "exit"
                             return self
+                        else:
+                            self.food_level -= 2.25
+                            pass
                     else:
                         raise ValueError("Something's wrong with the northly moving coordinates.")
-                elif 0.988 < roll_die <= 0.998:
+                elif 0.97 < roll_die <= 0.988:
                     # move randomly
                     self.random_move()
                     self.check_for_death()
                     if self.status == 'dead':
                         return self
-                elif 0.998 < roll_die <= 0.999:
+                elif 0.988 < roll_die <= 0.998:
                     # look for shelter
                     seek_resource(self, 'shelter', shelter)
                     if self.status != 'alive':
                         return self
-                elif roll_die > 0.999:
+                elif roll_die > 0.998:
                     # stay
                     self.check_for_death()
                     if self.status != 'alive':
@@ -299,7 +330,7 @@ class Butterfly:
             else:
                 roll_die = np.random.random_sample()
                 # slight chance it looks for shelter
-                if roll_die <= 0.00001:
+                if roll_die <= 0.0001:
                     seek_resource(self, 'shelter', shelter)
                     if self.status != 'alive':
                         return self
@@ -567,21 +598,21 @@ def test_field(dictionary, number):
     # This function takes care of some repetitive code I had written earlier. It's not perfect, but it works for now.
     start_time = time.time()
     if number == 0:
-        field_to_test = create_standard_test(333)
+        field_to_test = create_standard_test(33)
     elif number == 1:
-        field_to_test = create_food_heavy_test(333)
+        field_to_test = create_food_heavy_test(33)
     elif number == 2:
-        field_to_test = create_middle_food_windbreak_test(333)
+        field_to_test = create_middle_food_windbreak_test(33)
     elif number == 3:
-        field_to_test = create_middle_shelter_windbreak_test(333)
+        field_to_test = create_middle_shelter_windbreak_test(33)
     elif number == 4:
-        field_to_test = create_shelter_heavy_test(333)
+        field_to_test = create_shelter_heavy_test(33)
     elif number == 5:
-        field_to_test = Field.random_field(333, 100, 90, 5, 5)
+        field_to_test = Field.random_field(3333, 100, 90, 5, 5)
     elif number == 6:
-        field_to_test = Field.random_field(333, 100, 80, 15, 5)
+        field_to_test = Field.random_field(3333, 100, 80, 15, 5)
     elif number == 7:
-        field_to_test = Field.random_field(333, 100, 80, 5, 15)
+        field_to_test = Field.random_field(3333, 100, 80, 5, 15)
     else:
         return dictionary
     food_indices = create_food_table(field_to_test)
@@ -600,14 +631,14 @@ def test_field(dictionary, number):
 
 if __name__ == '__main__':
     # first analysis
-    # master_results = {}
-    # for i in range(0, 8):
-    #     test_field(master_results, i)
-    # index = ['standard', 'food_heavy', 'middle_food', 'middle_shelter', 'shelter_heavy', 'balanced_random', 'food_random',
-    #          'shelter_random']
-    # master_results = pd.DataFrame(master_results).T
-    # master_results.index = index
-    # print("The best-performing field was {}".format(master_results[0].idxmax()))
+    master_results = {}
+    for i in range(0, 8):
+        test_field(master_results, i)
+    index = ['standard', 'food_heavy', 'middle_food', 'middle_shelter', 'shelter_heavy', 'balanced_random', 'food_random',
+             'shelter_random']
+    master_results = pd.DataFrame(master_results).T
+    master_results.index = index
+    print("The best-performing field was {}".format(master_results[0].idxmax()))
 
     # field stats
     # field = create_middle_shelter_windbreak_test(333)
@@ -620,44 +651,44 @@ if __name__ == '__main__':
     # print("Percent crops: {:.2f}%".format(math.floor(100 * crops/total)))
 
     #try to find an optimal random field
-    start_time = time.time()
-    score_dictionary = {}
-    for i in range(1000):
-        field = Field.random_field(333, 100, 95, 4, 1)
-        food_indices = create_food_table(field)
-        shelter_indices = create_shelter_table(field)
-        results = []
-        for j in range(200):
-            monarch1 = Butterfly(field)
-            monarch1.move(food_indices, shelter_indices)
-            results.append(monarch1.get_status())
-        score_dictionary["test_field_{}".format(i)] = [(100 * (results.count('exit') / len(results))), field]
-        print("--- %s seconds ---" % (time.time() - start_time))
-    df = pd.DataFrame(score_dictionary).T
-    print(df.loc[df[0].idxmax()][0])
-    print(df.loc[df[0].idxmax()][1])
+    # start_time = time.time()
+    # score_dictionary = {}
+    # for i in range(1000):
+    #     field = Field.random_field(3333, 100, 95, 4, 1)
+    #     food_indices = create_food_table(field)
+    #     shelter_indices = create_shelter_table(field)
+    #     results = []
+    #     for j in range(200):
+    #         monarch1 = Butterfly(field)
+    #         monarch1.move(food_indices, shelter_indices)
+    #         results.append(monarch1.get_status())
+    #     score_dictionary["test_field_{}".format(i)] = [(100 * (results.count('exit') / len(results))), field]
+    #     print("--- %s seconds ---" % (time.time() - start_time))
+    # df = pd.DataFrame(score_dictionary).T
+    # print(df.loc[df[0].idxmax()][0])
+    # print(df.loc[df[0].idxmax()][1])
 
     # Testing a higher crop percentage variant of the middle rows
-    start_time = time.time()
-    field_test = create_middle_shelter_windbreak_test_2(333)
-    food_indices = create_food_table(field_test)
-    shelter_indices = create_shelter_table(field_test)
-    results = []
-    for j in range(100):
-        monarch1 = Butterfly(field_test)
-        monarch1.move(food_indices, shelter_indices)
-        results.append(monarch1.get_status())
-    print("Dead percentage = {:.2f}%".format(100 * results.count('dead') / len(results)))
-    print("Exit percentage = {:.2f}%".format(100 * results.count('exit') / len(results)))
-    print("--- %s seconds ---" % (time.time() - start_time))
-
-    food = len(field_test[field_test == 'o'].stack().index.tolist())
-    shelter = len(field_test[field_test == '*'].stack().index.tolist())
-    crops = len(field_test[field_test == '='].stack().index.tolist())
-    total = food + shelter + crops
-    print('Percent food: {:.2f}%'.format(math.ceil(100 * food/total)))
-    print("Percent shelter: {:.2f}%".format(math.ceil(100 * shelter/total)))
-    print("Percent crops: {:.2f}%".format(math.floor(100 * crops/total)))
+    # start_time = time.time()
+    # field_test = create_middle_shelter_windbreak_test_2(333)
+    # food_indices = create_food_table(field_test)
+    # shelter_indices = create_shelter_table(field_test)
+    # results = []
+    # for j in range(100):
+    #     monarch1 = Butterfly(field_test)
+    #     monarch1.move(food_indices, shelter_indices)
+    #     results.append(monarch1.get_status())
+    # print("Dead percentage = {:.2f}%".format(100 * results.count('dead') / len(results)))
+    # print("Exit percentage = {:.2f}%".format(100 * results.count('exit') / len(results)))
+    # print("--- %s seconds ---" % (time.time() - start_time))
+    #
+    # food = len(field_test[field_test == 'o'].stack().index.tolist())
+    # shelter = len(field_test[field_test == '*'].stack().index.tolist())
+    # crops = len(field_test[field_test == '='].stack().index.tolist())
+    # total = food + shelter + crops
+    # print('Percent food: {:.2f}%'.format(math.ceil(100 * food/total)))
+    # print("Percent shelter: {:.2f}%".format(math.ceil(100 * shelter/total)))
+    # print("Percent crops: {:.2f}%".format(math.floor(100 * crops/total)))
 
 
     # This is a field of only food, to test the parameters

@@ -1,8 +1,5 @@
 # Monarch Butterfly simulation
 
-This was initially designed for class as:
-# 590PR Final_Project
-
 # Title: 
 Monarch Butterfly Monte Carlo (MBMC) simulation
 
