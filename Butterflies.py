@@ -6,13 +6,19 @@ import math
 class Area:
     """
     A generic area, consisting of a length and width, 1 unit of length = 1 unit of
-    width = 15 meters.
+    width = 15 meters. This will form the basis of the CropField class. It takes a two-dimensional array
+    as an input and converts it into a numpy array, then checks that it is a true 2D array (a list of lists,
+    with all sublists being the same length)
     """
 
     def __init__(self, array):
+        # convert input array to numpy array
         self._array = np.array(array)
         self.row_len = self._array.shape[0]
+        # checks that it is a 2D array and not a simple list
         assert type(self._array[0]) is not int, "Area must be a 2-dimensional list, e.g., [[1,1],[1,1]]."
+        # this checks that every sublist is the same length. Numpy's shape returns a tuple with the second element
+        # empty if the sublists have different lengths. So this simply gives a more meaningful error
         try:
             self.col_len = self._array.shape[1]
         except (ValueError, IndexError):
@@ -20,22 +26,36 @@ class Area:
             sys.exit(1)
 
     def __str__(self) -> str:
+        """
+        Prints the dimensions of the area. Each extra row and column adds 15 meetrs to the dimensions
+        :return: string for printing
+        """
         return '{} m x {} m area'.format(
             self.row_len * 15, self.col_len * 15)
 
     def __repr__(self):
+        """
+        Basically the same as above, but adds the "Area" class designation
+        :return: string for printing
+        """
         return "Area('{} m x {} m')".format(
             self.row_len * 15, self.col_len * 15)
 
 
 class CropField(Area):
+    """
+    This is a versioun of the Area class that takes an input array with all elements being equal to 1, 2, or 3.
+    Where 1 is a crop, 2 food, and 3 shelter. It can print out a simple graphic interpretation of this array
+    (with '=' being crop, 'o' being a food source, and '*' being shelter (trees))
+    TODO: Create a better graphical representation
+    """
 
     def __init__(self, array):
+        #Initializes the object as an Area class to check that it is truly 2D
         Area.__init__(self, array)
-        for row in range(self.row_len):
-            for column in range(self.col_len):
-                if self._array[row][column] not in (1, 2, 3):
-                    raise ValueError("values must be either 1 (crop), 2 (food), or 3 (shelter)")
+        values = [1, 2, 3]
+        if (False in np.isin(self._array, values)):
+            raise ValueError("Values of CropField must be either 1 (crop), 2 (food), or 3 (shelter)")
 
     def __to_string(self):
         string_version = ''
@@ -61,15 +81,14 @@ class CropField(Area):
     def __repr__(self) -> str:
         return self.__to_string()
 
-    @staticmethod
-    def raw():
+    def raw(self):
         string_version = ''
-        for row in range(CropField.row_len):
-            for column in range(CropField.col_len):
-                string_version += str(CropField._array[row][column])
-                if column != CropField.col_len-1:
+        for row in range(self.row_len):
+            for column in range(self.col_len):
+                string_version += str(self._array[row][column])
+                if column != self.col_len-1:
                     string_version += " "
-            if row != CropField.row_len:
+            if row != self.row_len:
                 string_version += '\n'
         print(string_version)
 
@@ -123,266 +142,327 @@ class CropField(Area):
                     number_food_cells -= 1
         return cls(random_f)
 
-#
-#
-# class Butterfly:
-#     """
-#     This class creates the butterfly object. It's main parameters are food level, status, and starting position
-#     Food level and starting position are random, though starting position is  based on the size of the Field
-#     and it always enters on an edge.
-#     >>> f = Field([[1, 2, 2, 1], [1, 2, 2, 1], [1, 2, 2, 1], [1, 2, 2, 1], [1, 2, 2, 1]])
-#     >>> b1 = Butterfly(f)
-#     >>> b1.food_level = 100
-#     >>> b1.position = [1,3]
-#     >>> print(b1.food_level)
-#     100
-#     >>> b1.position
-#     [1, 3]
-#     >>> b1
-#     Monarch butterfly with 100% food at [1, 3]
-#
-#     """
-#
-#     def __init__(self, area):
-#         self.food_level = float(np.random.randint(0, 101))
-#         self.status = "alive"
-#         self.length = area.shape[0]
-#         self.width = area.shape[1]
-#         self.area = area
-#         self.sheltered = False
-#         variable = np.random.choice([0, 1, self.length - 1, self.width - 1])
-#         # This gives the entry point
-#         if variable == 1:
-#             self.position = [0, np.random.randint(0, self.length)]
-#         elif variable == 0:
-#             self.position = [np.random.randint(0, self.width), 0]
-#         elif variable == self.length - 1:
-#             self.position = [np.random.randint(0, self.width), variable]
-#         else:
-#             self.position = [variable, np.random.randint(0, self.length)]
-#
-#     def get_area(self):
-#         return self.area
-#
-#     def get_status(self):
-#         return self.status
-#
-#     def get_food_level(self):
-#         return self.food_level
-#
-#     def get_position(self):
-#         return self.position
-#
-#     def __str__(self):
-#         return 'Monarch butterfly with {}% food at {}'.format(self.food_level, self.position)
-#
-#     def __repr__(self):
-#         return 'Monarch butterfly with {}% food at {}'.format(self.food_level, self.position)
-#
-#     def check_for_death(self):
-#         # Based on how much food it currently has, the butterfly's chances to die randomly change. If it drops below
-#         # a near-zero threshold it dies automatically
-#         roll_die = np.random.random_sample()
-#         if self.food_level > 50.0:
-#             if roll_die < 0.01:
-#                 self.status = 'dead'
-#                 return self
-#             else:
-#                 return self
-#         elif 25.0 < self.food_level <= 50.0:
-#             if roll_die <= 0.1:
-#                 self.status = 'dead'
-#                 return self
-#             else:
-#                 return self
-#         elif 0.0001 < self.food_level <= 25.0:
-#             if roll_die < 0.5:
-#                 self.status = 'dead'
-#                 return self
-#             else:
-#                 return self
-#         else:
-#             self.status = 'dead'
-#             return self
-#
-#     def random_move(self):
-#         # The Monarch moves randomly
-#         # One improvement I would like to make is to the food supply. I was having hugely negative food totals,
-#         # but later realized I was making my fields ten times too long, so the poor butterfly was trying to get
-#         # 500 km instead of 50. A future improvement will be to refine the food consumption to something that
-#         # makes more sense. More data and experimentation will also improve these numbers
-#         coord = np.random.choice((0, 1))
-#         direction = np.random.choice((-1, 1))
-#         if coord == 0:
-#             # Move east-west
-#             if self.width > self.position[0] + (direction * math.ceil(max(self.area.shape) / 4)) >= 0 \
-#                     and self.food_level - (0.0225 * math.ceil(max(self.area.shape) / 4)) >= 0:
-#                 self.position[0] = self.position[0] + (direction * math.ceil(max(self.area.shape) / 4))
-#                 self.food_level -= 0.0225 * math.ceil(max(self.area.shape) / 4)
-#             elif self.width > self.position[0] + (direction * math.ceil(max(self.area.shape) / 10)) >= 0 \
-#                     and self.food_level - (0.0225 * math.ceil(max(self.area.shape) / 10)) >= 0:
-#                 self.position[0] = self.position[0] + (direction * math.ceil(max(self.area.shape) / 10))
-#                 self.food_level -= 0.0225 * math.ceil(max(self.area.shape) / 10)
-#             elif self.width > self.position[0] + (direction * math.ceil(max(self.area.shape) / 100)) >= 0 \
-#                     and self.food_level - (0.0225 * math.ceil(max(self.area.shape) / 100)) >= 0:
-#                 self.position[0] = self.position[0] + (direction * math.ceil(max(self.area.shape) / 100))
-#                 self.food_level -= 0.0225 * math.ceil(max(self.area.shape) / 100)
-#             elif self.width > self.position[0] + direction >= 0 and self.food_level >= 0.0225:
-#                 self.position[0] = self.position[0] + direction
-#                 self.food_level -= 0.0225
-#             else:
-#                 self.check_for_death()
-#                 if self.status == 'dead':
-#                     return self
-#                 pass
-#         else:
-#             direction = 1
-#             # move north. I initially allowed it to randomly move south, but it slowed the simulation down to the point
-#             # where it was taking hours to complete
-#             if self.width > self.position[1] + (direction * math.ceil(max(self.area.shape) / 4)) >= 0 \
-#                     and self.food_level - (0.0225 * math.ceil(max(self.area.shape) / 4)) > 0:
-#                 self.position[1] = self.position[1] + (direction * math.ceil(max(self.area.shape) / 4))
-#                 self.food_level -= 0.0225 * math.ceil(max(self.area.shape) / 4)
-#             elif self.width > self.position[1] + (direction * math.ceil(max(self.area.shape) / 10)) >= 0 \
-#                     and self.food_level - (0.0225 * math.ceil(max(self.area.shape) / 10)) > 0:
-#                 self.position[1] = self.position[1] + (direction * math.ceil(max(self.area.shape) / 10))
-#                 self.food_level -= 0.0225 * math.ceil(max(self.area.shape) / 10)
-#             elif self.width > self.position[1] + (direction * math.ceil(max(self.area.shape) / 100)) >= 0 \
-#                     and self.food_level - (0.0225 * math.ceil(max(self.area.shape) / 100)) > 0:
-#                 self.position[1] = self.position[1] + (direction * math.ceil(max(self.area.shape) / 100))
-#                 self.food_level -= 0.0225 * math.ceil(max(self.area.shape) / 100)
-#             elif self.width > self.position[1] + direction >= 0.0225 \
-#                     and self.food_level > 0:
-#                 self.position[1] = self.position[1] + direction
-#                 self.food_level -= 0.0225
-#             else:
-#                 self.check_for_death()
-#                 if self.status == 'dead':
-#                     return self
-#                 pass
-#         return self
-#
-#     def move(self, food, shelter):
-#         # This is a long bunch of loops and if statements that basically amount to: move north unless you are hungry,
-#         # in which case move toward food. Every once in awhile move toward shelter (rain simulation)
-#         while self.status == 'alive':
-#             while self.sheltered and self.status == 'alive':
-#                 # if it's sheltered it may stay there or move away
-#                 roll_die = np.random.random_sample()
-#                 if self.food_level < 25:
-#                     self.sheltered = False
-#                     self.random_move()
-#                 elif roll_die < 0.5:
-#                     self.sheltered = False
-#                 else:
-#                     pass
-#                 if self.area[self.position[0]][self.position[1]] != '*':
-#                     self.sheltered = False
-#                 self.food_level -= 0.0112
-#                 # I had to add in a lot of death checks because I was having a bunch of zombie butterflies in my sim
-#                 self.check_for_death()
-#                 if self.status != 'alive':
-#                     return self
-#             if self.status != 'alive':
-#                 return self
-#             if self.food_level >= 50.0:
-#                 # if it's belly is full, move with a preference toward North
-#                 roll_die = np.random.random_sample()
-#                 if roll_die <= 0.97:
-#                     # Northly
-#                     if self.position[1] > math.ceil(max(self.area.shape) / 10) \
-#                             and self.food_level - (0.0225 * math.ceil(max(self.area.shape) / 10)) > 0:
-#                         self.position[1] -= math.ceil(max(self.area.shape) / 10)
-#                         self.food_level -= 0.0225 * math.ceil(max(self.area.shape) / 10)
-#                     elif self.position[1] > math.ceil(max(self.area.shape) / 100) \
-#                             and self.food_level - (0.0225 * math.ceil(max(self.area.shape) / 100)) > 0:
-#                         self.position[1] -= math.ceil(max(self.area.shape) / 100)
-#                         self.food_level -= 0.0225 * math.ceil(max(self.area.shape) / 100)
-#                     elif self.position[1] > 0 and self.food_level > 0:
-#                         self.position[1] -= 1
-#                         self.food_level -= 0.0225
-#                     elif self.position[1] == 0:
-#                         second_die = np.random.random_sample()
-#                         if second_die > 0.01:
-#                             self.check_for_death()
-#                             if self.status == 'dead':
-#                                 return self
-#                             else:
-#                                 self.status = "exit"
-#                                 return self
-#                         else:
-#                             self.check_for_death()
-#                             if self.status == 'dead':
-#                                 return self
-#                             if self.food_level > 2.25:
-#                                 self.food_level -= 2.25
-#                             else:
-#                                 self.food_level = 0
-#                             pass
-#                     elif self.position[0] == 0:
-#                         second_die = np.random.random_sample()
-#                         if second_die > 0.90:
-#                             self.check_for_death()
-#                             if self.status == 'dead':
-#                                 return self
-#                             self.status = "exit"
-#                             return self
-#                         else:
-#                             self.food_level -= 2.25
-#                             pass
-#                     else:
-#                         raise ValueError("Something's wrong with the northly moving coordinates.")
-#                 elif 0.97 < roll_die <= 0.988:
-#                     # move randomly
-#                     self.random_move()
-#                     self.check_for_death()
-#                     if self.status == 'dead':
-#                         return self
-#                 elif 0.988 < roll_die <= 0.998:
-#                     # look for shelter
-#                     seek_resource(self, 'shelter', shelter)
-#                     if self.status != 'alive':
-#                         return self
-#                 elif roll_die > 0.998:
-#                     # stay
-#                     self.check_for_death()
-#                     if self.status != 'alive':
-#                         return self
-#                     self.food_level = self.food_level * 0.9
-#                     pass
-#             elif 25.0 <= self.food_level < 50.0:
-#                 roll_die = np.random.random_sample()
-#                 if roll_die <= 0.001:
-#                     # slight chance of seeking shelter
-#                     seek_resource(self, 'shelter', shelter)
-#                     if self.status != 'alive':
-#                         return self
-#                 else:
-#                     # usually look for food
-#                     seek_resource(self, 'food', food)
-#                     if self.status != 'alive':
-#                         return self
-#             else:
-#                 roll_die = np.random.random_sample()
-#                 # slight chance it looks for shelter
-#                 if roll_die <= 0.0001:
-#                     seek_resource(self, 'shelter', shelter)
-#                     if self.status != 'alive':
-#                         return self
-#                 # otherwise look for food
-#                 else:
-#                     seek_resource(self, 'food', food)
-#                     if self.status != 'alive':
-#                         return self
-#             if self.area[self.position[0]][self.position[1]] == "*":
-#                 # if there are trees in this sector it may look for shelter
-#                 roll_die = np.random.random_sample()
-#                 if roll_die >= .9:
-#                     self.sheltered = True
-#             elif self.area[self.position[0]][self.position[1]] == "o":
-#                 # if there's food nearby, might as well eat
-#                 self.food_level = 100
-#         return self
+
+class Pollinator:
+    """
+    Generic Pollinator class which the others will be based on. All animals are tied to an area, so there must be an area
+    first to have an animal
+    """
+    def __init__(self, area):
+        # Pollinators start out alive with a random amount of food
+        self.food_level = float(np.random.randint(0, 101))
+        self.status = "alive"
+        self.length = area.shape[0]
+        self.width = area.shape[1]
+        self.area = area
+
+    def get_area(self):
+        # where is it? This tells you the pollinator's area
+        return self.area
+
+    def get_status(self):
+        # Alive or dead or out of the area
+        return self.status
+
+    def get_food_level(self):
+        # How much food out of 100
+        return self.food_level
+
+    def get_position(self):
+        # Where in the area it is.
+        return self.position
+
+    def __str__(self):
+        return '{} with {}% food at {}'.format(type(self).__name__, self.food_level, self.position)
+
+    def __repr__(self):
+        return '{} with {}% food at {}'.format(type(self).__name__, self.food_level, self.position)
+
+    def check_for_death(self):
+        # Based on how much food it currently has, the butterfly's chances to die randomly change. If it drops below
+        # a near-zero threshold it dies automatically
+        roll_die = np.random.random_sample()
+        if self.food_level > 50.0:
+            if roll_die < 0.01:
+                self.status = 'dead'
+                return self
+            else:
+                return self
+        elif 25.0 < self.food_level <= 50.0:
+            if roll_die <= 0.1:
+                self.status = 'dead'
+                return self
+            else:
+                return self
+        elif 0.0001 < self.food_level <= 25.0:
+            if roll_die < 0.5:
+                self.status = 'dead'
+                return self
+            else:
+                return self
+        else:
+            self.status = 'dead'
+            return self
+
+
+class Butterfly:
+    """
+    This class creates the butterfly object. It's main parameters are food level, status, and starting position
+    Food level and starting position are random, though starting position is  based on the size of the Field
+    and it always enters on an edge.
+    >>> f = Field([[1, 2, 2, 1], [1, 2, 2, 1], [1, 2, 2, 1], [1, 2, 2, 1], [1, 2, 2, 1]])
+    >>> b1 = Butterfly(f)
+    >>> b1.food_level = 100
+    >>> b1.position = [1,3]
+    >>> print(b1.food_level)
+    100
+    >>> b1.position
+    [1, 3]
+    >>> b1
+    Monarch butterfly with 100% food at [1, 3]
+
+    """
+
+    def __init__(self, area):
+        self.food_level = float(np.random.randint(0, 101))
+        self.status = "alive"
+        self.length = area.shape[0]
+        self.width = area.shape[1]
+        self.area = area
+        self.sheltered = False
+        variable = np.random.choice([0, 1, self.length - 1, self.width - 1])
+        # This gives the starting position
+        if variable == 1:
+            self.position = [0, np.random.randint(0, self.length)]
+        elif variable == 0:
+            self.position = [np.random.randint(0, self.width), 0]
+        elif variable == self.length - 1:
+            self.position = [np.random.randint(0, self.width), variable]
+        else:
+            self.position = [variable, np.random.randint(0, self.length)]
+
+    def get_area(self):
+        return self.area
+
+    def get_status(self):
+        return self.status
+
+    def get_food_level(self):
+        return self.food_level
+
+    def get_position(self):
+        return self.position
+
+    def __str__(self):
+        return 'Monarch butterfly with {}% food at {}'.format(self.food_level, self.position)
+
+    def __repr__(self):
+        return 'Monarch butterfly with {}% food at {}'.format(self.food_level, self.position)
+
+    def check_for_death(self):
+        # Based on how much food it currently has, the butterfly's chances to die randomly change. If it drops below
+        # a near-zero threshold it dies automatically
+        roll_die = np.random.random_sample()
+        if self.food_level > 50.0:
+            if roll_die < 0.01:
+                self.status = 'dead'
+                return self
+            else:
+                return self
+        elif 25.0 < self.food_level <= 50.0:
+            if roll_die <= 0.1:
+                self.status = 'dead'
+                return self
+            else:
+                return self
+        elif 0.0001 < self.food_level <= 25.0:
+            if roll_die < 0.5:
+                self.status = 'dead'
+                return self
+            else:
+                return self
+        else:
+            self.status = 'dead'
+            return self
+
+    def random_move(self):
+        # The Monarch moves randomly
+        # One improvement I would like to make is to the food supply. I was having hugely negative food totals,
+        # but later realized I was making my fields ten times too long, so the poor butterfly was trying to get
+        # 500 km instead of 50. A future improvement will be to refine the food consumption to something that
+        # makes more sense. More data and experimentation will also improve these numbers
+        coord = np.random.choice((0, 1))
+        direction = np.random.choice((-1, 1))
+        if coord == 0:
+            # Move east-west
+            if self.width > self.position[0] + (direction * math.ceil(max(self.area.shape) / 4)) >= 0 \
+                    and self.food_level - (0.0225 * math.ceil(max(self.area.shape) / 4)) >= 0:
+                self.position[0] = self.position[0] + (direction * math.ceil(max(self.area.shape) / 4))
+                self.food_level -= 0.0225 * math.ceil(max(self.area.shape) / 4)
+            elif self.width > self.position[0] + (direction * math.ceil(max(self.area.shape) / 10)) >= 0 \
+                    and self.food_level - (0.0225 * math.ceil(max(self.area.shape) / 10)) >= 0:
+                self.position[0] = self.position[0] + (direction * math.ceil(max(self.area.shape) / 10))
+                self.food_level -= 0.0225 * math.ceil(max(self.area.shape) / 10)
+            elif self.width > self.position[0] + (direction * math.ceil(max(self.area.shape) / 100)) >= 0 \
+                    and self.food_level - (0.0225 * math.ceil(max(self.area.shape) / 100)) >= 0:
+                self.position[0] = self.position[0] + (direction * math.ceil(max(self.area.shape) / 100))
+                self.food_level -= 0.0225 * math.ceil(max(self.area.shape) / 100)
+            elif self.width > self.position[0] + direction >= 0 and self.food_level >= 0.0225:
+                self.position[0] = self.position[0] + direction
+                self.food_level -= 0.0225
+            else:
+                self.check_for_death()
+                if self.status == 'dead':
+                    return self
+                pass
+        else:
+            direction = 1
+            # move north. I initially allowed it to randomly move south, but it slowed the simulation down to the point
+            # where it was taking hours to complete
+            if self.width > self.position[1] + (direction * math.ceil(max(self.area.shape) / 4)) >= 0 \
+                    and self.food_level - (0.0225 * math.ceil(max(self.area.shape) / 4)) > 0:
+                self.position[1] = self.position[1] + (direction * math.ceil(max(self.area.shape) / 4))
+                self.food_level -= 0.0225 * math.ceil(max(self.area.shape) / 4)
+            elif self.width > self.position[1] + (direction * math.ceil(max(self.area.shape) / 10)) >= 0 \
+                    and self.food_level - (0.0225 * math.ceil(max(self.area.shape) / 10)) > 0:
+                self.position[1] = self.position[1] + (direction * math.ceil(max(self.area.shape) / 10))
+                self.food_level -= 0.0225 * math.ceil(max(self.area.shape) / 10)
+            elif self.width > self.position[1] + (direction * math.ceil(max(self.area.shape) / 100)) >= 0 \
+                    and self.food_level - (0.0225 * math.ceil(max(self.area.shape) / 100)) > 0:
+                self.position[1] = self.position[1] + (direction * math.ceil(max(self.area.shape) / 100))
+                self.food_level -= 0.0225 * math.ceil(max(self.area.shape) / 100)
+            elif self.width > self.position[1] + direction >= 0.0225 \
+                    and self.food_level > 0:
+                self.position[1] = self.position[1] + direction
+                self.food_level -= 0.0225
+            else:
+                self.check_for_death()
+                if self.status == 'dead':
+                    return self
+                pass
+        return self
+
+    def move(self, food, shelter):
+        # This is a long bunch of loops and if statements that basically amount to: move north unless you are hungry,
+        # in which case move toward food. Every once in awhile move toward shelter (rain simulation)
+        while self.status == 'alive':
+            while self.sheltered and self.status == 'alive':
+                # if it's sheltered it may stay there or move away
+                roll_die = np.random.random_sample()
+                if self.food_level < 25:
+                    self.sheltered = False
+                    self.random_move()
+                elif roll_die < 0.5:
+                    self.sheltered = False
+                else:
+                    pass
+                if self.area[self.position[0]][self.position[1]] != '*':
+                    self.sheltered = False
+                self.food_level -= 0.0112
+                # I had to add in a lot of death checks because I was having a bunch of zombie butterflies in my sim
+                self.check_for_death()
+                if self.status != 'alive':
+                    return self
+            if self.status != 'alive':
+                return self
+            if self.food_level >= 50.0:
+                # if it's belly is full, move with a preference toward North
+                roll_die = np.random.random_sample()
+                if roll_die <= 0.97:
+                    # Northly
+                    if self.position[1] > math.ceil(max(self.area.shape) / 10) \
+                            and self.food_level - (0.0225 * math.ceil(max(self.area.shape) / 10)) > 0:
+                        self.position[1] -= math.ceil(max(self.area.shape) / 10)
+                        self.food_level -= 0.0225 * math.ceil(max(self.area.shape) / 10)
+                    elif self.position[1] > math.ceil(max(self.area.shape) / 100) \
+                            and self.food_level - (0.0225 * math.ceil(max(self.area.shape) / 100)) > 0:
+                        self.position[1] -= math.ceil(max(self.area.shape) / 100)
+                        self.food_level -= 0.0225 * math.ceil(max(self.area.shape) / 100)
+                    elif self.position[1] > 0 and self.food_level > 0:
+                        self.position[1] -= 1
+                        self.food_level -= 0.0225
+                    elif self.position[1] == 0:
+                        second_die = np.random.random_sample()
+                        if second_die > 0.01:
+                            self.check_for_death()
+                            if self.status == 'dead':
+                                return self
+                            else:
+                                self.status = "exit"
+                                return self
+                        else:
+                            self.check_for_death()
+                            if self.status == 'dead':
+                                return self
+                            if self.food_level > 2.25:
+                                self.food_level -= 2.25
+                            else:
+                                self.food_level = 0
+                            pass
+                    elif self.position[0] == 0:
+                        second_die = np.random.random_sample()
+                        if second_die > 0.90:
+                            self.check_for_death()
+                            if self.status == 'dead':
+                                return self
+                            self.status = "exit"
+                            return self
+                        else:
+                            self.food_level -= 2.25
+                            pass
+                    else:
+                        raise ValueError("Something's wrong with the northly moving coordinates.")
+                elif 0.97 < roll_die <= 0.988:
+                    # move randomly
+                    self.random_move()
+                    self.check_for_death()
+                    if self.status == 'dead':
+                        return self
+                elif 0.988 < roll_die <= 0.998:
+                    # look for shelter
+                    seek_resource(self, 'shelter', shelter)
+                    if self.status != 'alive':
+                        return self
+                elif roll_die > 0.998:
+                    # stay
+                    self.check_for_death()
+                    if self.status != 'alive':
+                        return self
+                    self.food_level = self.food_level * 0.9
+                    pass
+            elif 25.0 <= self.food_level < 50.0:
+                roll_die = np.random.random_sample()
+                if roll_die <= 0.001:
+                    # slight chance of seeking shelter
+                    seek_resource(self, 'shelter', shelter)
+                    if self.status != 'alive':
+                        return self
+                else:
+                    # usually look for food
+                    seek_resource(self, 'food', food)
+                    if self.status != 'alive':
+                        return self
+            else:
+                roll_die = np.random.random_sample()
+                # slight chance it looks for shelter
+                if roll_die <= 0.0001:
+                    seek_resource(self, 'shelter', shelter)
+                    if self.status != 'alive':
+                        return self
+                # otherwise look for food
+                else:
+                    seek_resource(self, 'food', food)
+                    if self.status != 'alive':
+                        return self
+            if self.area[self.position[0]][self.position[1]] == "*":
+                # if there are trees in this sector it may look for shelter
+                roll_die = np.random.random_sample()
+                if roll_die >= .9:
+                    self.sheltered = True
+            elif self.area[self.position[0]][self.position[1]] == "o":
+                # if there's food nearby, might as well eat
+                self.food_level = 100
+        return self
 #
 #
 # def create_food_table(field):
@@ -669,9 +749,9 @@ def main():
     area = Area(a)
     print(area)
     field = CropField(a)
-    # print(field)
+    print(field)
     # print(field._array)
-    print(field.raw())
+    field.raw()
 
 
 if __name__ == '__main__':
