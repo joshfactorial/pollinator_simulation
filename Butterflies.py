@@ -61,15 +61,15 @@ class CropField(Area):
     def __repr__(self) -> str:
         return self.__to_string()
 
-    @classmethod
-    def raw(self):
+    @staticmethod
+    def raw():
         string_version = ''
-        for row in range(self.row_len):
-            for column in range(self.col_len):
-                string_version += str(self._array[row][column])
-                if column != self.col_len-1:
+        for row in range(CropField.row_len):
+            for column in range(CropField.col_len):
+                string_version += str(CropField._array[row][column])
+                if column != CropField.col_len-1:
                     string_version += " "
-            if row != self.row_len:
+            if row != CropField.row_len:
                 string_version += '\n'
         print(string_version)
 
