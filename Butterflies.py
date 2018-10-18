@@ -171,42 +171,6 @@ class Pollinator:
     def __repr__(self):
         return '{} with {:.2f}% food at {}'.format(type(self).__name__, self.food_level, self.position)
 
-    def check_for_death(self):
-        # Based on how much food it currently has, the Pollinator's chances to die randomly change. If it drops below
-        # a near-zero threshold it dies automatically
-        roll_die = np.random.random_sample()
-        if self.food_level > 80:
-            if roll_die < 0.000001:
-                self.status = 'dead'
-                return self
-            else:
-                return self
-        elif self.food_level > 50.0:
-            if roll_die < 0.0001:
-                self.status = 'dead'
-                return self
-            else:
-                return self
-        elif 25.0 < self.food_level <= 50.0:
-            if roll_die <= 0.001:
-                self.status = 'dead'
-                return self
-            else:
-                return self
-        elif 1.0 <= self.food_level <= 25.0:
-            if roll_die < 0.01:
-                self.status = 'dead'
-                return self
-            else:
-                return self
-        elif self.food_level < 1.0:
-            if roll_die < 0.5:
-                self.status = 'dead'
-                return self
-        else:
-            self.status = 'dead'
-            return self
-
     def random_move(self):
         # The pollinator moves randomly
         coord = np.random.choice((0, 1))
@@ -262,7 +226,42 @@ class Monarch(Pollinator):
             if self.shelter_indices:
                 self.position = list(self.shelter_indices[np.random.choice(len(self.shelter_indices))])
             else:
-                self.position = [self.area_length - 1, np.random.randint(self.area_width)]
+                self.position = [0, 0]
+
+    def check_for_death(self):
+        # Based on how much food it currently has, the Monarch's chances to die randomly change.
+        roll_die = np.random.random_sample()
+        if self.food_level > 80:
+            if roll_die < 0.000001:
+                self.status = 'dead'
+                return self
+            else:
+                return self
+        elif self.food_level > 50.0:
+            if roll_die < 0.0001:
+                self.status = 'dead'
+                return self
+            else:
+                return self
+        elif 25.0 < self.food_level <= 50.0:
+            if roll_die <= 0.001:
+                self.status = 'dead'
+                return self
+            else:
+                return self
+        elif 1.0 <= self.food_level <= 25.0:
+            if roll_die < 0.01:
+                self.status = 'dead'
+                return self
+            else:
+                return self
+        elif self.food_level < 1.0:
+            if roll_die < 0.1:
+                self.status = 'dead'
+                return self
+        else:
+            self.status = 'dead'
+            return self
 
     def move_one_day(self, seconds=0, hours=4):
         """
@@ -298,9 +297,8 @@ class Monarch(Pollinator):
             # if this is the last loop of the day, then we set the flag
             if seconds == 3575 and hours == 3:
                 flag = True
-            # If it's daylight, the priorities will be food and moving north. It may randomly occasionally seek shelter
-            # if it happens to be near a tree.
-            if 4 <= hours < 21:
+            # For the first couple hours in tho morning, butterflies will typically seek food.
+            if 4 <= hours < 6:
                 # always good to make sure the damn thing is still alive before we do all this work
                 self.check_for_death()
                 if self.status == 'dead':
@@ -308,8 +306,13 @@ class Monarch(Pollinator):
                 # If it's in shelter during the day light, there's a small chance it will just stay put, unless
                 # it is super hungry
                 if self.sheltered:
+                    # First decrement his food level by half the active amount
+                    if self.food_level > 0.0112:
+                        self.food_level -= 0.0112
+                    else:
+                        self.food_level = 0
                     # Just a check to make sure it is actually in a tree area and marked as sheltered...
-                    if self.area.array[self.position[0]][self.position[1]] != '*':
+                    if self.area.array[self.position[0]][self.position[1]] != 3:
                         self.sheltered = False
                     roll_die = np.random.random_sample()
                     if self.food_level < 25:
@@ -319,34 +322,62 @@ class Monarch(Pollinator):
                         self.sheltered = False
                     else:
                         pass
+                    self.check_for_death()
+                    if self.status == 'dead':
+                        return self, seconds, hours
+                else:
+                    self.seek_resource('food')
+                    if self.status == 'dead':
+                        return self, seconds, hours
+
+            # If it's daylight, the priorities will be food if it's hungry and moving north otherwise.
+            # It may randomly occasionally seek shelter if it happens to be near a tree.
+            elif 6 <= hours < 19:
+                # always good to make sure the damn thing is still alive before we do all this work
+                self.check_for_death()
+                if self.status == 'dead':
+                    return self, seconds, hours
+                # If it's in shelter during the day light, there's a small chance it will just stay put, unless
+                # it is super hungry
+                if self.sheltered:
+                    # First decrement his food level by half the active amount
                     if self.food_level > 0.0112:
                         self.food_level -= 0.0112
                     else:
                         self.food_level = 0
-                    # I had to add in a lot of death checks because I was having a bunch of zombie butterflies in my sim
-                    # While it is no longer in shelter, it will be the next cycle before it starts moving again.
-                    # Also, maybe it just plain died.
+                    # Just a check to make sure it is actually in a tree area and marked as sheltered...
+                    if self.area.array[self.position[0]][self.position[1]] != 3:
+                        self.sheltered = False
+                    roll_die = np.random.random_sample()
+                    if self.food_level < 25:
+                        self.sheltered = False
+                        self.random_move()
+                    elif roll_die < 0.99:
+                        self.sheltered = False
+                    else:
+                        pass
+                    # Hopefully it leaves shelter before it dies, but...
                     self.check_for_death()
                     if self.status == 'dead':
                         return self, seconds, hours
                 else:
                     if self.status == 'dead':
                         return self, seconds, hours
+                    # Decrement food level by the normal active amount
+                    if self.food_level > 0.0225:
+                        self.food_level -= 0.0225
+                    else:
+                        # to account for rounding errors anything less than 0.0225 is just 0
+                        self.food_level = 0
+                        self.check_for_death()
+                        if self.status == 'dead':
+                            return self, seconds, hours
 
                     # Above a 50% food level, we'll consider it full
                     if self.food_level >= 50.0:
                         # Pick a random number
                         roll_die = np.random.random_sample()
-                        # first decrement it's food level
-                        if self.food_level > 0.0225:
-                            self.food_level -= 0.0225
-                        else:
-                            # to account for rounding errors anything less than 0.0225 is just 0
-                            self.food_level = 0
-                            self.check_for_death()
-                            if self.status == 'dead':
-                                return self, seconds, hours
-        
+
                         # Usually, it will try to move north
                         if roll_die <= 0.9:
                             # If it's anywhere on the map but the top row, move north one, or maybe randomly
@@ -469,11 +500,34 @@ class Monarch(Pollinator):
                         if roll_die <= .95:
                             self.food_level = 100
 
+            # As dusk approaches, it will try to look for food before sheltering for the night.
+            # If it's already sheltered, we'll just have it stay sheltered.
+            elif 19 <= hours < 21:
+                self.check_for_death()
+                if self.status == 'dead':
+                    return self, seconds, hours
+                if self.sheltered and self.status == 'alive':
+                    # At night it will batten down the hatches and stay sheltered
+                    # If for whatever reason it is marked as sheltered but isn't in a tree...
+                    if self.area[self.position[0]][self.position[1]] != 3:
+                        self.sheltered = False
+                    # Resting conserves food reserves
+                    self.food_level -= 0.0112
+                    self.check_for_death()
+                    if self.status == 'dead':
+                        return self, seconds, hours
+                else:
+                    # otherwise it's going to look for shelter
+                    self.seek_resource('food')
+                    if self.status == 'dead':
+                        return self, seconds, hours
+
+
             # During the evening, it will prioritize seeking shelter. It will stay in shelter through the night
             # once it locates it, so we'll remove the leave shelter component of the checks. There's no real 
             # food to be had at night, so we'll just assume it battens down the hatches. If it's food falls too low
             # it may die. Such is the risk of life.
-            if 21 <= hours < 24 or 0 <= hours < 4:
+            elif 21 <= hours < 24 or 0 <= hours < 4:
                 # Quick check to make sure it is still alive before we do all this work
                 self.check_for_death()
                 if self.status == 'dead':
@@ -481,7 +535,7 @@ class Monarch(Pollinator):
                 if self.sheltered and self.status == 'alive':
                     # At night it will batten down the hatches and stay sheltered
                     # If for whatever reason it is marked as sheltered but isn't in a tree...
-                    if self.area[self.position[0]][self.position[1]] != '*':
+                    if self.area[self.position[0]][self.position[1]] != 3:
                         self.sheltered = False
                     # Resting conserves food reserves
                     self.food_level -= 0.0112
@@ -493,18 +547,20 @@ class Monarch(Pollinator):
                     self.seek_resource('shelter')
                     if self.status == 'dead':
                         return self, seconds, hours
+            else:
+                raise ValueError("hours out of range during move")
 
-                    # now that it has moved, if it's near shelter, it make take shelter
-                    if self.area.array[self.position[0]][self.position[1]] == 3:
-                        roll_die = np.random.random_sample()
-                        if roll_die >= .9:
-                            self.sheltered = True
+            # now that it has moved, if it's near shelter, it make take shelter
+            if self.area.array[self.position[0]][self.position[1]] == 3:
+                roll_die = np.random.random_sample()
+                if roll_die >= .9:
+                    self.sheltered = True
 
-                    # if it's near food, it will may try to eat
-                    elif self.area.array[self.position[0]][self.position[1]] == 2:
-                        roll_die = np.random.random_sample()
-                        if roll_die >= .9:
-                            self.food_level = 100
+            # if it's near food, it will try to eat
+            elif self.area.array[self.position[0]][self.position[1]] == 2:
+                roll_die = np.random.random_sample()
+                if roll_die >= .9:
+                    self.food_level = 100
             seconds += 25
         return self, seconds, hours
 
@@ -759,10 +815,14 @@ def main():
     print(testfield)
     results = []
     print('starting test')
+
+    # This is the basic simulation, run a bunch of single butterflies over the course of the day and see how they fare
     for k in range(1000):
         monarch1 = Monarch(testfield)
         monarch1, seconds, hours = monarch1.move_one_day()
         results.append(monarch1.status)
+
+    # basic results
     print("Dead percentage = {:.2f}%".format(100 * results.count('dead') / len(results)))
     print("Exit percentage = {:.2f}%".format(100 * results.count('exit') / len(results)))
     print("--- %s seconds ---" % (time.time() - starttime))
@@ -782,9 +842,9 @@ if __name__ == '__main__':
 
     # field stats
     # field = create_middle_shelter_windbreak_test(333)
-    # food = len(field[field == 'o'].stack().index.tolist())
-    # shelter = len(field[field == '*'].stack().index.tolist())
-    # crops = len(field[field == '='].stack().index.tolist())
+    # food = len(field[field == 2].stack().index.tolist())
+    # shelter = len(field[field == 3].stack().index.tolist())
+    # crops = len(field[field == 1].stack().index.tolist())
     # total = food + shelter + crops
     # print('Percent food: {:.2f}%'.format(math.ceil(100 * food/total)))
     # print("Percent shelter: {:.2f}%".format(math.ceil(100 * shelter/total)))
@@ -822,9 +882,9 @@ if __name__ == '__main__':
     # print("Exit percentage = {:.2f}%".format(100 * results.count('exit') / len(results)))
     # print("--- %s seconds ---" % (time.time() - start_time))
     #
-    # food = len(field_test[field_test == 'o'].stack().index.tolist())
-    # shelter = len(field_test[field_test == '*'].stack().index.tolist())
-    # crops = len(field_test[field_test == '='].stack().index.tolist())
+    # food = len(field_test[field_test == 2].stack().index.tolist())
+    # shelter = len(field_test[field_test == 3].stack().index.tolist())
+    # crops = len(field_test[field_test == 1].stack().index.tolist())
     # total = food + shelter + crops
     # print('Percent food: {:.2f}%'.format(math.ceil(100 * food/total)))
     # print("Percent shelter: {:.2f}%".format(math.ceil(100 * shelter/total)))

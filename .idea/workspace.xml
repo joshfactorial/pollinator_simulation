@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AnalysisUIOptions">
+    <option name="SCOPE_TYPE" value="3" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="812526e5-33df-4d5a-97da-0afe3e5f1c60" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/monarch_simulation.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/monarch_simulation.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Butterflies.py" beforeDir="false" afterPath="$PROJECT_DIR$/Butterflies.py" afterDir="false" />
     </list>
@@ -15,38 +15,44 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/monarch_simulation$Butterflies.coverage" NAME="Butterflies Coverage Results" MODIFIED="1539714359034" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/monarch_simulation$Butterflies.coverage" NAME="Butterflies Coverage Results" MODIFIED="1539753774608" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="FUSProjectUsageTrigger">
     <session id="1501452216">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="2" />
+          <entry key="project.closed" value="4" />
           <entry key="project.open.time.2" value="1" />
+          <entry key="project.open.time.43" value="1" />
+          <entry key="project.open.time.46" value="1" />
           <entry key="project.open.time.6" value="1" />
           <entry key="project.open.time.8" value="1" />
-          <entry key="project.opened" value="3" />
+          <entry key="project.opened" value="5" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
+          <entry key="gitignore" value="1" />
           <entry key="py" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
+          <entry key="PLAIN_TEXT" value="1" />
           <entry key="Python" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="Python Console" value="44" />
-          <entry key="py" value="2021" />
+          <entry key="py" value="12269" />
+          <entry key="txt" value="207" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Python" value="2065" />
+          <entry key="PLAIN_TEXT" value="207" />
+          <entry key="Python" value="12313" />
         </counts>
       </usages-collector>
     </session>
@@ -56,17 +62,53 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Butterflies.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="144">
-              <caret line="57" column="99" selection-start-line="57" selection-start-column="99" selection-end-line="57" selection-end-column="99" />
+            <state relative-caret-position="465">
+              <caret line="821" column="19" lean-forward="true" selection-start-line="821" selection-start-column="19" selection-end-line="821" selection-end-column="19" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
-                <marker date="1539723206031" expanded="true" signature="6637:8608" ph="..." />
+                <element signature="e#14747#24246#0" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
     </leaf>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>_array</find>
+      <find>== 'dead'</find>
+      <find>status</find>
+      <find>food</find>
+      <find>!= 'alive'</find>
+      <find>== 'dead</find>
+      <find>above a</find>
+      <find>area</find>
+      <find>seek_</find>
+      <find>move</find>
+      <find>Field</find>
+      <find>random_move_one_day</find>
+      <find>move_one_day</find>
+      <find>self.length</find>
+      <find>self.po</find>
+      <find>self.position</find>
+      <find>monarch</find>
+      <find>m</find>
+      <find>seek</find>
+      <find>'*'</find>
+      <find>'='</find>
+      <find>'o'</find>
+    </findStrings>
+    <replaceStrings>
+      <replace>array</replace>
+      <replace>!= 'alive'</replace>
+      <replace>== 'dead'</replace>
+      <replace>self.area_length</replace>
+      <replace>self.area_width</replace>
+      <replace>3</replace>
+      <replace>1</replace>
+      <replace>2</replace>
+    </replaceStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -85,8 +127,8 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="166" />
-    <option name="y" value="49" />
+    <option name="x" value="130" />
+    <option name="y" value="34" />
     <option name="width" value="1431" />
     <option name="height" value="851" />
   </component>
@@ -114,7 +156,8 @@
     <property name="last_opened_file_path" value="$USER_HOME$/anaconda3/envs/pycharm-default" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
-    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
+    <property name="settings.editor.selected.configurable" value="preferences.editor" />
   </component>
   <component name="PyConsoleOptionsProvider">
     <option name="myPythonConsoleState">
@@ -199,6 +242,21 @@
       <option name="presentableId" value="Default" />
       <updated>1539315226827</updated>
     </task>
+    <task id="LOCAL-00001" summary="Making the validation run faster via the np.isin method">
+      <created>1539723306275</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1539723306275</updated>
+    </task>
+    <task id="LOCAL-00002" summary="reorganizing and cleaning up code. Runs pretty fast now. I'm planning to add the ability to run multiple butterflies at once.">
+      <created>1539753847788</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1539753847788</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TodoView">
@@ -212,15 +270,14 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="27" width="1600" height="873" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.22551547" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.30347937" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.32968536" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32968536" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.33991536" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.3994528" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.3299566" />
@@ -230,6 +287,7 @@
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
       <window_info anchor="bottom" id="Terminal" order="11" />
       <window_info anchor="bottom" id="Python Console" order="12" weight="0.33093524" />
+      <window_info anchor="bottom" id="Inspection Results" order="13" weight="0.32968536" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -243,14 +301,26 @@
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Making the validation run faster via the np.isin method" />
+    <MESSAGE value="reorganizing and cleaning up code. Runs pretty fast now. I'm planning to add the ability to run multiple butterflies at once." />
+    <option name="LAST_COMMIT_MESSAGE" value="reorganizing and cleaning up code. Runs pretty fast now. I'm planning to add the ability to run multiple butterflies at once." />
+  </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="1" column="2" selection-start-line="1" selection-start-column="2" selection-end-line="1" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Butterflies.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="57" column="99" selection-start-line="57" selection-start-column="99" selection-end-line="57" selection-end-column="99" />
+        <state relative-caret-position="465">
+          <caret line="821" column="19" lean-forward="true" selection-start-line="821" selection-start-column="19" selection-end-line="821" selection-end-column="19" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
-            <marker date="1539723206031" expanded="true" signature="6637:8608" ph="..." />
+            <element signature="e#14747#24246#0" />
           </folding>
         </state>
       </provider>
