@@ -1,4 +1,5 @@
 import numpy as np
+import pandas as pd
 import sys
 import math
 import time
@@ -89,12 +90,21 @@ class CropField(Area):
     def __repr__(self) -> str:
         return self.__to_string()
 
+    def get_crop_amt(self):
+        return (self.array == 1).sum()
+
+    def get_food_amt(self):
+        return (self.array == 2).sum()
+
+    def get_shelter_amt(self):
+        return (self.array == 3).sum()
+
     def raw(self):
         string_version = ''
         for row in range(self.row_len):
             for column in range(self.col_len):
                 string_version += str(self.array[row][column])
-                if column != self.col_len-1:
+                if column != self.col_len - 1:
                     string_version += " "
             if row != self.row_len:
                 string_version += '\n'
@@ -156,6 +166,7 @@ class Pollinator:
     Generic Pollinator class which the others will be based on. All animals are tied to an area, so there must be an
     area first to have an animal
     """
+
     def __init__(self, area: Area):
         # Pollinators start out alive with a random amount of food
         self.food_level = float(np.random.randint(0, 101))
@@ -219,9 +230,9 @@ class Monarch(Pollinator):
         if variable == 0:
             self.position = [self.area_length - 1, np.random.randint(self.area_width)]
         elif variable == 1:
-            self.position = [np.random.randint(int(self.area_length/2)), 0]
+            self.position = [np.random.randint(int(self.area_length / 2)), 0]
         elif variable == 2:
-            self.position = [np.random.randint(int(self.area_length/2)), self.area_width-1]
+            self.position = [np.random.randint(int(self.area_length / 2)), self.area_width - 1]
         else:
             if self.shelter_indices:
                 self.position = list(self.shelter_indices[np.random.choice(len(self.shelter_indices))])
@@ -231,36 +242,36 @@ class Monarch(Pollinator):
     def check_for_death(self):
         # Based on how much food it currently has, the Monarch's chances to die randomly change.
         roll_die = np.random.random_sample()
-        if self.food_level > 80:
-            if roll_die < 0.000001:
+        if self.food_level > 90:
+            if roll_die < 0.00001:
                 self.status = 'dead'
                 return self
             else:
                 return self
-        elif self.food_level > 50.0:
-            if roll_die < 0.0001:
+        elif 50.0 < self.food_level <= 90:
+            if roll_die < 0.001:
                 self.status = 'dead'
                 return self
             else:
                 return self
         elif 25.0 < self.food_level <= 50.0:
-            if roll_die <= 0.001:
+            if roll_die <= 0.01:
                 self.status = 'dead'
                 return self
             else:
                 return self
-        elif 1.0 <= self.food_level <= 25.0:
-            if roll_die < 0.01:
+        elif 0.01 <= self.food_level <= 25.0:
+            if roll_die < 0.4:
                 self.status = 'dead'
                 return self
             else:
                 return self
-        elif self.food_level < 1.0:
-            if roll_die < 0.1:
+        elif self.food_level < 0.01:
+            if roll_die < 0.9:
                 self.status = 'dead'
                 return self
         else:
-            self.status = 'dead'
+            self.status = 'dead'  # Hopefully this catches any zombie butterflies
             return self
 
     def move_one_day(self, seconds=0, hours=4):
@@ -459,7 +470,7 @@ class Monarch(Pollinator):
                                 self.check_for_death()
                                 if self.status == 'dead':
                                     return self, seconds, hours
-        
+
                     # if it's a little hungry, it may seek food
                     elif 25.0 <= self.food_level < 50.0:
                         roll_die = np.random.random_sample()
@@ -473,7 +484,7 @@ class Monarch(Pollinator):
                             self.seek_resource('food')
                             if self.status == 'dead':
                                 return self, seconds, hours
-        
+
                     # now it's very hungry and will almost certainly seek food
                     else:
                         roll_die = np.random.random_sample()
@@ -487,13 +498,13 @@ class Monarch(Pollinator):
                             self.seek_resource('food')
                             if self.status == 'dead':
                                 return self, seconds, hours
-        
+
                     # now that it has moved, if it's near shelter, there's a small chance it may take shelter
                     if self.area.array[self.position[0]][self.position[1]] == 3:
                         roll_die = np.random.random_sample()
                         if roll_die >= .99:
                             self.sheltered = True
-        
+
                     # if it's near food, it will most likely try to eat
                     if self.area.array[self.position[0]][self.position[1]] == 2:
                         roll_die = np.random.random_sample()
@@ -509,7 +520,7 @@ class Monarch(Pollinator):
                 if self.sheltered and self.status == 'alive':
                     # At night it will batten down the hatches and stay sheltered
                     # If for whatever reason it is marked as sheltered but isn't in a tree...
-                    if self.area[self.position[0]][self.position[1]] != 3:
+                    if self.area.array[self.position[0]][self.position[1]] != 3:
                         self.sheltered = False
                     # Resting conserves food reserves
                     self.food_level -= 0.0112
@@ -535,7 +546,7 @@ class Monarch(Pollinator):
                 if self.sheltered and self.status == 'alive':
                     # At night it will batten down the hatches and stay sheltered
                     # If for whatever reason it is marked as sheltered but isn't in a tree...
-                    if self.area[self.position[0]][self.position[1]] != 3:
+                    if self.area.array[self.position[0]][self.position[1]] != 3:
                         self.sheltered = False
                     # Resting conserves food reserves
                     self.food_level -= 0.0112
@@ -619,7 +630,7 @@ class Monarch(Pollinator):
 
 
 def distance(x: list, y: tuple) -> int:
-    return abs(x[0]-y[0]) + abs(x[1]-y[1])
+    return abs(x[0] - y[0]) + abs(x[1] - y[1])
 
 
 def create_standard_test(iterations: int) -> CropField:
@@ -799,46 +810,163 @@ def test_field(dictionary, number):
     for j in range(1000):
         monarch1 = Monarch(field_to_test)
         monarch1.move_one_day()
-        results.append(monarch1.get_status())
-    dictionary["test_field_{}".format(number)] = [100 * results.count('exit') / len(results)]
+        while monarch1.status == "alive":
+            monarch1.move_one_day()
+        results.append(monarch1.status)
+    dictionary["test_field_{}".format(number)] = [100 * results.count('dead') / len(results)]
     print("Dead percentage = {:.2f}%".format(100 * results.count('dead') / len(results)))
     print("Exit percentage = {:.2f}%".format(100 * results.count('exit') / len(results)))
     print("--- %s seconds ---" % (time.time() - start_time))
     return dictionary
 
 
+def iterate_field(field: CropField, type: str = None) -> CropField:
+    food_index = np.where(field.array == 2)  # get locations of food in field
+    shelter_indices = np.where(field.array == 3)  # get locations of shelter in field
+    food_ix_ix = len(food_index[0])  # indices of the food indices
+    shelter_ix_ix = len(shelter_indices[0])  # indices of the shelter indices
+    max_len = len(field.array)
+    max_width = len(field.array[0])
+    iterated_field = field
+    # This gets complicated, but I'm picking a random amount of food indices to randomly move
+    if type is None or type == 'Both':
+        food_sites_to_iterate = np.random.choice(food_ix_ix,
+                                                 np.random.randint(food_ix_ix),
+                                                 replace=False)  # choose a random number of food sites to move
+        food_sites_to_iterate.sort()
+        shelter_sites_to_iterate = np.random.choice(shelter_ix_ix,
+                                                    np.random.randint(shelter_ix_ix),
+                                                    replace=False)  # same but for shelter
+        shelter_sites_to_iterate.sort()
+    elif type == 'Death':
+        food_sites_to_iterate = np.random.choice(food_ix_ix,
+                                                 np.random.randint(food_ix_ix / np.random.randint(1, 11)),
+                                                 replace=False)  # choose a random number of food sites to move
+        food_sites_to_iterate.sort()
+        shelter_sites_to_iterate = np.random.choice(shelter_ix_ix,
+                                                    np.random.randint(shelter_ix_ix),
+                                                    replace=False)  # same but for shelter
+        shelter_sites_to_iterate.sort()
+    else:
+        food_sites_to_iterate = np.random.choice(food_ix_ix,
+                                                 np.random.randint(food_ix_ix),
+                                                 replace=False)  # choose a random number of food sites to move
+        food_sites_to_iterate.sort()
+        shelter_sites_to_iterate = np.random.choice(shelter_ix_ix,
+                                                    np.random.randint(shelter_ix_ix / np.random.randint(1, 11)),
+                                                    replace=False)  # same but for shelter
+        shelter_sites_to_iterate.sort()
+    for food in food_sites_to_iterate:
+        random_x = np.random.randint(max(food_index[0][food] - np.random.randint(0.1*max_len), 0),
+                                     min(food_index[0][food] + np.random.randint(0.1*max_len) + 1, max_len))
+        random_y = np.random.randint(max(food_index[1][food] - np.random.randint(0.1*max_width), 0),
+                                     min(food_index[1][food] + np.random.randint(0.1*max_width) + 1, max_width))
+        iterated_field.array[food_index[0][food]][food_index[1][food]] = 1
+        iterated_field.array[random_x][random_y] = 2
+    for shelter in shelter_sites_to_iterate:
+        random_x = np.random.randint(max(shelter_indices[0][shelter] - np.random.randint(0.1*max_len), 0),
+                                     min(shelter_indices[0][shelter] + np.random.randint(0.1*max_len) + 1, max_len))
+        random_y = np.random.randint(max(shelter_indices[1][shelter] - np.random.randint(0.1*max_width), 0),
+                                     min(shelter_indices[1][shelter] + np.random.randint(0.1*max_width) + 1, max_width))
+        iterated_field.array[shelter_indices[0][shelter]][shelter_indices[1][shelter]] = 1
+        iterated_field.array[random_x][random_y] = 3
+    return iterated_field
+
+
+def optimize_field(field: CropField) -> CropField:
+    # Simulate to see how well the field does
+    flag = 0  # We'll count up a number of flags to see if we have found a stable configuration
+    current_dead_result = 100  # scores the current round of sims by how many died, trying to minimize
+    current_exit_result = 0  # scores the current round of sims by how many exited, trying to maximize
+    optimization_parameter = ""  # the parameter we mananged to optimize
+    counter = 0
+    test_fields = []  # keep track of the fields tested
+    current_field = field
+    print("food: {}".format(field.get_food_amt()))
+    print("shelter: {}".format(field.get_shelter_amt()))
+    while flag < 6:
+        results = []  # a list of results for the current round of simulations
+        for k in range(100):
+            test_butterfly = Monarch(current_field)
+            test_butterfly.move_one_day()
+            while test_butterfly.status == 'alive':
+                test_butterfly.move_one_day()
+            results.append(test_butterfly.status)
+        dead_percentage = results.count('dead')
+        exit_percentage = results.count('exit')
+        counter += 1
+        print('Results for cycle {}'.format(counter))
+        print("Dead percentage = {:.2f}%".format(dead_percentage))
+        print("Exit percentage = {:.2f}%".format(exit_percentage))
+        test_fields.append(current_field)
+        if dead_percentage < current_dead_result and exit_percentage > current_exit_result:
+            if ~flag:
+                print('Potential match on both.')
+            flag = 0
+            optimization_parameter = "Both"
+            current_dead_result = dead_percentage
+            current_exit_result = exit_percentage
+            current_field = iterate_field(current_field, 'Both')
+        elif dead_percentage < current_dead_result:
+            if ~flag:
+                print('Potential match for death')
+            flag = 0
+            optimization_parameter = 'Death'
+            current_dead_result = dead_percentage
+            current_field = iterate_field(current_field, 'Death')
+        elif exit_percentage > current_exit_result:
+            if ~flag:
+                print('Potential match for exit')
+            flag = 0
+            optimization_parameter = 'Exit'
+            current_exit_result = exit_percentage
+            current_field = iterate_field(current_field, 'Exit')
+        else:
+            print("Testing potential match for {}".format(optimization_parameter))
+            flag += 1
+            current_field = iterate_field(current_field)
+    print("food: {}".format(current_field.get_food_amt()))
+    print("shelter: {}".format(current_field.get_shelter_amt()))
+    print("Best field is field #{}, optimized for {}".format(counter - flag, optimization_parameter))
+    print(test_fields[counter - flag - 1])
+    return test_fields[counter - flag - 1]
+
+
 def main():
-    # This is a field of only food, to test the parameters
-    starttime = time.time()
-    testfield = create_test_food_test(33)
-    print(testfield.row_len*15, testfield.col_len*15)
-    print(testfield)
-    results = []
+    # this is the optimization simulation. Start with a random field and try to optimize it
+    testfield = CropField.random_field(3400, 100, 90, 5, 5)
+    print(testfield.row_len * 15, testfield.col_len * 15)
     print('starting test')
+    optimize_field(testfield)
 
     # This is the basic simulation, run a bunch of single butterflies over the course of the day and see how they fare
-    for k in range(1000):
-        monarch1 = Monarch(testfield)
-        monarch1, seconds, hours = monarch1.move_one_day()
-        results.append(monarch1.status)
+    # testfield = create_test_food_test(33)
+    # starttime = time.time()
+    # results = []
+    # for k in range(1000):
+    #     monarch1 = Monarch(testfield)
+    #     monarch1, seconds, hours = monarch1.move_one_day()
+    #     results.append(monarch1.status)
+    #
+    # # basic results
+    # print("Dead percentage = {:.2f}%".format(100 * results.count('dead') / len(results)))
+    # print("Exit percentage = {:.2f}%".format(100 * results.count('exit') / len(results)))
+    # print("--- %s seconds ---" % (time.time() - starttime))
 
-    # basic results
-    print("Dead percentage = {:.2f}%".format(100 * results.count('dead') / len(results)))
-    print("Exit percentage = {:.2f}%".format(100 * results.count('exit') / len(results)))
-    print("--- %s seconds ---" % (time.time() - starttime))
-
-
-if __name__ == '__main__':
-    main()
     # first analysis
     # master_results = {}
     # for i in range(0, 8):
     #     test_field(master_results, i)
     # index = ['standard', 'food_heavy', 'middle_food', 'middle_shelter', 'shelter_heavy', 'balanced_random',
-    #           'food_random', 'shelter_random']
+    #          'food_random', 'shelter_random']
     # master_results = pd.DataFrame(master_results).T
+    # print(master_results)
     # master_results.index = index
-    # print("The best-performing field was {}".format(master_results[0].idxmax()))
+    # print("The best-performing field was {}".format(master_results[0].idxmin()))
+
+
+if __name__ == '__main__':
+    main()
 
     # field stats
     # field = create_middle_shelter_windbreak_test(333)
@@ -889,5 +1017,3 @@ if __name__ == '__main__':
     # print('Percent food: {:.2f}%'.format(math.ceil(100 * food/total)))
     # print("Percent shelter: {:.2f}%".format(math.ceil(100 * shelter/total)))
     # print("Percent crops: {:.2f}%".format(math.floor(100 * crops/total)))
-
-    
