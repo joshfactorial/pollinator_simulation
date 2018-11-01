@@ -1,8 +1,11 @@
 import numpy as np
-import pandas as pd
-import sys
 import math
 import time
+import os
+import signal
+import sys
+from threading import Timer
+import multiprocessing
 
 
 class Area:
@@ -857,79 +860,127 @@ def iterate_field(field: CropField, type: str = None) -> CropField:
                                                     replace=False)  # same but for shelter
         shelter_sites_to_iterate.sort()
     for food in food_sites_to_iterate:
-        random_x = np.random.randint(max(food_index[0][food] - np.random.randint(0.1*max_len), 0),
-                                     min(food_index[0][food] + np.random.randint(0.1*max_len) + 1, max_len))
-        random_y = np.random.randint(max(food_index[1][food] - np.random.randint(0.1*max_width), 0),
-                                     min(food_index[1][food] + np.random.randint(0.1*max_width) + 1, max_width))
-        iterated_field.array[food_index[0][food]][food_index[1][food]] = 1
-        iterated_field.array[random_x][random_y] = 2
+        # This if statement and the one below is my attempt to group together similar items. I feel
+        # that is more realistic in a managed field. Certainly the results I was getting before
+        # doing this were valid, but an equally distributed field of crops, food and shelter is probably
+        # not viable at this time. Dropping these if statements will give fields with more uniform
+        # distribution.
+        try:
+            if abs(food_index[0][food] - food_index[0][food+1]) <= 1 or \
+                    abs(food_index[0][food] - food_index[0][food-1]) <= 1 or \
+                    abs(food_index[1][food] - food_index[1][food+1]) <= 1 or \
+                    abs(food_index[1][food] - food_index[1][food-1]) <= 1:
+                pass
+        except IndexError:
+            pass
+        else:
+            random_x = np.random.randint(max(food_index[0][food] - np.random.randint(0.1*max_len), 0),
+                                         min(food_index[0][food] + np.random.randint(0.1*max_len) + 1, max_len))
+            random_y = np.random.randint(max(food_index[1][food] - np.random.randint(0.1*max_width), 0),
+                                         min(food_index[1][food] + np.random.randint(0.1*max_width) + 1, max_width))
+            iterated_field.array[food_index[0][food]][food_index[1][food]] = 1
+            iterated_field.array[random_x][random_y] = 2
     for shelter in shelter_sites_to_iterate:
-        random_x = np.random.randint(max(shelter_indices[0][shelter] - np.random.randint(0.1*max_len), 0),
-                                     min(shelter_indices[0][shelter] + np.random.randint(0.1*max_len) + 1, max_len))
-        random_y = np.random.randint(max(shelter_indices[1][shelter] - np.random.randint(0.1*max_width), 0),
-                                     min(shelter_indices[1][shelter] + np.random.randint(0.1*max_width) + 1, max_width))
-        iterated_field.array[shelter_indices[0][shelter]][shelter_indices[1][shelter]] = 1
-        iterated_field.array[random_x][random_y] = 3
+        try:
+            if abs(shelter_indices[0][shelter] - shelter_indices[0][shelter+1]) <= 1 or \
+                    abs(shelter_indices[0][shelter] - shelter_indices[0][shelter-1]) <= 1 or \
+                    abs(shelter_indices[1][shelter] - shelter_indices[1][shelter+1]) <= 1 or \
+                    abs(shelter_indices[1][shelter] - shelter_indices[1][shelter-1]) <= 1:
+                pass
+        except IndexError:
+            pass
+        else:
+            random_x = np.random.randint(max(shelter_indices[0][shelter] - np.random.randint(0.1*max_len), 0),
+                                         min(shelter_indices[0][shelter] + np.random.randint(0.1*max_len) + 1, max_len))
+            random_y = np.random.randint(max(shelter_indices[1][shelter] - np.random.randint(0.1*max_width), 0),
+                                         min(shelter_indices[1][shelter] + np.random.randint(0.1*max_width) + 1, max_width))
+            iterated_field.array[shelter_indices[0][shelter]][shelter_indices[1][shelter]] = 1
+            iterated_field.array[random_x][random_y] = 3
     return iterated_field
 
 
-def optimize_field(field: CropField) -> CropField:
+def parse_time(clocktime):
+    hours = int(clocktime[0:2])
+    minutes = int(clocktime[-3:-1])
+    return (hours*60*60) + (minutes*60)
+
+
+def optimize_field(field: CropField, dead_goal: int = 100, exit_goal: int = 0, num_iters: int = 10) -> CropField:
     # Simulate to see how well the field does
-    flag = 0  # We'll count up a number of flags to see if we have found a stable configuration
-    current_dead_result = 100  # scores the current round of sims by how many died, trying to minimize
-    current_exit_result = 0  # scores the current round of sims by how many exited, trying to maximize
+    flag = 1  # We'll count up a number of flags to see if we have found a stable configuration
+    current_dead_result = dead_goal  # scores the current round of sims by how many died, trying to minimize
+    current_exit_result = exit_goal  # scores the current round of sims by how many exited, trying to maximize
     optimization_parameter = ""  # the parameter we mananged to optimize
     counter = 0
-    test_fields = []  # keep track of the fields tested
+    testing_fields = {}  # keep track of the fields tested
     current_field = field
     print("food: {}".format(field.get_food_amt()))
     print("shelter: {}".format(field.get_shelter_amt()))
-    while flag < 6:
-        results = []  # a list of results for the current round of simulations
-        for k in range(100):
-            test_butterfly = Monarch(current_field)
-            test_butterfly.move_one_day()
-            while test_butterfly.status == 'alive':
+    try:
+        while flag < 6:
+            results = []  # a list of results for the current round of simulations
+            for k in range(100):
+                test_butterfly = Monarch(current_field)
                 test_butterfly.move_one_day()
-            results.append(test_butterfly.status)
-        dead_percentage = results.count('dead')
-        exit_percentage = results.count('exit')
-        counter += 1
-        print('Results for cycle {}'.format(counter))
-        print("Dead percentage = {:.2f}%".format(dead_percentage))
-        print("Exit percentage = {:.2f}%".format(exit_percentage))
-        test_fields.append(current_field)
-        if dead_percentage < current_dead_result and exit_percentage > current_exit_result:
-            if ~flag:
-                print('Potential match on both.')
-            flag = 0
-            optimization_parameter = "Both"
-            current_dead_result = dead_percentage
-            current_exit_result = exit_percentage
-            current_field = iterate_field(current_field, 'Both')
-        elif dead_percentage < current_dead_result:
-            if ~flag:
-                print('Potential match for death')
-            flag = 0
-            optimization_parameter = 'Death'
-            current_dead_result = dead_percentage
-            current_field = iterate_field(current_field, 'Death')
-        elif exit_percentage > current_exit_result:
-            if ~flag:
-                print('Potential match for exit')
-            flag = 0
-            optimization_parameter = 'Exit'
-            current_exit_result = exit_percentage
-            current_field = iterate_field(current_field, 'Exit')
-        else:
-            print("Testing potential match for {}".format(optimization_parameter))
-            flag += 1
-            current_field = iterate_field(current_field)
+                # this part keeps the simulation going until the b-fly dies or exits
+                while test_butterfly.status == 'alive':
+                    test_butterfly.move_one_day()
+                results.append(test_butterfly.status)
+            dead_percentage = results.count('dead')
+            exit_percentage = results.count('exit')
+            counter += 1
+            # print some stats for the current test field, partly just to monitor progress
+            print('Results for cycle {}'.format(counter))
+            print("Dead percentage = {:.2f}%".format(dead_percentage))
+            print("Exit percentage = {:.2f}%".format(exit_percentage))
+            testing_fields[current_field] = dead_percentage, exit_percentage
+            if dead_percentage < current_dead_result and exit_percentage > current_exit_result:
+                if ~flag:
+                    print('Potential match on both.')
+                flag = 0
+                optimization_parameter = "Both"
+                current_dead_result = dead_percentage
+                current_exit_result = exit_percentage
+                current_field = iterate_field(current_field, 'Both')
+            elif dead_percentage < current_dead_result:
+                if ~flag:
+                    print('Potential match for death')
+                flag = 0
+                optimization_parameter = 'Death'
+                current_dead_result = dead_percentage
+                current_field = iterate_field(current_field, 'Death')
+            elif exit_percentage > current_exit_result:
+                if ~flag:
+                    print('Potential match for exit')
+                flag = 0
+                optimization_parameter = 'Exit'
+                current_exit_result = exit_percentage
+                current_field = iterate_field(current_field, 'Exit')
+            elif flag == 0:
+                print("Testing potential match for {}".format(optimization_parameter))
+                flag += 1
+                current_field = iterate_field(current_field)
+            else:
+                current_field = iterate_field(current_field)
+        if counter == num_iters:
+            # After a few tries, we'll recalibrate by looking for whatever field had the lowest death count
+            # and starting from there, to make sure we are moving in the right direction.
+            # Just in case we started down a dead end series of iterations after a certain point.
+            # The danger is that our fields will just get worse, so I added the keyboard interrupt option.
+            print("Recalibrating....")
+            best = min(testing_fields.items(), key=lambda x: x[1][0])
+            testing_fields = {**testing_fields, **optimize_field(best[0], best[1][0], best[1][1])}
+    except KeyboardInterrupt:
+        print(current_field)
+        pass
+
     print("food: {}".format(current_field.get_food_amt()))
     print("shelter: {}".format(current_field.get_shelter_amt()))
-    print("Best field is field #{}, optimized for {}".format(counter - flag, optimization_parameter))
-    print(test_fields[counter - flag - 1])
-    return test_fields[counter - flag - 1]
+    print("Best field is field #{}, optimized for {}".format(counter - flag + 1, optimization_parameter))
+    best = min(testing_fields.items(), key=lambda x: x[1][0])
+    print("best: death - {}, exit - {}".format(best[1][0], best[1][1]))
+    print(best[0])
+    return testing_fields
 
 
 def main():
@@ -937,7 +988,12 @@ def main():
     testfield = CropField.random_field(3400, 100, 90, 5, 5)
     print(testfield.row_len * 15, testfield.col_len * 15)
     print('starting test')
-    optimize_field(testfield)
+    clocktime = "00h01m"
+    clockseconds = parse_time(clocktime)
+    print(clockseconds)
+    p = optimize_field(testfield)
+
+
 
     # This is the basic simulation, run a bunch of single butterflies over the course of the day and see how they fare
     # testfield = create_test_food_test(33)
