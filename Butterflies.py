@@ -905,9 +905,10 @@ def parse_time(clocktime):
     return (hours*60*60) + (minutes*60)
 
 
-def optimize_field(field: CropField, dead_goal: int = 100, exit_goal: int = 0, num_iters: int = 10) -> CropField:
+def optimize_field(field: CropField, dead_goal: int = 100, exit_goal: int = 0, num_iters: int = 25) -> CropField:
     # Simulate to see how well the field does
-    flag = 1  # We'll count up a number of flags to see if we have found a stable configuration
+    test_flag = 1  # We'll count up a number of flags to see if we have found a stable configuration
+    match_flag = False  # This will change once we find a candidate
     current_dead_result = dead_goal  # scores the current round of sims by how many died, trying to minimize
     current_exit_result = exit_goal  # scores the current round of sims by how many exited, trying to maximize
     optimization_parameter = ""  # the parameter we mananged to optimize
@@ -917,7 +918,7 @@ def optimize_field(field: CropField, dead_goal: int = 100, exit_goal: int = 0, n
     print("food: {}".format(field.get_food_amt()))
     print("shelter: {}".format(field.get_shelter_amt()))
     try:
-        while flag < 6:
+        while test_flag < 6:
             results = []  # a list of results for the current round of simulations
             for k in range(100):
                 test_butterfly = Monarch(current_field)
@@ -934,49 +935,35 @@ def optimize_field(field: CropField, dead_goal: int = 100, exit_goal: int = 0, n
             print("Dead percentage = {:.2f}%".format(dead_percentage))
             print("Exit percentage = {:.2f}%".format(exit_percentage))
             testing_fields[current_field] = dead_percentage, exit_percentage
+            current_field = iterate_field(current_field, 'Both')
             if dead_percentage < current_dead_result and exit_percentage > current_exit_result:
-                if ~flag:
-                    print('Potential match on both.')
-                flag = 0
+                if ~test_flag:
+                    print('Potential match.')
+                test_flag = 0
+                match_flag = True
                 optimization_parameter = "Both"
                 current_dead_result = dead_percentage
                 current_exit_result = exit_percentage
-                current_field = iterate_field(current_field, 'Both')
-            elif dead_percentage < current_dead_result:
-                if ~flag:
-                    print('Potential match for death')
-                flag = 0
-                optimization_parameter = 'Death'
-                current_dead_result = dead_percentage
-                current_field = iterate_field(current_field, 'Death')
-            elif exit_percentage > current_exit_result:
-                if ~flag:
-                    print('Potential match for exit')
-                flag = 0
-                optimization_parameter = 'Exit'
-                current_exit_result = exit_percentage
-                current_field = iterate_field(current_field, 'Exit')
-            elif flag == 0:
+            if match_flag:
                 print("Testing potential match for {}".format(optimization_parameter))
-                flag += 1
-                current_field = iterate_field(current_field)
+                test_flag += 1
             else:
                 current_field = iterate_field(current_field)
-        if counter == num_iters:
-            # After a few tries, we'll recalibrate by looking for whatever field had the lowest death count
-            # and starting from there, to make sure we are moving in the right direction.
-            # Just in case we started down a dead end series of iterations after a certain point.
-            # The danger is that our fields will just get worse, so I added the keyboard interrupt option.
-            print("Recalibrating....")
-            best = min(testing_fields.items(), key=lambda x: x[1][0])
-            testing_fields = {**testing_fields, **optimize_field(best[0], best[1][0], best[1][1])}
+            if counter == num_iters:
+                # After a few tries, we'll recalibrate by looking for whatever field had the lowest death count
+                # and starting from there, to make sure we are moving in the right direction.
+                # Just in case we started down a dead end series of iterations after a certain point.
+                # The danger is that our fields will just get worse, so I added the keyboard interrupt option.
+                print("Recalibrating....")
+                best = min(testing_fields.items(), key=lambda x: x[1][0])
+                testing_fields = {**testing_fields, **optimize_field(best[0], best[1][0], best[1][1])}
     except KeyboardInterrupt:
         print(current_field)
         pass
 
     print("food: {}".format(current_field.get_food_amt()))
     print("shelter: {}".format(current_field.get_shelter_amt()))
-    print("Best field is field #{}, optimized for {}".format(counter - flag + 1, optimization_parameter))
+    print("Best field is field #{}, optimized for {}".format(counter - test_flag + 1, optimization_parameter))
     best = min(testing_fields.items(), key=lambda x: x[1][0])
     print("best: death - {}, exit - {}".format(best[1][0], best[1][1]))
     print(best[0])
