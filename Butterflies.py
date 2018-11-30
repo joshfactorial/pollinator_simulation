@@ -181,7 +181,7 @@ class Pollinator:
 
     def __init__(self, area: Area):
         # Pollinators start out alive with a random amount of food
-        self.food_level = np.random.normal(50, scale = 15)
+        self.food_level = np.random.normal(50, scale=15)
         if self.food_level < 0:
             self.food_level = 0
         elif self.food_level > 100:
@@ -194,6 +194,9 @@ class Pollinator:
         self.sheltered = False
         self.food_indices = area.food_indices
         self.shelter_indices = area.shelter_indices
+        # Initialize an empty moves list. This will be a record of this pollinator
+        array = []
+        self.moves = array
         self.ways_to_die = ['Eaten by a bird', 'Impaled on a thorn', 'Death by disease', 'Run over by a tractor']
         # This defines the starting time of the pollinator. For the simualtion, the inital time will start a 4 am,
         # which is roughly sunup in the midwest in the summer. But other pollinators that enter may enter at different
@@ -201,6 +204,7 @@ class Pollinator:
         self.days = 0
         self.hours = 4
         self.seconds = 0
+
 
     def __str__(self):
         return '{} with {:.2f}% food at {}'.format(type(self).__name__, self.food_level, self.position)
@@ -243,31 +247,50 @@ class Pollinator:
         return self
 
     def check_if_exit(self):
-        # Check if pollinator exits or is off the map
         if (self.__class__.__can_exit_north or self.__class__.__can_exit) and self.position[0] == 0:
             self.status = np.random.choice(['exit', 'alive'], p=[self.__class__.__exit_chance, 1-self.__class__.__exit_chance])
-            if self.status == 'exit':
-                return self
+
         elif self.__class__.__can_exit and (self.position[0] == self.area_width-1 or
                                           self.position[1] == 0 or self.position[1] == self.area_length-1):
             self.status = np.random.choice(['exit', 'alive'], p=[self.__class__.__exit_chance, 1-self.__class__.__exit_chance])
-            if self.status == 'exit':
-                return self
-        if (self.position[0] == 0 or self.position[0] == self.area_width-1 or
-                self.position[1] == 0 or self.position[1] == self.area_length-1):
+
+        elif (self.__class__.__can_exit_north or self.__class__.__can_exit) and (self.position[0] < 0 or self.position[0] > self.area_width - 1 or
+              self.position[1] < 0 or self.position[1] > self.area_length - 1):
             # If it can exit and it's wandered off the map, just mark it as gone
             if self.__class__.__can_exit:
                 self.status = 'exit'
-                return self
+
+        elif (self.position[0] < 0 or self.position[0] > self.area_width-1 or
+                self.position[1] < 0 or self.position[1] > self.area_length-1):
             # If it can't exit and it's wandered off the map, return it to a random position and remove half its food
             # as a penalty for my poor programming skills
-            else:
-                print("Where did you go little buggy?")
-                x = np.random.randint([0, self.area_width-1])
-                y = np.random.randint([0, self.area_length-1])
-                self.position = [x, y]
-                self.food_level = self.food_level/2
-                return self
+            print("Where did you go little buggy?")
+            x = np.random.randint([0, self.area_width-1])
+            y = np.random.randint([0, self.area_length-1])
+            self.record_moves(x, y)
+            self.food_level = self.food_level/2
+
+    def record_moves(self, x, y):
+        if x > self.position[0]:
+            for i in range(abs(self.position[0] - x)):
+                self.position[0] += 1
+                self.moves.append(self.position)
+        elif x < self.position[0]:
+            for i in range(abs(self.position[0] - x)):
+                self.position[0] -= 1
+                self.moves.append(self.position)
+        else:
+            pass
+        if y > self.position[1]:
+            for j in range(abs(self.position[1] - y)):
+                self.position[1] += 1
+                self.moves.append(self.position)
+        elif y < self.position[1]:
+            for i in range(abs(self.position[1] - y)):
+                self.position[1] -= 1
+                self.moves.append(self.position)
+        else:
+            pass
 
     def random_move(self, number: int = 1):
         self.check_if_exit()
@@ -454,35 +477,30 @@ class Pollinator:
             if 4 <= self.hours < 6:
                 self.morning_activity()
                 # make sure it's not a zombie butterfly
-                self.check_for_death()
                 if self.status == 'dead':
                     break
 
             elif 6 <= self.hours < 12:
                 self.late_morning_activity()
                 # make sure it's not a zombie butterfly
-                self.check_for_death()
                 if self.status == 'dead':
                     break
 
             elif 12 <= self.hours < 19:
                 self.afternoon_activity()
                 # make sure it's not a zombie butterfly
-                self.check_for_death()
                 if self.status == 'dead':
                     break
 
             elif 19 <= self.hours < 21:
                 self.late_afternoon_activity()
                 # make sure it's not a zombie butterfly
-                self.check_for_death()
                 if self.status == 'dead':
                     break
 
             elif 21 <= self.hours < 24 or 0 <= self.hours < 4:
                 self.night_time_activity()
                 # make sure it's not a zombie butterfly
-                self.check_for_death()
                 if self.status == 'dead':
                     break
 
@@ -572,17 +590,14 @@ class Monarch(Pollinator):
 
         # If it's in shelter during the day light, there's a small chance it will just stay put, unless
         # it is super hungry
-        # TODO finish this
         if self.sheltered:
-            # First decrement his food level by half the active amount
-            self.decrement_food(self.__food_unit/2)
             # Just a check to make sure it is actually in a tree area and marked as sheltered...
             if self.area.array[self.position[0]][self.position[1]] != 3:
                 self.sheltered = False
                 self.random_move()
                 # One turn consumes 25 seconds
                 self.seconds += 25
-            if self.sheltered and (self.food_level < 25 or np.random.choice([True, False], p=[.99, .01])):
+            if self.sheltered and (self.food_level < 25 or np.random.choice([True, False], p=[1-self.__shelter_chance, self.__shelter_chance])):
                 self.sheltered = False
                 self.random_move()
                 # One turn consumes 25 seconds
@@ -606,31 +621,33 @@ class Monarch(Pollinator):
         # It may randomly occasionally seek shelter if it happens to be near a tree.
         # If it's in shelter during the day light, there's a small chance it will just stay put, unless
         # it is super hungry
+        # moves possible
+        moves_possible = int(self.food_level // self.__food_unit)
         if self.sheltered:
             # Just a check to make sure it is actually in a tree area and marked as sheltered...
             if self.area.array[self.position[0]][self.position[1]] != 3:
                 self.sheltered = False
                 self.random_move()
                 # One turn consumes 25 seconds
-                seconds += 25
+                self.seconds += 25
 
             # If it's still sheltered, meaning its in a legal shelter site, then most likely it will move
-            if self.sheltered and (self.food_level < 25 or np.random.choice([True, False], p=[0.99, 0.91])):
+            if self.sheltered and (self.food_level < 25 or np.random.choice([True, False], p=[1-self.__shelter_chance, self.__shelter_chance])):
                 self.sheltered = False
                 self.random_move()
                 # One turn consumes 25 seconds
-                seconds += 25
+                self.seconds += 25
 
             else:
                 pass
                 self.decrement_food(self.__food_unit / 2)
-                seconds += 25
+                self.seconds += 25
         else:
-            # Above a 50% food level, we'll consider it full
+            # Above a 50% food level, we'll consider it
             if self.food_level >= 50.0:
                 # Usually, it will try to move north
                 direction_die = np.random.choice(['north', 'south', 'east', 'west'],
-                                                 p=[.925, .025, .025, 0.025])
+                                                 p=[0.925, 0.025, 0.025, 0.025])
                 move_die = np.random.choice(int(moves_possible // 2))
 
                 for i in range(move_die):
@@ -641,7 +658,7 @@ class Monarch(Pollinator):
                         self.simple_move(direction_die)
 
                     # Each move takse 25 seconds
-                    seconds += 25
+                    self.seconds += 25
 
             # if it's a little hungry, it may seek food
             elif 25.0 <= self.food_level < 50.0:
@@ -652,112 +669,72 @@ class Monarch(Pollinator):
                 else:
                     # usually look for food
                     self, turns = self.seek_resource('food')
-
-                if self.status == 'dead':
-                    break
-
-                # Each move takse 25 seconds
-                seconds += (25 * turns)
+                    self.seconds += (25*turns)
+                    return self
 
             # now it's very hungry and will almost certainly seek food
             elif self.food_level < 25.0:
                 if np.random.choice([True, False], p=[0.0001, 0.9999]):
                     self.random_move()
+
                 # otherwise look for food
                 else:
                     self, turns = self.seek_resource('food')
-                    if self.status == 'dead':
-                        break
-                # check for death
-                if self.status == 'dead':
-                    break
+                    self.seconds = (25*turns)
+                    return self
+        return self
 
-                # Each move takse 25 seconds
-                seconds += (25 * turns)
-
+    #For the afternoon, it will repeat the late-morning activity
     def afternoon_activity(self):
-        print('still moving north!')
+        self.late_morning_activity()
+        return self
 
+    # As dusk approaches, it will try to look for food before sheltering for the night.
+    # If it's already sheltered, we'll just have it stay sheltered.
     def late_afternoon_activity(self):
-        print('looking for food!')
+        # moves possible
+        moves_possible = int(self.food_level // self.__food_unit)
+
+        # If it's still sheltered at this point, break shelter
+        if self.sheltered:
+            self.sheltered = False
+            self.random_move()
+            self.decrement_food(self.__food_unit)
+            # Each move takse 25 seconds
+            self.seconds += 25
+        else:
+            # otherwise it's going to look for food to fill its belly before sleep
+            self, turns = self.seek_resource('food')
+            self.seconds += (25 * turns)
+        return self
 
     def night_time_activity(self):
-        print("sleeping!")
+        # During the evening, it will prioritize seeking shelter. It will stay in shelter through the night
+        # once it locates it, so we'll remove the leave shelter component of the checks. There's no real
+        # food to be had at night, so we'll just assume it battens down the hatches. If it's food falls too low
+        # it may die. Such is the risk of life.
+        if self.sheltered:
+            # At night it will batten down the hatches and stay sheltered
+            # If for whatever reason it is marked as sheltered but isn't in a tree...
+            if self.area.array[self.position[0]][self.position[1]] != 3:
+                self.sheltered = False
+                self.random_move()
+                self.seconds += 25
+            else:
+                # if it gets here, it's sheltered and in a tree, so just decrement half a food unit
+                # and move aling without taking further action
+                self.decrement_food(self.__food_unit/2)
+                return self
+        # This is the case that it is alive and near shelter. At this time it will take shelter
+        elif self.sheltered is False and self.area.array[self.position[0]][self.position[1]] == 3:
+            self.sheltered = True
+            self.decrement_food(self.__food_unit/2)
 
-    #
-    #                 # make sure it's not a zombie butterfly
-    #                 self.check_for_death()
-    #                 if self.status == 'dead':
-    #                     break
-    #
-    #         # As dusk approaches, it will try to look for food before sheltering for the night.
-    #         # If it's already sheltered, we'll just have it stay sheltered.
-    #         elif 19 <= hours < 21:
-    #             # Check if it's sheltered
-    #             if self.sheltered and self.status == 'alive':
-    #                 # If for whatever reason it is marked as sheltered but isn't in a tree, it will move randomly and
-    #                 # should seek food on it's next turn
-    #                 if self.area.array[self.position[0]][self.position[1]] != 3:
-    #                     self.sheltered = False
-    #                     self.random_move()
-    #                     self.decrement_food(self.__food_unit)
-    #                     # Each move takse 25 seconds
-    #                     seconds += (25 * turns)
-    #                 else:
-    #                     # if it gets here, it's sheltered and in a tree, so just decrement half a food unit
-    #                     # and move along without taking further action
-    #                     self.decrement_food(self.__food_unit/2)
-    #                     continue
-    #             else:
-    #                 # otherwise it's going to look for food to fill its belly before sleep
-    #                 self, turns = self.seek_resource('food')
-    #                 seconds += (25 * turns)
-    #
-    #         # During the evening, it will prioritize seeking shelter. It will stay in shelter through the night
-    #         # once it locates it, so we'll remove the leave shelter component of the checks. There's no real
-    #         # food to be had at night, so we'll just assume it battens down the hatches. If it's food falls too low
-    #         # it may die. Such is the risk of life.
-    #         elif 21 <= hours < 24 or 0 <= hours < 4:
-    #             if self.sheltered:
-    #                 # At night it will batten down the hatches and stay sheltered
-    #                 # If for whatever reason it is marked as sheltered but isn't in a tree...
-    #                 if self.area.array[self.position[0]][self.position[1]] != 3:
-    #                     self.sheltered = False
-    #                     self.random_move()
-    #                     seconds += 25
-    #                 else:
-    #                     # if it gets here, it's sheltered and in a tree, so just decrement half a food unit
-    #                     # and move aling without taking further action
-    #                     self.decrement_food(self.__food_unit/2)
-    #                     continue
-    #             # This is the case that it is alive and near shelter. At this time it will take shelter
-    #             elif self.sheltered is False and self.area.array[self.position[0]][self.position[1]] == 3:
-    #                 self.sheltered = True
-    #                 self.decrement_food(self.__food_unit/2)
-    #
-    #             else:
-    #                 # otherwise it's going to look for shelter
-    #                 self, turns = self.seek_resource('shelter')
-    #                 seconds += (25 * turns)
-    #         else:
-    #             raise ValueError("hours out of range during move")
-    #
-    #         # make sure it's not a zombie butterfly
-    #         if self.status == 'dead':
-    #             break
-    #
-    #         # now that it has moved, if it's near shelter and not alread in shelter
-    #         # there's a small chance it may take shelter
-    #         if self.area.array[self.position[0]][self.position[1]] == 3 and self.sheltered is False:
-    #             if np.random.choice([True, False], p=[0.01, 0.99]):
-    #                 self.sheltered = True
-    #
-    #         # if it's near food, it will most likely try to eat
-    #         if self.area.array[self.position[0]][self.position[1]] == 2:
-    #             if np.random.choice([True, False], p=[0.99, 0.01]):
-    #                 self.food_level = 100
-    #
-    #     return self, days, seconds, hours
+        else:
+            # otherwise it's going to look for shelter
+            self, turns = self.seek_resource('shelter')
+            self.seconds += (25 * turns)
+        return self
 
 class Bee(Pollinator):
     '''
@@ -803,20 +780,162 @@ class Bee(Pollinator):
         self.position = self.nest_position
 
     def morning_activity(self):
-        print('looking for food!')
+        '''
+        For the first couple hours in the morning, bees will typically seek food.
+        :return: self
+
+        # TODO revise and check on bee behavior in general
+        '''
+
+        # If it's in shelter during the day light, there's a small chance it will just stay put, unless
+        # it is super hungry
+        if self.sheltered:
+            # Just a check to make sure it is actually in a tree area and marked as sheltered...
+            if self.area.array[self.position[0]][self.position[1]] != 3:
+                self.sheltered = False
+                self.random_move()
+                # One turn consumes 25 seconds
+                self.seconds += 25
+            if self.sheltered and (self.food_level < 25 or np.random.choice([True, False], p=[1 - self.__shelter_chance,
+                                                                                              self.__shelter_chance])):
+                self.sheltered = False
+                self.random_move()
+                # One turn consumes 25 seconds
+                self.seconds += 25
+            else:
+                pass
+                # just stay sheltered if those conditions fail
+                # Consume half a unit of food
+                self.decrement_food(self.__food_unit / 2)
+                # One turn consumes 25 seconds
+                self.seconds += 25
+        else:
+            self, turns = self.seek_resource('food')
+            # One turn consumes 25 seconds
+            self.seconds += (25 * turns)
+
+        return self
 
     def late_morning_activity(self):
-        print('moving north!')
+        # If it's daylight, the priorities will be food if it's hungry and moving north otherwise.
+        # It may randomly occasionally seek shelter if it happens to be near a tree.
+        # If it's in shelter during the day light, there's a small chance it will just stay put, unless
+        # it is super hungry
+        # moves possible
+        moves_possible = int(self.food_level // self.__food_unit)
+        if self.sheltered:
+            # Just a check to make sure it is actually in a tree area and marked as sheltered...
+            if self.area.array[self.position[0]][self.position[1]] != 3:
+                self.sheltered = False
+                self.random_move()
+                # One turn consumes 25 seconds
+                self.seconds += 25
 
+            # If it's still sheltered, meaning its in a legal shelter site, then most likely it will move
+            if self.sheltered and (self.food_level < 25 or np.random.choice([True, False], p=[1 - self.__shelter_chance,
+                                                                                              self.__shelter_chance])):
+                self.sheltered = False
+                self.random_move()
+                # One turn consumes 25 seconds
+                self.seconds += 25
+
+            else:
+                pass
+                self.decrement_food(self.__food_unit / 2)
+                self.seconds += 25
+        else:
+            # Above a 50% food level, we'll consider it
+            if self.food_level >= 50.0:
+                # Usually, it will try to move north
+                direction_die = np.random.choice(['north', 'south', 'east', 'west'],
+                                                 p=[0.925, 0.025, 0.025, 0.025])
+                move_die = np.random.choice(int(moves_possible // 2))
+
+                for i in range(move_die):
+                    random_chance = np.random.choice([0, 1], p=[.995, 0.005])
+                    if random_chance:
+                        self.random_move()
+                    else:
+                        self.simple_move(direction_die)
+
+                    # Each move takse 25 seconds
+                    self.seconds += 25
+
+            # if it's a little hungry, it may seek food
+            elif 25.0 <= self.food_level < 50.0:
+                if np.random.choice([True, False], p=[0.001, 0.999]):
+                    # slight chance of moving randomly instead
+                    self.random_move()
+
+                else:
+                    # usually look for food
+                    self, turns = self.seek_resource('food')
+                    self.seconds += (25 * turns)
+                    return self
+
+            # now it's very hungry and will almost certainly seek food
+            elif self.food_level < 25.0:
+                if np.random.choice([True, False], p=[0.0001, 0.9999]):
+                    self.random_move()
+
+                # otherwise look for food
+                else:
+                    self, turns = self.seek_resource('food')
+                    self.seconds = (25 * turns)
+                    return self
+        return self
+
+    # For the afternoon, it will repeat the late-morning activity
     def afternoon_activity(self):
-        print('still moving north!')
+        self.late_morning_activity()
+        return self
 
+    # As dusk approaches, it will try to look for food before sheltering for the night.
+    # If it's already sheltered, we'll just have it stay sheltered.
     def late_afternoon_activity(self):
-        print('looking for food!')
+        # moves possible
+        moves_possible = int(self.food_level // self.__food_unit)
+
+        # If it's still sheltered at this point, break shelter
+        if self.sheltered:
+            self.sheltered = False
+            self.random_move()
+            self.decrement_food(self.__food_unit)
+            # Each move takse 25 seconds
+            self.seconds += 25
+        else:
+            # otherwise it's going to look for food to fill its belly before sleep
+            self, turns = self.seek_resource('food')
+            self.seconds += (25 * turns)
+        return self
 
     def night_time_activity(self):
-        print("sleeping!")
+        # During the evening, it will prioritize seeking shelter. It will stay in shelter through the night
+        # once it locates it, so we'll remove the leave shelter component of the checks. There's no real
+        # food to be had at night, so we'll just assume it battens down the hatches. If it's food falls too low
+        # it may die. Such is the risk of life.
+        if self.sheltered:
+            # At night it will batten down the hatches and stay sheltered
+            # If for whatever reason it is marked as sheltered but isn't in a tree...
+            if self.area.array[self.position[0]][self.position[1]] != 3:
+                self.sheltered = False
+                self.random_move()
+                self.seconds += 25
+            else:
+                # if it gets here, it's sheltered and in a tree, so just decrement half a food unit
+                # and move aling without taking further action
+                self.decrement_food(self.__food_unit / 2)
+                return self
+        # This is the case that it is alive and near shelter. At this time it will take shelter
+        elif self.sheltered is False and self.area.array[self.position[0]][self.position[1]] == 3:
+            self.sheltered = True
+            self.decrement_food(self.__food_unit / 2)
 
+        else:
+            # otherwise it's going to look for shelter
+            self, turns = self.seek_resource('shelter')
+            self.seconds += (25 * turns)
+        return self
 
 def distance(x: list, y: tuple) -> int:
     '''
@@ -1045,7 +1164,14 @@ def test_field(dictionary, number):
     return dictionary
 
 
-def iterate_field(field: CropField, type: str = None) -> CropField:
+def iterate_field(group: list, type: str = None) -> CropField:
+    """
+    Iterate groups of fields to find optimal arrangements.
+
+    :param group: The field group to be optimized
+    :param type: What to optimize (food, shelter, or none).
+    :return: Optimal cropfield
+    """
     food_index = np.where(field.array == 2)  # get locations of food in field
     shelter_indices = np.where(field.array == 3)  # get locations of shelter in field
     food_ix_ix = len(food_index[0])  # indices of the food indices
@@ -1138,6 +1264,17 @@ def optimize_field(field: CropField, rows: int = 4, columns: int = 4, dead_goal:
     :return:
     '''
     # Simulate to see how well the field does
+    pass
+
+
+def graphic_display (field: Area, array: np.array) -> None:
+    """
+    This will take a field and an array defining the path the pollinator took and turn it into a heatmap
+
+    :param field: an area the pollinator lives on which it spent it's simulated time on
+    :param array: a collection of moves made by the pollinator.
+    :return: No return, it simply displays a plot.
+    """
     pass
 
 
