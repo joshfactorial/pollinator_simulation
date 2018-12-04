@@ -297,8 +297,6 @@ class Pollinator:
         if self.status == 'exit':
             return self
 
-        if self.seconds == 0:
-            print("\t\t\tmoving randomly")
         # Standard random move
         for i in range(number):
             coord = np.random.choice((0, 1))
@@ -319,8 +317,6 @@ class Pollinator:
                     self.moves.append(copy.deepcopy(self.position))
                 else:
                     pass
-            if self.seconds == 0:
-                print("\t\t\tDone moving randomly")
 
     def simple_move(self, direction: str = 'north'):
         """
@@ -467,7 +463,6 @@ class Pollinator:
         """
         # A false flag. Not in that way.
         flag = False
-        print("Begin moving")
         while self.status == 'alive':
             temp_days, self.hours, self.seconds = increment_day(self.days, self.hours, self.seconds)
             # Basically, if something weird gets passed in and the increment turns out to add an entire day to the total
@@ -488,6 +483,7 @@ class Pollinator:
             if self.hours == 3 and (3600 >= self.seconds >= 3575):
                 flag = True
 
+
             # Early morning activitny
             if 4 <= self.hours < 6:
                 self.morning_activity()
@@ -496,6 +492,8 @@ class Pollinator:
                     break
 
             elif 6 <= self.hours < 12:
+                if self.seconds == 0:
+                    print("late morning activity")
                 self.late_morning_activity()
                 # make sure it's not a zombie butterfly
                 if self.status == 'dead':
@@ -552,6 +550,7 @@ class Pollinator:
 
             # Increment time
             self.seconds += 25 * self.turns
+            self.turns = 0
 
             #check for death
             self.check_for_death()
@@ -624,8 +623,6 @@ class Monarch(Pollinator):
 
         # If it's in shelter during the day light, there's a small chance it will just stay put, unless
         # it is super hungry
-        if self.seconds == 0:
-            print("\tmorning activity")
         if self.sheltered:
             # number of times it will move randomly
             times = np.random.randint(10)
@@ -649,8 +646,6 @@ class Monarch(Pollinator):
             self, times = self.seek_resource('food')
             # One turn consumes 25 seconds
             self.turns += times
-        if self.seconds == 0:
-            print("\t\t{}".format(self))
 
     def late_morning_activity(self):
         # If it's daylight, the priorities will be food if it's hungry and moving north otherwise.
@@ -658,8 +653,6 @@ class Monarch(Pollinator):
         # If it's in shelter during the day light, there's a small chance it will just stay put, unless
         # it is super hungry
         # moves possible
-        if self.seconds == 0:
-            print("\tlate morning activity")
         moves_possible = int(self.food_level // self.__food_unit)
         if self.sheltered:
             # number of times it moves randomly
@@ -1333,11 +1326,21 @@ def basic_test (field: Area, iterations: int) -> None:
     for k in range(iterations):
         monarch = Monarch(field)
         monarch.move_one_day()
-        results.append([monarch.status, monarch.cause_of_death, monarch.moves])
+        results.append([copy.deepcopy(monarch.status), copy.deepcopy(monarch.cause_of_death),
+                        copy.deepcopy(monarch.moves)])
 
     # basic results
-    print("Dead percentage = {:.2f}%".format(100 * results.count('dead') / len(results)))
-    print("Exit percentage = {:.2f}%".format(100 * results.count('exit') / len(results)))
+    print(results)
+    dead_count = 0
+    exit_count = 0
+    alive_count = 0
+    for temp in results:
+        dead_count += temp.count('dead')
+        exit_count += temp.count('exit')
+        alive_count += temp.count('alive')
+    print("Dead percentage = {:.2f}%".format(100 * dead_count / len(results)))
+    print("Exit percentage = {:.2f}%".format(100 * exit_count / len(results)))
+    print("Alive percentage = {:.2f}%".format(100 * alive_count / len(results)))
     print("--- %s seconds ---" % (time.time() - starttime))
 
     results = pd.DataFrame(results)
@@ -1364,17 +1367,17 @@ def main():
 
     # This is the basic simulation, run a bunch of single butterflies over the course of the day and see how they fare
     testfield = CropField(np.array([[1, 1, 1, 1], [1, 1, 1, 1], [1, 1, 1, 1], [1, 1, 1, 1], [2, 2, 2, 2]]))
-    # basic_test(testfield, 1)
-    for i in range(10):
-        b1 = Monarch(testfield)
-        print(b1)
-    print(b1.moves)
-    b1.record_moves(2, 2)
-    print(b1)
-    print(b1.moves)
-    b1.random_move()
-    print(b1)
-    print(b1.moves)
+    basic_test(testfield, 1000)
+    # for i in range(10):
+    #     b1 = Monarch(testfield)
+    #     print(b1)
+    # print(b1.moves)
+    # b1.record_moves(2, 2)
+    # print(b1)
+    # print(b1.moves)
+    # b1.random_move()
+    # print(b1)
+    # print(b1.moves)
 
     # # first analysis
     # master_results = {}
