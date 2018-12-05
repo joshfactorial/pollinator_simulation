@@ -4,9 +4,13 @@
     <option name="SCOPE_TYPE" value="3" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="812526e5-33df-4d5a-97da-0afe3e5f1c60" name="Default Changelist" comment="">
+    <list default="true" id="812526e5-33df-4d5a-97da-0afe3e5f1c60" name="Default Changelist" comment="reorganizing and cleaning up code. Runs pretty fast now. I'm planning to add the ability to run multiple butterflies at once.">
+      <change afterPath="$PROJECT_DIR$/Butterflies_scratch.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/monarch_simulation.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/monarch_simulation.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Butterflies.py" beforeDir="false" afterPath="$PROJECT_DIR$/Butterflies.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Butterflies2.py" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -15,58 +19,35 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/monarch_simulation$Butterflies.coverage" NAME="Butterflies Coverage Results" MODIFIED="1539753774608" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/monarch_simulation$Doctests_in_Monarch.coverage" NAME="Doctests in Monarch Coverage Results" MODIFIED="1542263807566" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/monarch_simulation$Butterflies.coverage" NAME="Butterflies Coverage Results" MODIFIED="1543994891289" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/monarch_simulation$Butterflies2.coverage" NAME="Butterflies2 Coverage Results" MODIFIED="1543679289400" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/monarch_simulation$Doctest_Pollinator_simple_move.coverage" NAME="Doctest Pollinator.simple_move Coverage Results" MODIFIED="1542263765473" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/monarch_simulation$Doctests_in_Butterflies.coverage" NAME="Doctests in Butterflies Coverage Results" MODIFIED="1542267604552" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
-  <component name="FUSProjectUsageTrigger">
-    <session id="1501452216">
-      <usages-collector id="statistics.lifecycle.project">
-        <counts>
-          <entry key="project.closed" value="4" />
-          <entry key="project.open.time.2" value="1" />
-          <entry key="project.open.time.43" value="1" />
-          <entry key="project.open.time.46" value="1" />
-          <entry key="project.open.time.6" value="1" />
-          <entry key="project.open.time.8" value="1" />
-          <entry key="project.opened" value="5" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.extensions.open">
-        <counts>
-          <entry key="gitignore" value="1" />
-          <entry key="py" value="1" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.types.open">
-        <counts>
-          <entry key="PLAIN_TEXT" value="1" />
-          <entry key="Python" value="1" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.extensions.edit">
-        <counts>
-          <entry key="Python Console" value="44" />
-          <entry key="py" value="12269" />
-          <entry key="txt" value="207" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.types.edit">
-        <counts>
-          <entry key="PLAIN_TEXT" value="207" />
-          <entry key="Python" value="12313" />
-        </counts>
-      </usages-collector>
-    </session>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <option name="HIDDEN_KINDS">
+      <set />
+    </option>
+    <expand />
+    <select />
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Butterflies.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="465">
-              <caret line="821" column="19" lean-forward="true" selection-start-line="821" selection-start-column="19" selection-end-line="821" selection-end-column="19" />
+            <state relative-caret-position="-7173">
+              <caret line="494" selection-start-line="494" selection-end-line="494" />
               <folding>
-                <element signature="e#0#18#0" expanded="true" />
-                <element signature="e#14747#24246#0" />
+                <element signature="e#38#56#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -76,28 +57,36 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>_array</find>
-      <find>== 'dead'</find>
-      <find>status</find>
-      <find>food</find>
-      <find>!= 'alive'</find>
-      <find>== 'dead</find>
-      <find>above a</find>
-      <find>area</find>
-      <find>seek_</find>
-      <find>move</find>
-      <find>Field</find>
-      <find>random_move_one_day</find>
-      <find>move_one_day</find>
-      <find>self.length</find>
-      <find>self.po</find>
       <find>self.position</find>
-      <find>monarch</find>
-      <find>m</find>
-      <find>seek</find>
-      <find>'*'</find>
-      <find>'='</find>
-      <find>'o'</find>
+      <find>!= 3</find>
+      <find>== 3</find>
+      <find>== 2</find>
+      <find>.__class__</find>
+      <find>test_field</find>
+      <find>simple_mo</find>
+      <find>random_mo</find>
+      <find>self.minu</find>
+      <find>/t</find>
+      <find>self.food_level</find>
+      <find>check_for</find>
+      <find>morning activ</find>
+      <find>self.random_m</find>
+      <find>increment_day</find>
+      <find>increme</find>
+      <find>check_for_death</find>
+      <find>self.moves</find>
+      <find>random_move</find>
+      <find>random</find>
+      <find>moves.app</find>
+      <find>print(&quot;\t</find>
+      <find>morning_acti</find>
+      <find>move_one_day</find>
+      <find>exit per</find>
+      <find>lambda</find>
+      <find>count</find>
+      <find>alive p</find>
+      <find>move_one</find>
+      <find>increment</find>
     </findStrings>
     <replaceStrings>
       <replace>array</replace>
@@ -116,28 +105,23 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
+        <option value="$PROJECT_DIR$/Butterflies2.py" />
+        <option value="$PROJECT_DIR$/Butterflies_scratch.py" />
         <option value="$PROJECT_DIR$/Butterflies.py" />
       </list>
     </option>
   </component>
-  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
-  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
-  <component name="JsGulpfileManager">
-    <detection-done>true</detection-done>
-    <sorting>DEFINITION_ORDER</sorting>
-  </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="130" />
-    <option name="y" value="34" />
-    <option name="width" value="1431" />
-    <option name="height" value="851" />
+    <option name="x" value="67" />
+    <option name="y" value="25" />
+    <option name="width" value="767" />
+    <option name="height" value="875" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -149,11 +133,13 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
+    <property name="ToolWindowDatabase.ShowToolbar" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$USER_HOME$/anaconda3/envs/pycharm-default" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
@@ -180,8 +166,8 @@
       </list>
     </option>
   </component>
-  <component name="RunManager">
-    <configuration name="Butterflies" type="PythonConfigurationType" factoryName="Python" temporary="true">
+  <component name="RunManager" selected="Python.Butterflies">
+    <configuration name="Butterflies" type="PythonConfigurationType" factoryName="Python">
       <module name="monarch_simulation" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -195,6 +181,28 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Butterflies.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Butterflies2" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="monarch_simulation" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="$USER_HOME$/anaconda3/envs/pycharm-default/bin/python" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Butterflies_scratch.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -225,9 +233,76 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="Doctest Pollinator.simple_move" type="tests" factoryName="Doctests" temporary="true" nameIsGenerated="true">
+      <module name="monarch_simulation" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Butterflies.py" />
+      <option name="CLASS_NAME" value="Pollinator" />
+      <option name="METHOD_NAME" value="simple_move" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_METHOD" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Doctests in Butterflies" type="tests" factoryName="Doctests" temporary="true" nameIsGenerated="true">
+      <module name="monarch_simulation" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Butterflies.py" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_SCRIPT" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Doctests in Monarch" type="tests" factoryName="Doctests" temporary="true" nameIsGenerated="true">
+      <module name="monarch_simulation" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Butterflies.py" />
+      <option name="CLASS_NAME" value="Monarch" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_CLASS" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Python.Butterflies" />
+      <item itemvalue="Python.Butterflies2" />
+      <item itemvalue="Python tests.Doctest Pollinator.simple_move" />
+      <item itemvalue="Python tests.Doctests in Monarch" />
+      <item itemvalue="Python tests.Doctests in Butterflies" />
+    </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.Butterflies" />
+        <item itemvalue="Python.Butterflies2" />
+        <item itemvalue="Python tests.Doctests in Butterflies" />
+        <item itemvalue="Python tests.Doctests in Monarch" />
+        <item itemvalue="Python tests.Doctest Pollinator.simple_move" />
       </list>
     </recent_temporary>
   </component>
@@ -241,6 +316,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1539315226827</updated>
+      <workItem from="1543454684759" duration="1240000" />
+      <workItem from="1543563146047" duration="4741000" />
+      <workItem from="1543678103596" duration="43390000" />
+      <workItem from="1543875777554" duration="840000" />
+      <workItem from="1543904238203" duration="2621000" />
+      <workItem from="1543994517778" duration="464000" />
     </task>
     <task id="LOCAL-00001" summary="Making the validation run faster via the np.isin method">
       <created>1539723306275</created>
@@ -256,8 +337,57 @@
       <option name="project" value="LOCAL" />
       <updated>1539753847788</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Adding a moves recorder so I can create a heat map.">
+      <created>1543587342890</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1543587342890</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Working out a function to record moves of the butterfly so that I can&#10;create a heatmap">
+      <created>1543869361933</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1543869361933</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
+  </component>
+  <component name="TestHistory">
+    <history-entry file="Doctest_Pollinator_simple_move - 2018.11.15 at 00h 36m 05s.xml">
+      <configuration name="Doctest Pollinator.simple_move" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Doctests_in_Monarch - 2018.11.15 at 00h 36m 30s.xml">
+      <configuration name="Doctests in Monarch" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Doctests_in_Monarch - 2018.11.15 at 00h 36m 33s.xml">
+      <configuration name="Doctests in Monarch" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Doctests_in_Monarch - 2018.11.15 at 00h 36m 47s.xml">
+      <configuration name="Doctests in Monarch" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Doctests_in_Butterflies - 2018.11.15 at 00h 37m 09s.xml">
+      <configuration name="Doctests in Butterflies" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Doctests_in_Butterflies - 2018.11.15 at 01h 32m 15s.xml">
+      <configuration name="Doctests in Butterflies" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Doctests_in_Butterflies - 2018.11.15 at 01h 32m 54s.xml">
+      <configuration name="Doctests in Butterflies" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Doctests_in_Butterflies - 2018.11.15 at 01h 38m 46s.xml">
+      <configuration name="Doctests in Butterflies" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Doctests_in_Butterflies - 2018.11.15 at 01h 39m 54s.xml">
+      <configuration name="Doctests in Butterflies" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Doctests_in_Butterflies - 2018.11.15 at 01h 40m 04s.xml">
+      <configuration name="Doctests in Butterflies" configurationId="tests" />
+    </history-entry>
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="53296000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -269,42 +399,87 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="27" width="1600" height="873" extended-state="6" />
+    <frame x="67" y="25" width="1533" height="875" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.30347937" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1990585" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32968536" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.33991536" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.3994528" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.50302625" side_tool="true" weight="0.5375335" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49831876" weight="0.39812332" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" weight="0.3299566" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.3297587" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" weight="0.3119015" />
       <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
-      <window_info anchor="bottom" id="Terminal" order="11" />
-      <window_info anchor="bottom" id="Python Console" order="12" weight="0.33093524" />
-      <window_info anchor="bottom" id="Inspection Results" order="13" weight="0.32968536" />
+      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5016812" side_tool="true" weight="0.32841823" />
+      <window_info anchor="bottom" id="Terminal" order="11" sideWeight="0.49966374" weight="0.32841823" />
+      <window_info anchor="bottom" id="Inspection Results" order="12" weight="0.32968536" />
+      <window_info anchor="bottom" id="Python Console" order="13" sideWeight="0.49697378" weight="0.29758713" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" id="SciView" order="3" />
-      <window_info anchor="right" id="Database" order="4" />
+      <window_info anchor="right" id="SciView" order="3" weight="0.32952252" />
+      <window_info anchor="right" id="Database" order="4" weight="0.28244787" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
-  <component name="VcsContentAnnotationSettings">
-    <option name="myLimit" value="2678400000" />
-  </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Making the validation run faster via the np.isin method" />
     <MESSAGE value="reorganizing and cleaning up code. Runs pretty fast now. I'm planning to add the ability to run multiple butterflies at once." />
-    <option name="LAST_COMMIT_MESSAGE" value="reorganizing and cleaning up code. Runs pretty fast now. I'm planning to add the ability to run multiple butterflies at once." />
+    <MESSAGE value="Adding a moves recorder so I can create a heat map." />
+    <MESSAGE value="Working out a function to record moves of the butterfly so that I can&#10;create a heatmap" />
+    <option name="LAST_COMMIT_MESSAGE" value="Working out a function to record moves of the butterfly so that I can&#10;create a heatmap" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Butterflies.py</url>
+          <line>465</line>
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="debuggerHistoryManager">
+    <expressions id="evaluateExpression">
+      <expression>
+        <expression-string>self.area.array[self.position[0]][self.position[1]]</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>self.area.array[0]</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>self.area.array</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>self.array</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>self.array[self.position[0]]</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>self.position</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+    </expressions>
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/.gitignore">
@@ -314,13 +489,40 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pycharm/docrunner.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/anaconda3/lib/python3.7/codecs.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="172">
+          <caret line="323" selection-start-line="323" selection-end-line="323" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Butterflies_scratch.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="17" selection-start-line="17" selection-end-line="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/anaconda3/lib/python3.7/site-packages/numpy/core/getlimits.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="260">
+          <caret line="384" selection-start-line="384" selection-end-line="384" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Butterflies.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="465">
-          <caret line="821" column="19" lean-forward="true" selection-start-line="821" selection-start-column="19" selection-end-line="821" selection-end-column="19" />
+        <state relative-caret-position="-7173">
+          <caret line="494" selection-start-line="494" selection-end-line="494" />
           <folding>
-            <element signature="e#0#18#0" expanded="true" />
-            <element signature="e#14747#24246#0" />
+            <element signature="e#38#56#0" expanded="true" />
           </folding>
         </state>
       </provider>

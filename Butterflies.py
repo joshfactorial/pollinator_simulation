@@ -442,6 +442,27 @@ class Pollinator:
             self.food_level -= self.__class__.__food_unit * times
             return self, times
 
+    def increment_time(self):
+        '''
+           This takes seconds and hours and increments it according to a 24-hour clock. Although this theoretically
+           shouldn't arise in this calculation, I want to account for if an unusually large number of seconds gets
+           passed in, perhaps due to pollinator wandering, and increment the day as well as the time
+           :param days: number of days elapsed
+           :param hrs: integer number of hours, from 0-23.
+           :param secs: arbitrary number of integer seconds. For every 3600 seconds, it will add an hour.
+           :return: returns the new value for hours and seconds
+           >>> increment_day(5, 87273)
+           (1, 5, 873)
+           '''
+        while self.seconds >= 3600:
+            self.hours += 1
+            self.seconds -= 3600  # reduce seconds by 3600 and add an hour
+            # at midnight the 24-clock cycles back around to 0
+            if self.hours == 24:
+                self.hours = 0
+                self.days += 1
+
+
     def move_one_day(self):
         """
         The idea here is to simulate one day in the life of a pollinator. For convenience, one loop will represent 25
@@ -463,14 +484,14 @@ class Pollinator:
         """
         # A false flag. Not in that way.
         flag = False
+        temp_days = self.days
         while self.status == 'alive':
-            temp_days, self.hours, self.seconds = increment_day(self.days, self.hours, self.seconds)
+            self.increment_time()
             # Basically, if something weird gets passed in and the increment turns out to add an entire day to the total
             # We'll add the extra number of days onto the days count and just stop Hopefully this will smooth out any
             # weird inputs from the outer layers This should also handle cases where a pollinator moved randomly for a
             # long time looking for a resource
-            if temp_days > 0:
-                self.days += temp_days
+            if self.days > temp_days:
                 break
 
             # Assuming we didn't somehow way overshoot a day (code above), if the flag has been set,
@@ -486,6 +507,8 @@ class Pollinator:
 
             # Early morning activitny
             if 4 <= self.hours < 6:
+                print(self.seconds)
+                print(self.hours)
                 self.morning_activity()
                 # make sure it's not a zombie butterfly
                 if self.status == 'dead':
@@ -994,29 +1017,6 @@ def distance(x: list, y: tuple) -> int:
     '''
     # assert type(x[0]) is int and type(x[1]) is int and type(y[0]) is int and type(y[1]) is int
     return abs(x[0] - y[0]) + abs(x[1] - y[1])
-
-
-def increment_day(days: int, hrs: int, secs: int) -> (int, int, int):
-    '''
-    This takes seconds and hours and increments it according to a 24-hour clock. Although this theoretically
-    shouldn't arise in this calculation, I want to account for if an unusually large number of seconds gets
-    passed in, perhaps due to pollinator wandering, and increment the day as well as the time
-    :param days: number of days elapsed
-    :param hrs: integer number of hours, from 0-23.
-    :param secs: arbitrary number of integer seconds. For every 3600 seconds, it will add an hour.
-    :return: returns the new value for hours and seconds
-    >>> increment_day(5, 87273)
-    (1, 5, 873)
-    '''
-    while secs >= 3600:
-        hrs += 1
-        secs -=3600  # reduce seconds by 3600 and add an hour
-        # at midnight the 24-clock cycles back around to 0
-        if hrs == 24:
-            hrs = 0
-            days += 1
-    return days, hrs, secs
-
 
 def create_standard_test(iterations: int) -> CropField:
     # fields are assumed to have a scale 1 cell has dimension 15 meters x 15 meters
