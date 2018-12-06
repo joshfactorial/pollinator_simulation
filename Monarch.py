@@ -1,17 +1,17 @@
 #!/home/joshua/anaconda3/bin/python
 
-import Pollinator
+from Pollinator import *
 import numpy as np
 
 
 class Monarch(Pollinator):
     """
-    This class creates the Monarch butterfly object. The monarch is modeled as migrating north. It's movement is
+    This class creates the Monarch.py butterfly object. The monarch is modeled as migrating north. It's movement is
     mainly north, unless it is seeking food or shelter. It will seek shelter when night approaches and food when it is
     hungry, unless it is sheltered. It enters on the edge of the field in a random position. It also has an element of
     randomness to it's movement, as wind currents can blow the insect off course.
     >>> f = CropField([[1, 2, 2, 1], [1, 2, 2, 1], [1, 2, 2, 1], [1, 2, 2, 1], [1, 2, 2, 1]])
-    >>> b1 = Monarch(f)
+    >>> b1 = Monarch.py(f)
     >>> b1.food_level = 100
     >>> b1.position = [1,3]
     >>> print(b1.food_level)
@@ -19,16 +19,16 @@ class Monarch(Pollinator):
     >>> b1.position
     [1, 3]
     >>> b1
-    Monarch with 100.00% food at [1, 3]
+    Monarch.py with 100.00% food at [1, 3]
     """
-    __food_unit = 0.0225
+    food_unit = 0.0225
     __death_factor = 0.01
     __can_exit_north = True
     __exit_chance = 0.9
     __shelter_chance = 0.01
 
-    def __init__(self):
-        super(Monarch, self).__init__()
+    def __init__(self, area: CropField):
+        Pollinator.__init__(self, area)
         # This gives the starting position
         variable = np.random.choice([0, 1, 2, 3], p=[0.625, 0.125, 0.125, 0.125])
         if variable == 0:
