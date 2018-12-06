@@ -10,7 +10,7 @@ class Pollinator:
     area first to have an animal
     """
 
-    __food_unit = 0.5
+    food_unit = 0.5
     __death_factor = 0.5
     __exit_chance = 0
     # Some pollinators will try to exit if they are near the edge
@@ -53,9 +53,6 @@ class Pollinator:
         return '{} with {:.2f}% food at {}, status: {}'.format(type(self).__name__, self.food_level, self.position,
                                                                self.status)
 
-    def food_unit(self):
-        return self.__class__.__food_unit
-
     def death_factor(self):
         return self.__death_factor
 
@@ -76,7 +73,7 @@ class Pollinator:
         return
 
     def check_for_death(self):
-        # Based on how much food it currently has, the Monarch's chances to die randomly change.
+        # Based on how much food it currently has, the Monarch.py's chances to die randomly change.
         roll_die = np.random.random_sample()
         if self.food_level > 90 and roll_die < self.__death_factor / 1000:
             self.kill_it()
@@ -230,7 +227,7 @@ class Pollinator:
         :param direction: A string giving the ordinal direction
         :return: simple returns the updated butterfly
         >>> testfield = CropField.random_field(100,100,90,5,5)
-        >>> b1 = Monarch(testfield)
+        >>> b1 = Monarch.py(testfield)
         >>> b1.simple_move("worst")
         Traceback (most recent call last):
           File "C:\Program Files\JetBrains\PyCharm 2018.2.3\helpers\pycharm\docrunner.py", line 140, in __run
@@ -248,7 +245,7 @@ class Pollinator:
         >>> b1.food_level = 20
         >>> b1.simple_move("North")
         >>> b1
-        Monarch with 20.00% food at [99, 50]
+        Monarch.py with 20.00% food at [99, 50]
         >>> b1.status
         'alive'
         """
@@ -296,7 +293,7 @@ class Pollinator:
         :return: return sends it back when it is done, otherwise it modifies self and returns self and turns
         taken to complete the operation
         >>> f = CropField([[1, 2, 2, 1], [1, 2, 2, 1], [1, 2, 2, 1], [1, 2, 2, 1], [1, 2, 2, 1]])
-        >>> b1 = Monarch(f)
+        >>> b1 = Monarch.py(f)
         >>> b1.food_level = 100
         >>> b1.position = [1, 3]
         """
@@ -407,7 +404,7 @@ class Pollinator:
         :param days: number of days elapsed. This simulation section is desgined to cover one day and then quit, but
         of course that may not always happen. And a monarch may start on a different day rather than the first day
         of the simulation.
-        :return: the Monarch object, appropriately manipulated
+        :return: the Monarch.py object, appropriately manipulated
         """
         # A false flag. Not in that way.
         flag = False
