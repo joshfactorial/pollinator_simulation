@@ -1,30 +1,46 @@
-;# Monarch Butterfly simulation
+;# Pollinator simulator
 
 # Title: 
-Monarch Butterfly Monte Carlo (MBMC) simulation
+Pollinator Monte Carlo (PMC) toolkit
 
-## Team Member(s):
+## Creator:
 Joshua Allen
 
 # Monte Carlo Simulation Scenario & Purpose:
-This simulation will simulate a field approximately 50 km long and monarch butterflies that will attempt to move north 
-on it's migration. The fields will simulate several one-acre plots with buffer zones both required and some variations 
-to try to model different scenarios to see if we can find an optimal field configuration for monarchs. The ultimate
-goal is to both test the effectiveness of bare minimum agriculture rules and to see if there is an optimal arrangement 
-that maximizes field production while still being good for the butterflies.
+Originally developed to simulate a Monarch Butterfly attempting to migrate across a crop field in central Illinois, 
+this project has been expanded to attempt to model any numbor of pollinators in agricultural areas attempting to survive
+the harsh environments presented by the presence of humans. My goal is to be able to offer this as a toolkit for organic
+and commercial farmers who want to find ways to optimize their fields to allow the crops and native habitat to coexist 
+to the maximum extent possible. I recognize that modern farming has to maximize field usage, but also feel that as
+citizens of planet Earth, we must be cognizant of our role here and strive for balance. I predict that it is possible to
+strike that balance in a way that maintains the use of the land for human ends but still allows the survival of the
+wildlife that existed before.
+
+This simulation as originally constructed would simulate a field approximately 50 km long and monarch butterflies that 
+would attempt to move north on their migration. The fields will simulate several one-acre plots with buffer zones both 
+required by regulations and some variations to try to model different scenarios to see if we can find an optimal field 
+configuration for monarchs. The ultimate goal is to both test the effectiveness of bare minimum agriculture rules and 
+to see if there is an optimal arrangement that maximizes field production while still being good for the butterflies.
 
 ## Simulation's variables of uncertainty
-First off, let me preface this by saying that a lot remains unknown about the habits of monarch butterflies,
-so I'm forced to make some guesses and assumptions about the parameters of this simulation. As more data comes to light,
-the simulation could be improved to better reflect reality. I'm assuming a degree of random movement for the butterfly, 
-though it will have goals (seek food, shelter, and a northly direction), which of course isn't 100% accurate. The insect
-is no doubt following scent trails and air currents as it moves in apparently random fashion, but since those parameters
-are subject to effectively random (i.e., highly nonlinear) motions, we can treat the butterfly movement as having a
-heavy random component to its motion. The average farm size in Illinois is about 1.5 square km, according to the most
-recent data I could find. A monarch can travel 50 km a day on average. Some have been tagged and found moving even
-farther than that. What is unknown, to me, is if that motion represents their linear movement (50 km from start to
-finish), or the actual distance it covers. You can imagine a butterfly zig-zagging across a field covering several km
-of actual distance, but only traversing a few hundred meters as the crow flies.
+First off, let me preface this by saying that a lot remains unknown about the habits of monarch butterflies, native
+bees, and other pollinators. I've made my own assumptions about these to come up with what I felt were reasonable 
+outcomes on calibration fields (e.g., I'd expect a field of all milkweed to have very high survival and successful 
+migration rates for monarch butterflies). People using this toolkit should consider their own research and the
+literature to determine the survival rates, eating rates, flight speeds, etc that are relevant to their animal of study.
+
+I assume a degree of random movement for the pollinators, though I built-in goals as well (e.g., seek food, shelter, and 
+northly migration), which of course isn't 100% accurate. Insects follow scent trails and air currents as they move in 
+what can seem like arbitrary patterns, but since those parameters are subject to effectively random (i.e., highly 
+nonlinear) motions, we can treat the pollinator movement as having a random component to its motion.
+
+## Monarch simulation variables
+
+The average farm size in Illinois is about 1.5 square km, according to the most recent data I could find. A monarch can
+travel 50 km a day on average. Some have been tagged and found moving even farther than that. What is unknown, to me, 
+is if that motion represents their linear movement (50 km from start to finish), or the actual distance it covers as it
+zig zags from flower to flower and tree to tree. You can imagine a butterfly zig-zagging across a field covering several 
+km of actual distance, but only traversing a few hundred meters as the crow flies.
 
 I'll assume the researchers meant that it can get 50km from it's starting position, meaning thay they could potentially 
 cross over 33-34 different farms in a single day. But the buffer zone regulations really only cover areas between crop 
@@ -36,84 +52,44 @@ long edge. The fields, I think can be effectively modeled at a smaller width, si
 strictly north when it can I'll ignore towns, roads, and the other things that real life reflects in order to simplify 
 the example.
 
-I want to set up at least experiments. One on some reasonable land layouts as they might actually exsist now to test if those 
-are ideal for Monarchs, one with randomly generated fields within certain parameters to see if a simulation can converge
-on an ideal field layout. And a third with sort of a mix of semi-planned layouts to see if there is an ideal that might
-reflect a reality with more constraints then "plant butterfly food anywhere"
+I have set up several tests to see if I could find an optimal arrangement. There are some reasonable land layouts as 
+they might actually exsist now to test if those are ideal for Monarchs. I'm currently attempting after some false 
+starts to implement a semi-random arrangement algorithm that can take planned acres of fields and search for optimal
+arrangements to maximize butterfly survival while maintaining the appropriate crop, buffer, and windbreak ratios. I made
+a first stab at creating a randomization algorithm that would hold a ration of crops to food to shelter constant and
+attempt to find a suitable pattern, but the patterns it found were very non-realistic. No farmer can afford to randomly 
+seed trees and weeds throughout their fields, even if that would be optimal for wildlife, so that is something I must
+continue to refine.
 
-The butterfly's variables will be the exact position it enters the field. It will be along and edge, but chosen at 
-random and the amount of food the butterfly enters the field already carrying. There will also be a random element
-to the butterfly's movement. Once the butterfly's food falls below the 50% threshold, it will begin to look for food.
-When it falls below 25%, the butterfly becomes more and more at risk for dying. Beyond that it's general goal is 
-to move north. Rarely (high wind, rain, night) it will seek shelter. Each of these will have a random chance of
-moving in a random direction (scent trails and wind gusts)
+The butterfly's variables will be the exact position it enters the field. It will be along an edge, favoring the 
+southern half of the area to maximize the simulation but chosen at random within those constraints. It begins with an 
+arbitrary amount of food selected from a normal curve centered at 50, representing 50% full of food. 
 
-The butterfly will fly until it exits the test site to the north or dies. I'll run this simulation many times to sample
-the trend in how well the butterfly does, using a standard field to gauge success against.
+Behaviorally, the Butterfly will seek food in the early morning, attempt to move north during the day, seek food again
+in the early evening, and finally look for a place to shelter in the evening. Factors affecting its behavior will be its 
+food level, which as it drops will increase the butterfly's desire to seek food. I plan to add a mating instinct and the
+ability to seek other butterflies in the future as well. Different pollinators, of course, have different mating habits.
+Social bees have designated times of year that they attempt to mate, and different conditions and nesting sites.
 
-## Hypothesis or hypotheses before running the simulation:
-My hypothesis is that the current rules regarding buffer zones, that they need only be on edges of non-crop land, will
-provide insufficient shelter and nutrition and the butterfly mortality rate will be higher. I believe adding more 
-buffers between fields would create an environment that is more hospitable and that this could be done without
-sacrificing too much crop land
+The current simulation runs for one day, modeling 4 am to 3:59 am the next day. It's easy to modify the start time and 
+new pollinators could be introduced at various times about the day and begin engaging in the behavior appropriate to the
+actual time. Because our clock time is arbitrary, the time variables are stored as attributes of the pollinators
+themselves. They react using their own biological clocks and cues to the amount of sunlight and such.
 
-## Analytical Summary of your findings: (e.g. Did you adjust the scenario based on previous simulation outcomes?  
-## What are the management decisions one could make from your simulation's output, etc.)
-These are the results of running the simulation on 8 fields of dimension 50km x 1.5 km. I used the 5 pregenerated fields
-I had created based on trying to limit the dispersal of the food and shelter to the edges. The middle shelter field
-(which has food on the east and west edges, and a line of trees in the middle) consistently performed the best after
-running this simulation several times. The second best being the food-heavy version, which has the entire border 
-surronded by food. This makes sense, to me, when you consider that the butterflies are migrating north to south, so
-having a line of food in that direction to sustain them, combined with shelter in the middle (equidistant from both
-food sources) gives the butterflies the optimal chance of finding what they need.
+I plan to introduce further elements of reality as time goes, such as environmental conditions, even simple ones like
+rain. Pollinators generally seek shelter in rain, which can be a deadly mess for a small animal. 
 
-Dead percentage = 55.30%
-Exit percentage = 44.70%
---- 11.827407360076904 seconds ---
-Dead percentage = 9.20%
-Exit percentage = 90.80%
---- 11.929078340530396 seconds ---
-Dead percentage = 23.00%
-Exit percentage = 77.00%
---- 9.871609687805176 seconds ---
-Dead percentage = 6.60%
-Exit percentage = 93.40%
---- 14.209017515182495 seconds ---
-Dead percentage = 12.60%
-Exit percentage = 87.40%
---- 10.8919095993042 seconds ---
-Dead percentage = 53.70%
-Exit percentage = 46.30%
---- 5.590059041976929 seconds ---
-Dead percentage = 51.80%
-Exit percentage = 48.20%
---- 4.703392505645752 seconds ---
-Dead percentage = 52.80%
-Exit percentage = 47.20%
---- 4.925860166549683 seconds ---
-The best-performing field was middle_shelter
-
-For that field the breakdown by percentage for the layout is
-Percent food: 4.00%
-Percent shelter: 1.00%
-Percent crops: 95.00%
-
-So, 95% of each acre is going toward crops, which the farmer needs to survive. I had two additonal questions: is there 
-a field configuration that outperforms the middle-shelter config, and can we increase the crop area and still maintain 
-a high survival rate of the species.
-
-I ran a simulation on random placement of resources, and I wasn't able to find anything significant over 1000 trials.
-Maybe more would happen across a really optimal solution, but 1000 wasn't enough to find anything. The highest performing
-field in the same category in terms of crop yield as the break in the middle had only a 59.9% survival rate. I will think
-about a way to make an adaptive environment design that takes the best of the other designs and begins to improve on it.
+Monarchs and other pollinators might seek to leave the area as they migrate, others will be strongly tied to an area 
+not be allowed to simply wander off. This is an attribute of the animal that varies from species to species.
 
 ## Instructions on how to use the program:
-A test field can be created by making a list of lists and converting it to a field using the field object. Anything
-that can be converted to a pandas DataFrame can be converted to a Field. The only extra requirement is that the entries
-must be integer values of 1, 2, or 3. 1 = crop, 2 = food (milkweed and other flowers), 3 = shelter (trees). There are
-also several functions to create the fields used in the test. These are all prefaced "create_" etc. There is also a 
-built-in function in Field called random_field that can create a field given parameters of length, width, percent crop,
-percent food, and percent shelter.
+A test field can be created by making a list of lists and converting it to a field using the field object, which usses
+numpy arrays to store the data, and thus has all the attributes of numpy arrays and more. Anything that can be converted
+to a numpy array can be converted to an Area, with the caveat that Areas must be 2 dimensional and can only contain 
+integers in the set {1, 2, 3, 4}, where 1 = crop, 2 = food (milkweed and other flowers), 3 = shelter (trees). There are 
+also several functions to create test fields. These are all prefaced "create_" etc. There is also a  built-in function 
+in Field called random_field that can create a field given parameters of length, width, percent crop, percent food, and 
+percent shelter, but see the notes above on the success and plans for this.
 
 ## All Sources Used:
 Buffer zone source: [usda organic farming](https://www.ams.usda.gov/sites/default/files/media/6%20Buffer%20Zones%20FINAL%20RGK%20V2.pdf)
@@ -127,6 +103,3 @@ The average farm size in Illinois in 2018 was 358 acres [average farm size](http
 which translates to about 1.4 square kilometers, so I'll base it on 1.5 km to make it easier.
 
 I welcome anyone who can point me to some sources for some of the simulation parameters
-
-## Updates since final project committ
-I plan to keep developing this project, since I find it interesting. One thing I learned was that it might be better to model smaller fields. I also messed up when I orginially was trying to get it to work and made my fields entirely too big. This messed up my food calculations. So I plan to go back and correct some of that. Any updates to this will be made on or after 8/5/2018, since the project was due midnight the previous day. I have tons of ideas for improvements.
