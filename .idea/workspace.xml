@@ -4,7 +4,12 @@
     <option name="SCOPE_TYPE" value="3" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="812526e5-33df-4d5a-97da-0afe3e5f1c60" name="Default Changelist" comment="" />
+    <list default="true" id="812526e5-33df-4d5a-97da-0afe3e5f1c60" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../pollinator_simulation/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../pollinator_simulation/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../pollinator_simulation/Area.py" beforeDir="false" afterPath="$PROJECT_DIR$/../pollinator_simulation/Area.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../pollinator_simulation/Butterflies_scratch.py" beforeDir="false" afterPath="$PROJECT_DIR$/../pollinator_simulation/Butterflies_scratch.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../pollinator_simulation/Pollinator.py" beforeDir="false" afterPath="$PROJECT_DIR$/../pollinator_simulation/Pollinator.py" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -16,8 +21,9 @@
     <SUITE FILE_PATH="coverage/monarch_simulation$Butterflies.coverage" NAME="Butterflies Coverage Results" MODIFIED="1544074215460" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/monarch_simulation$Butterflies2.coverage" NAME="Butterflies2 Coverage Results" MODIFIED="1543679289400" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/monarch_simulation$Doctest_Pollinator_simple_move.coverage" NAME="Doctest Pollinator.simple_move Coverage Results" MODIFIED="1542263765473" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/pollinator_simulation$Butterflies_scratch.coverage" NAME="Butterflies_scratch Coverage Results" MODIFIED="1544078662162" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/monarch_simulation$Doctests_in_Butterflies.coverage" NAME="Doctests in Butterflies Coverage Results" MODIFIED="1542267604552" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/monarch_simulation$chess.coverage" NAME="chess Coverage Results" MODIFIED="1544074222273" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/monarch_simulation$chess.coverage" NAME="chess Coverage Results" MODIFIED="1544078544638" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="DatabaseView">
     <option name="SHOW_INTERMEDIATE" value="true" />
@@ -36,9 +42,9 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../pollinator_simulation/Butterflies.py">
+        <entry file="file://$PROJECT_DIR$/../pollinator_simulation/Pollinator_Simulation.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="110">
+            <state relative-caret-position="-1698">
               <caret line="5" selection-start-line="5" selection-end-line="5" />
               <folding>
                 <element signature="e#37#41#0" expanded="true" />
@@ -77,26 +83,40 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../pollinator_simulation/Pollinator.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-280">
-              <caret line="1" selection-start-line="1" selection-end-line="1" />
+            <state relative-caret-position="47">
+              <caret line="708" column="14" lean-forward="true" selection-start-line="524" selection-end-line="708" selection-end-column="14" />
               <folding>
-                <element signature="e#38#49#0" expanded="true" />
+                <element signature="e#37#67#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/../pollinator_simulation/Monarch">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../pollinator_simulation/Area.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-660">
+              <caret line="21" selection-start-line="21" selection-end-line="21" />
+              <folding>
+                <element signature="e#37#55#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../pollinator_simulation/Area.py">
+        <entry file="file://$PROJECT_DIR$/../pollinator_simulation/Butterflies_scratch.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2772">
-              <caret line="126" column="29" selection-start-line="126" selection-start-column="29" selection-end-line="126" selection-end-column="29" />
-              <folding>
-                <element signature="e#37#55#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="210">
+              <caret line="14" column="31" selection-start-line="14" selection-start-column="31" selection-end-line="14" selection-end-column="31" />
             </state>
           </provider>
         </entry>
@@ -113,8 +133,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>count</find>
-      <find>alive p</find>
       <find>move_one</find>
       <find>increment</find>
       <find>seek_reso</find>
@@ -143,6 +161,8 @@
       <find>random_move</find>
       <find>move_one_day</find>
       <find>.__class__.food_unit</find>
+      <find>copy.deepcopy(</find>
+      <find>Monarch</find>
     </findStrings>
     <replaceStrings>
       <replace>array</replace>
@@ -180,6 +200,10 @@
         <option value="$PROJECT_DIR$/../pollinator_simulation/README.md" />
         <option value="$PROJECT_DIR$/../pollinator_simulation/Tests.py" />
         <option value="$PROJECT_DIR$/../pollinator_simulation/Visualizations.py" />
+        <option value="$PROJECT_DIR$/../pollinator_simulation/Area.py" />
+        <option value="$PROJECT_DIR$/../pollinator_simulation/Butterflies_scratch.py" />
+        <option value="$PROJECT_DIR$/../pollinator_simulation/Pollinator.py" />
+        <option value="$PROJECT_DIR$/../pollinator_simulation/__init__.py" />
       </list>
     </option>
   </component>
@@ -239,7 +263,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.chess">
+  <component name="RunManager" selected="Python.Butterflies_scratch">
     <configuration default="true" type="DjangoTestsConfigurationType">
       <module name="pollinator_simulation" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -330,6 +354,28 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="Butterflies_scratch" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="pollinator_simulation" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="$USER_HOME$/anaconda3/envs/pycharm-default/bin/python" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../pollinator_simulation/Butterflies_scratch.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
       <module name="pollinator_simulation" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -397,25 +443,6 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <method v="2" />
-    </configuration>
-    <configuration name="Doctest Pollinator.simple_move" type="tests" factoryName="Doctests" temporary="true" nameIsGenerated="true">
-      <module name="pollinator_simulation" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/../pollinator_simulation" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Butterflies.py" />
-      <option name="CLASS_NAME" value="Pollinator" />
-      <option name="METHOD_NAME" value="simple_move" />
-      <option name="FOLDER_NAME" value="" />
-      <option name="TEST_TYPE" value="TEST_METHOD" />
-      <option name="PATTERN" value="" />
-      <option name="USE_PATTERN" value="false" />
       <method v="2" />
     </configuration>
     <configuration name="Doctests in Butterflies" type="tests" factoryName="Doctests" temporary="true" nameIsGenerated="true">
@@ -540,18 +567,18 @@
     <list>
       <item itemvalue="Python.Butterflies" />
       <item itemvalue="Python.Butterflies2" />
-      <item itemvalue="Python tests.Doctest Pollinator.simple_move" />
       <item itemvalue="Python tests.Doctests in Monarch" />
       <item itemvalue="Python tests.Doctests in Butterflies" />
       <item itemvalue="Python.chess" />
+      <item itemvalue="Python.Butterflies_scratch" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.Butterflies_scratch" />
         <item itemvalue="Python.chess" />
         <item itemvalue="Python.Butterflies2" />
         <item itemvalue="Python tests.Doctests in Butterflies" />
         <item itemvalue="Python tests.Doctests in Monarch" />
-        <item itemvalue="Python tests.Doctest Pollinator.simple_move" />
       </list>
     </recent_temporary>
   </component>
@@ -570,7 +597,7 @@
       <workItem from="1543678103596" duration="43390000" />
       <workItem from="1543875777554" duration="840000" />
       <workItem from="1543904238203" duration="2621000" />
-      <workItem from="1543994517778" duration="21176000" />
+      <workItem from="1543994517778" duration="22753000" />
     </task>
     <task id="LOCAL-00001" summary="Making the validation run faster via the np.isin method">
       <created>1539723306275</created>
@@ -614,7 +641,14 @@
       <option name="project" value="LOCAL" />
       <updated>1544077809463</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Renaming files to reflect more general approach">
+      <created>1544077951171</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1544077951171</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -650,7 +684,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="74008000" />
+    <option name="totallyTimeSpent" value="75585000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -668,7 +702,7 @@
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info active="true" anchor="bottom" id="Find" order="1" sideWeight="0.49966374" visible="true" weight="0.32841823" />
+      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49966374" weight="0.32841823" />
       <window_info anchor="bottom" id="Run" order="2" sideWeight="0.5003362" side_tool="true" weight="0.32841823" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.7195696" weight="0.57372653" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
@@ -680,7 +714,7 @@
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5003362" side_tool="true" weight="0.32841823" />
       <window_info anchor="bottom" id="Terminal" order="11" sideWeight="0.49966374" weight="0.32841823" />
       <window_info anchor="bottom" id="Inspection Results" order="12" weight="0.32968536" />
-      <window_info anchor="bottom" id="Python Console" order="13" sideWeight="0.6381977" weight="0.29758713" />
+      <window_info active="true" anchor="bottom" id="Python Console" order="13" sideWeight="0.6381977" visible="true" weight="0.29758713" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.24949563" />
@@ -702,7 +736,8 @@
     <MESSAGE value="Working out a function to record moves of the butterfly so that I can&#10;create a heatmap" />
     <MESSAGE value="Working on time to develop heatmap" />
     <MESSAGE value="Restructured the program to have submodules called by main that will&#10;perform the tasks. Updated wiki, continuing to refine the simulation.&#10;Next step will be to add some visualizations." />
-    <option name="LAST_COMMIT_MESSAGE" value="Restructured the program to have submodules called by main that will&#10;perform the tasks. Updated wiki, continuing to refine the simulation.&#10;Next step will be to add some visualizations." />
+    <MESSAGE value="Renaming files to reflect more general approach" />
+    <option name="LAST_COMMIT_MESSAGE" value="Renaming files to reflect more general approach" />
   </component>
   <component name="debuggerHistoryManager">
     <expressions id="evaluateExpression">
@@ -757,13 +792,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="172">
           <caret line="323" selection-start-line="323" selection-end-line="323" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../pollinator_simulation/Butterflies_scratch.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="17" selection-start-line="17" selection-end-line="17" />
         </state>
       </provider>
     </entry>
@@ -823,16 +851,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../pollinator_simulation/Area.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2772">
-          <caret line="126" column="29" selection-start-line="126" selection-start-column="29" selection-end-line="126" selection-end-column="29" />
-          <folding>
-            <element signature="e#37#55#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../pollinator_simulation/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
@@ -847,16 +865,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-220">
           <caret line="2" column="24" selection-start-line="2" selection-start-column="24" selection-end-line="2" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../pollinator_simulation/Butterflies.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="110">
-          <caret line="5" selection-start-line="5" selection-end-line="5" />
-          <folding>
-            <element signature="e#37#41#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -884,15 +892,55 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../pollinator_simulation/Pollinator.py">
+    <entry file="file://$PROJECT_DIR$/../pollinator_simulation/__main__.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../pollinator_simulation/Butterflies_scratch.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-280">
-          <caret line="1" selection-start-line="1" selection-end-line="1" />
+        <state relative-caret-position="210">
+          <caret line="14" column="31" selection-start-line="14" selection-start-column="31" selection-end-line="14" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../pollinator_simulation/Pollinator_Simulation.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1698">
+          <caret line="5" selection-start-line="5" selection-end-line="5" />
           <folding>
-            <element signature="e#38#49#0" expanded="true" />
+            <element signature="e#37#41#0" expanded="true" />
           </folding>
         </state>
       </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/anaconda3/lib/python3.7/site-packages/IPython/core/interactiveshell.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="2960" selection-start-line="2960" selection-end-line="2960" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../pollinator_simulation/Area.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-660">
+          <caret line="21" selection-start-line="21" selection-end-line="21" />
+          <folding>
+            <element signature="e#37#55#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../pollinator_simulation/Pollinator.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="47">
+          <caret line="708" column="14" lean-forward="true" selection-start-line="524" selection-end-line="708" selection-end-column="14" />
+          <folding>
+            <element signature="e#37#67#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../pollinator_simulation/Monarch">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
   </component>
 </project>

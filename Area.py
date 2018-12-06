@@ -11,6 +11,8 @@ class Area:
     width = 15 meters. This will form the basis of the CropField class. It takes a two-dimensional array
     as an input and converts it into a numpy array, then checks that it is a true 2D array (a list of lists,
     with all sublists being the same length)
+    >>>Area([[1,1,1],[1,1,1],[2,2,2]])
+
     """
 
     def __init__(self, array):
@@ -33,7 +35,8 @@ class Area:
         Prints the dimensions of the area. Each extra row and column adds 15 meetrs to the dimensions
         :return: string for printing
         """
-        return '{} m x {} m area'.forma
+        return '{} m x {} m area'.format(
+            self.row_len * 15, self.col_len * 15)
 
     def __repr__(self):
         """

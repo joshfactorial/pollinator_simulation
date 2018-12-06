@@ -11,10 +11,11 @@ class Butterfly:
         posn1 = self.position
         self.position = [3, 3]
         posn2 = self.position
-        self.moves.append((posn1, posn2))
+        self.moves.append(posn1)
+        self.moves.append(posn2)
         self.position = [4, 4]
         posn3 = self.position
-        self.moves.append((posn2, posn3))
+        self.moves.append(posn3)
 
 
 b = Butterfly()
