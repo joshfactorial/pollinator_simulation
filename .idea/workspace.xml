@@ -6,9 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="812526e5-33df-4d5a-97da-0afe3e5f1c60" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/../pollinator_simulation/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../pollinator_simulation/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../pollinator_simulation/Area.py" beforeDir="false" afterPath="$PROJECT_DIR$/../pollinator_simulation/Area.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../pollinator_simulation/Butterflies_scratch.py" beforeDir="false" afterPath="$PROJECT_DIR$/../pollinator_simulation/Butterflies_scratch.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../pollinator_simulation/Bee.py" beforeDir="false" afterPath="$PROJECT_DIR$/../pollinator_simulation/Bee.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../pollinator_simulation/Monarch" beforeDir="false" afterPath="$PROJECT_DIR$/../pollinator_simulation/Monarch.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../pollinator_simulation/Pollinator.py" beforeDir="false" afterPath="$PROJECT_DIR$/../pollinator_simulation/Pollinator.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../pollinator_simulation/Pollinator_Simulation.py" beforeDir="false" afterPath="$PROJECT_DIR$/../pollinator_simulation/Pollinator_Simulation.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -54,15 +55,6 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../pollinator_simulation/Tests.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="100">
-              <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../pollinator_simulation/Visualizations.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="345">
@@ -86,8 +78,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../pollinator_simulation/Pollinator.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="47">
-              <caret line="708" column="14" lean-forward="true" selection-start-line="524" selection-end-line="708" selection-end-column="14" />
+            <state relative-caret-position="340">
+              <caret line="53" column="75" selection-start-line="53" selection-start-column="75" selection-end-line="53" selection-end-column="75" />
               <folding>
                 <element signature="e#37#67#0" expanded="true" />
               </folding>
@@ -96,8 +88,36 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/../pollinator_simulation/Monarch">
-          <provider selected="true" editor-type-id="text-editor" />
+        <entry file="file://$PROJECT_DIR$/../pollinator_simulation/Bee.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="408">
+              <caret line="48" selection-start-line="48" selection-end-line="48" />
+              <folding>
+                <element signature="e#37#41#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../pollinator_simulation/Monarch.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <caret line="27" column="27" lean-forward="true" selection-start-line="27" selection-start-column="27" selection-end-line="27" selection-end-column="27" />
+              <folding>
+                <element signature="e#38#62#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../pollinator_simulation/chess.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="180">
+              <caret line="12" column="33" selection-start-line="12" selection-start-column="33" selection-end-line="12" selection-end-column="33" />
+            </state>
+          </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
@@ -202,8 +222,11 @@
         <option value="$PROJECT_DIR$/../pollinator_simulation/Visualizations.py" />
         <option value="$PROJECT_DIR$/../pollinator_simulation/Area.py" />
         <option value="$PROJECT_DIR$/../pollinator_simulation/Butterflies_scratch.py" />
-        <option value="$PROJECT_DIR$/../pollinator_simulation/Pollinator.py" />
         <option value="$PROJECT_DIR$/../pollinator_simulation/__init__.py" />
+        <option value="$PROJECT_DIR$/../pollinator_simulation/Monarch" />
+        <option value="$PROJECT_DIR$/../pollinator_simulation/Pollinator.py" />
+        <option value="$PROJECT_DIR$/../pollinator_simulation/Monarch.py" />
+        <option value="$PROJECT_DIR$/../pollinator_simulation/Bee.py" />
       </list>
     </option>
   </component>
@@ -597,7 +620,7 @@
       <workItem from="1543678103596" duration="43390000" />
       <workItem from="1543875777554" duration="840000" />
       <workItem from="1543904238203" duration="2621000" />
-      <workItem from="1543994517778" duration="22753000" />
+      <workItem from="1543994517778" duration="24686000" />
     </task>
     <task id="LOCAL-00001" summary="Making the validation run faster via the np.isin method">
       <created>1539723306275</created>
@@ -648,7 +671,14 @@
       <option name="project" value="LOCAL" />
       <updated>1544077951171</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Further refactoring of the Pollinator class">
+      <created>1544079684758</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1544079684758</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -684,7 +714,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="75585000" />
+    <option name="totallyTimeSpent" value="77518000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -697,6 +727,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="67" y="25" width="1533" height="875" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1990585" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -737,7 +768,8 @@
     <MESSAGE value="Working on time to develop heatmap" />
     <MESSAGE value="Restructured the program to have submodules called by main that will&#10;perform the tasks. Updated wiki, continuing to refine the simulation.&#10;Next step will be to add some visualizations." />
     <MESSAGE value="Renaming files to reflect more general approach" />
-    <option name="LAST_COMMIT_MESSAGE" value="Renaming files to reflect more general approach" />
+    <MESSAGE value="Further refactoring of the Pollinator class" />
+    <option name="LAST_COMMIT_MESSAGE" value="Further refactoring of the Pollinator class" />
   </component>
   <component name="debuggerHistoryManager">
     <expressions id="evaluateExpression">
@@ -837,13 +869,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../pollinator_simulation/chess.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1858">
-          <caret line="143" selection-start-line="143" selection-end-line="143" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Area.ipynb">
       <provider selected="true" editor-type-id="ipnb-editor">
         <state>
@@ -885,13 +910,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../pollinator_simulation/Functions.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="35" selection-start-column="35" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../pollinator_simulation/__main__.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -929,18 +947,56 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/../pollinator_simulation/Functions.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="35" selection-start-column="35" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/../pollinator_simulation/Pollinator.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="47">
-          <caret line="708" column="14" lean-forward="true" selection-start-line="524" selection-end-line="708" selection-end-column="14" />
+        <state relative-caret-position="340">
+          <caret line="53" column="75" selection-start-line="53" selection-start-column="75" selection-end-line="53" selection-end-column="75" />
           <folding>
             <element signature="e#37#67#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../pollinator_simulation/Monarch">
-      <provider selected="true" editor-type-id="text-editor" />
+    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/_pydev_bundle/pydev_import_hook.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="20" selection-start-line="20" selection-end-line="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../pollinator_simulation/chess.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="12" column="33" selection-start-line="12" selection-start-column="33" selection-end-line="12" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../pollinator_simulation/Monarch.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret line="27" column="27" lean-forward="true" selection-start-line="27" selection-start-column="27" selection-end-line="27" selection-end-column="27" />
+          <folding>
+            <element signature="e#38#62#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../pollinator_simulation/Bee.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="48" selection-start-line="48" selection-end-line="48" />
+          <folding>
+            <element signature="e#37#41#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
     </entry>
   </component>
 </project>
