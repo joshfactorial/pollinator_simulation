@@ -4,19 +4,7 @@
     <option name="SCOPE_TYPE" value="3" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="812526e5-33df-4d5a-97da-0afe3e5f1c60" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../pollinator_simulation/Area.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../pollinator_simulation/Functions.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../pollinator_simulation/Optimization.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../pollinator_simulation/Pollinator.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../pollinator_simulation/Tests.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../pollinator_simulation/Visualizations.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../pollinator_simulation/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../pollinator_simulation/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../pollinator_simulation/.idea/monarch_simulation.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../pollinator_simulation/.idea/pollinator_simulation.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../pollinator_simulation/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../pollinator_simulation/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../pollinator_simulation/Butterflies.py" beforeDir="false" afterPath="$PROJECT_DIR$/../pollinator_simulation/Butterflies.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../pollinator_simulation/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../pollinator_simulation/README.md" afterDir="false" />
-    </list>
+    <list default="true" id="812526e5-33df-4d5a-97da-0afe3e5f1c60" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,35 +47,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/../pollinator_simulation/README.md">
-          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-            <state split_layout="SPLIT">
-              <first_editor relative-caret-position="45">
-                <caret line="3" column="36" selection-start-line="3" selection-start-column="36" selection-end-line="3" selection-end-column="36" />
-              </first_editor>
-              <second_editor />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../pollinator_simulation/Optimization.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="44">
-              <caret line="2" column="24" selection-start-line="2" selection-start-column="24" selection-end-line="2" selection-end-column="24" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../pollinator_simulation/Tests.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="709">
-              <caret line="221" column="32" selection-start-line="221" selection-start-column="32" selection-end-line="221" selection-end-column="32" />
-              <folding>
-                <element signature="e#38#62#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="100">
+              <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
             </state>
           </provider>
         </entry>
@@ -95,10 +59,10 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../pollinator_simulation/Visualizations.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="23">
-              <caret line="1" selection-start-line="1" selection-end-line="4" selection-end-column="23" />
+            <state relative-caret-position="345">
+              <caret line="15" column="20" selection-start-line="15" selection-start-column="20" selection-end-line="15" selection-end-column="20" />
               <folding>
-                <element signature="e#0#18#0" expanded="true" />
+                <element signature="e#37#55#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -113,10 +77,10 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/../pollinator_simulation/Pollinator.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="20">
+            <state relative-caret-position="-280">
               <caret line="1" selection-start-line="1" selection-end-line="1" />
               <folding>
                 <element signature="e#38#49#0" expanded="true" />
@@ -214,6 +178,8 @@
         <option value="$PROJECT_DIR$/Butterflies.py" />
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/../pollinator_simulation/README.md" />
+        <option value="$PROJECT_DIR$/../pollinator_simulation/Tests.py" />
+        <option value="$PROJECT_DIR$/../pollinator_simulation/Visualizations.py" />
       </list>
     </option>
   </component>
@@ -604,7 +570,7 @@
       <workItem from="1543678103596" duration="43390000" />
       <workItem from="1543875777554" duration="840000" />
       <workItem from="1543904238203" duration="2621000" />
-      <workItem from="1543994517778" duration="20934000" />
+      <workItem from="1543994517778" duration="21176000" />
     </task>
     <task id="LOCAL-00001" summary="Making the validation run faster via the np.isin method">
       <created>1539723306275</created>
@@ -641,7 +607,14 @@
       <option name="project" value="LOCAL" />
       <updated>1543995019677</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Restructured the program to have submodules called by main that will&#10;perform the tasks. Updated wiki, continuing to refine the simulation.&#10;Next step will be to add some visualizations.">
+      <created>1544077809463</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1544077809463</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -677,7 +650,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="73766000" />
+    <option name="totallyTimeSpent" value="74008000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -690,13 +663,12 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="67" y="25" width="1533" height="875" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1990585" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49966374" visible="true" weight="0.32841823" />
+      <window_info active="true" anchor="bottom" id="Find" order="1" sideWeight="0.49966374" visible="true" weight="0.32841823" />
       <window_info anchor="bottom" id="Run" order="2" sideWeight="0.5003362" side_tool="true" weight="0.32841823" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.7195696" weight="0.57372653" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
@@ -705,7 +677,7 @@
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" weight="0.3119015" />
       <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
-      <window_info active="true" anchor="bottom" id="Event Log" order="10" sideWeight="0.5003362" side_tool="true" visible="true" weight="0.32841823" />
+      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5003362" side_tool="true" weight="0.32841823" />
       <window_info anchor="bottom" id="Terminal" order="11" sideWeight="0.49966374" weight="0.32841823" />
       <window_info anchor="bottom" id="Inspection Results" order="12" weight="0.32968536" />
       <window_info anchor="bottom" id="Python Console" order="13" sideWeight="0.6381977" weight="0.29758713" />
@@ -729,7 +701,8 @@
     <MESSAGE value="Adding a moves recorder so I can create a heat map." />
     <MESSAGE value="Working out a function to record moves of the butterfly so that I can&#10;create a heatmap" />
     <MESSAGE value="Working on time to develop heatmap" />
-    <option name="LAST_COMMIT_MESSAGE" value="Working on time to develop heatmap" />
+    <MESSAGE value="Restructured the program to have submodules called by main that will&#10;perform the tasks. Updated wiki, continuing to refine the simulation.&#10;Next step will be to add some visualizations." />
+    <option name="LAST_COMMIT_MESSAGE" value="Restructured the program to have submodules called by main that will&#10;perform the tasks. Updated wiki, continuing to refine the simulation.&#10;Next step will be to add some visualizations." />
   </component>
   <component name="debuggerHistoryManager">
     <expressions id="evaluateExpression">
@@ -860,47 +833,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../pollinator_simulation/Functions.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="35" selection-start-column="35" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../pollinator_simulation/Visualizations.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="23">
-          <caret line="1" selection-start-line="1" selection-end-line="4" selection-end-column="23" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../pollinator_simulation/Pollinator.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="20">
-          <caret line="1" selection-start-line="1" selection-end-line="1" />
-          <folding>
-            <element signature="e#38#49#0" expanded="true" />
-          </folding>
+    <entry file="file://$PROJECT_DIR$/../pollinator_simulation/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="45">
+            <caret line="3" column="36" selection-start-line="3" selection-start-column="36" selection-end-line="3" selection-end-column="36" />
+          </first_editor>
+          <second_editor />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../pollinator_simulation/Optimization.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="44">
+        <state relative-caret-position="-220">
           <caret line="2" column="24" selection-start-line="2" selection-start-column="24" selection-end-line="2" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../pollinator_simulation/Tests.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="709">
-          <caret line="221" column="32" selection-start-line="221" selection-start-column="32" selection-end-line="221" selection-end-column="32" />
-          <folding>
-            <element signature="e#38#62#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -914,13 +860,37 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../pollinator_simulation/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="45">
-            <caret line="3" column="36" selection-start-line="3" selection-start-column="36" selection-end-line="3" selection-end-column="36" />
-          </first_editor>
-          <second_editor />
+    <entry file="file://$PROJECT_DIR$/../pollinator_simulation/Tests.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="100">
+          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../pollinator_simulation/Visualizations.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="15" column="20" selection-start-line="15" selection-start-column="20" selection-end-line="15" selection-end-column="20" />
+          <folding>
+            <element signature="e#37#55#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../pollinator_simulation/Functions.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="35" selection-start-column="35" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../pollinator_simulation/Pollinator.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-280">
+          <caret line="1" selection-start-line="1" selection-end-line="1" />
+          <folding>
+            <element signature="e#38#49#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
