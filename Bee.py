@@ -1,6 +1,6 @@
 #!/home/joshua/anaconda3/bin/python
 
-import Pollinator
+from Pollinator import *
 import numpy as np
 
 
@@ -19,7 +19,7 @@ class Bee(Pollinator):
     on just the workers and for the general bee I'll assume it can exit, but at a very low chance.
     """
 
-    __food_unit = .0225
+    food_unit = .225
     __death_factor = 0.01
     __can_exit = True
     __exit_chance = 0.1
@@ -27,26 +27,26 @@ class Bee(Pollinator):
 
     def __init__(self, area: CropField):
         Pollinator.__init__(self, area)
-        self.sheltered = False
+        self.sheltered = True
         # This gives the position of the nest. I'll assume the nest must be close to either food or shelter
         # One problem most bees have is destruction of their habitat means they won't make nests, so this seems
         # like a logical choice to me
         if area.shelter_indices:
             index = np.random.randint(len(area.shelter_indices))
-            self.nest_position = area.shelter_indices[index]
+            nest_position = area.shelter_indices[index]
 
         elif area.food_indices:
             index = np.random.randint(len(area.food_indices))
-            self.nest_position = area.food_indices[index]
+            nest_position = area.food_indices[index]
 
         # if there's no suitable nest building site, call an error
         else:
             raise ValueError("There is no suitable nesting site for bees. Ensure field has some food or shelter")
 
         # Initialize the bee's position to its nest.
-        self.position = self.nest_position
-        self.moves = []
-        self.moves.append(self.position)
+        self.position = nest_position
+        self.moves = [nest_position]
+        self.nest_position = nest_position
 
     def morning_activity(self):
         '''
