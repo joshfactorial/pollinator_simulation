@@ -9,7 +9,7 @@ def main():
     # testfield = CropField.random_field(3400, 100, 90, 5, 5)
     # print(testfield.row_len * 15, testfield.col_len * 15)
     # print('starting test')
-    # b1 = Monarch(testfield)
+    # b1 = Monarch.py(testfield)
     # print (b1)
     # bee1 = Bee(testfield)
     # print(bee1)
@@ -20,7 +20,7 @@ def main():
     testfield = CropField(np.array([[1, 1, 1, 1], [1, 1, 1, 1], [1, 1, 1, 1], [1, 1, 1, 1], [2, 2, 2, 2]]))
     basic_test(testfield, 10)
     # for i in range(10):
-    #     b1 = Monarch(testfield)
+    #     b1 = Monarch.py(testfield)
     #     print(b1)
     # print(b1.moves)
     # b1.record_moves(2, 2)
