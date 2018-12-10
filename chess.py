@@ -6,7 +6,7 @@ In-class example development of OO class to represent Chess games.
 class ChessPiece:
 
     # This is a PROTECTED class variable, because we don't want
-    # any code outside the class (or its subclasses to be able to
+    # any code outside the class (or its pollinator_types to be able to
     # directly see or modify it:
     __all_pieces = []
 

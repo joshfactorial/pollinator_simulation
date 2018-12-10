@@ -1,9 +1,7 @@
-#!/home/joshua/anaconda3/bin/python
-
-def distance(x: list, y: tuple) -> int:
+def manhattan_distance(x: list, y: tuple) -> int:
     '''
     This is simply the Manhattan distance, which makes the most sense since our areas are just basically squares and
-    pollinators can only move in an ordinal diretion. For this application, these should  be integers, in order
+    pollinator_types can only move in an ordinal diretion. For this application, these should  be integers, in order
     to give a proper integer answer, though in true manhattan distance this doesn't have to be the case, necessarily.
     As such, I will assert that they are integers just to be complete
     :param x: the current position in the form of a list
@@ -12,7 +10,7 @@ def distance(x: list, y: tuple) -> int:
     too, since the only thing returned is an integer.
     :return: an integer giving the manhattan distance. Since these are square areas basically it's the number of
     'moves' it takes to get from point x to point y.
-    >>> distance([5, 0], (-1, 3))
+    >>> manhattan_distance([5, 0], (-1, 3))
     9
     '''
     # assert type(x[0]) is int and type(x[1]) is int and type(y[0]) is int and type(y[1]) is int

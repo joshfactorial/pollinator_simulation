@@ -1,50 +1,8 @@
-#!/home/joshua/anaconda3/bin/python
-
-import numpy as np
-import sys
+from Earth.Crust.Land import *
 import math
-
-
-class Area:
-    """
-    A generic area, consisting of a length and width, 1 unit of length = 1 unit of
-    width = 15 meters. This will form the basis of the CropField class. It takes a two-dimensional array
-    as an input and converts it into a numpy array, then checks that it is a true 2D array (a list of lists,
-    with all sublists being the same length)
-    >>>Area([[1,1,1],[1,1,1],[2,2,2]])
-
-    """
-
-    def __init__(self, array):
-        # convert input array to numpy array
-        self.array = np.array(array)
-        self.shape = self.array.shape
-        self.row_len = self.shape[0]
-        # checks that it is a 2D array and not a simple list
-        assert type(self.array[0]) is not int, "Area must be a 2-dimensional list, e.g., [[1,1],[1,1]]."
-        # this checks that every sublist is the same length. Numpy's shape returns a tuple with the second element
-        # empty if the sublists have different lengths. So this simply gives a more meaningful error
-        try:
-            self.col_len = self.shape[1]
-        except (ValueError, IndexError):
-            print("Subarrays must be the same length")
-            sys.exit(1)
-
-    def __str__(self) -> str:
-        """
-        Prints the dimensions of the area. Each extra row and column adds 15 meetrs to the dimensions
-        :return: string for printing
-        """
-        return '{} m x {} m area'.format(
-            self.row_len * 15, self.col_len * 15)
-
-    def __repr__(self):
-        """
-        Basically the same as above, but adds the "Area" class designation
-        :return: string for printing
-        """
-        return "Area('{} m x {} m')".format(
-            self.row_len * 15, self.col_len * 15)
+import matplotlib.pyplot as plt
+from scipy.stats import kde
+import pandas as pd
 
 
 class CropField(Area):
@@ -72,6 +30,10 @@ class CropField(Area):
             self.shelter_indices = list(zip(np.where(ix_shelter)[0], np.where(ix_shelter)[1]))
 
     def __to_string(self):
+        """
+        A simple text representation of the crop field
+        :return: string version of the field, binned to 10
+        """
         string_version = ''
         for row in range(self.row_len):
             for column in range(self.col_len):
@@ -87,6 +49,7 @@ class CropField(Area):
                     print("values must be either 1 (crop), 2 (food), 3 (shelter), or 4 (mixed food/shelter)")
             if row != self.row_len:
                 string_version += '\n'
+
         return string_version
 
     def __str__(self) -> str:
@@ -94,6 +57,37 @@ class CropField(Area):
 
     def __repr__(self) -> str:
         return self.__to_string()
+
+    def graphical_view(self):
+        data = pd.DataFrame(self.array)
+
+
+        # Create a firue with 4 plot areas
+        fig, axes = plt.subplots(ncols=4, nrows=1, figsize=(21,5))
+
+        axes[0].set.title('Scatterplot')
+        axes[0].plot(x, y, 'ko')
+
+        nbins = 10
+        axes[1].set.title('Hexbin')
+        axes[1].hexbin(x, y, gridsize=nbins, cmap=plt.cm.BuGn_r)
+
+        axes[2].set_title('2D Histogram')
+        axes[2].hist2d(x, y, bins=nbins, cmap=plt.cm.Bugn_r)
+
+        k = kde.gaussian_kde(data)
+        xi, yi = np.mgrid[x.min():x.max():nbins*1j, y.min():y.max():nbins*1j]
+        zi = k(np.vstack([xi.flatten(), yi.flatten()]))
+
+        axes[3].set_title('Calculate Gaussian KDE')
+        axes[3].pcolormesh(xi, yi, zi.reshape(xi.shape), cmap=plt.cm.BuGn_r)
+
+        axes[4].set_title('2D Density with shading')
+        axes[4].pcolormesh(xi, yi, zi.reshape(xi.shape), shaping='gouraud', cmap=plt.cm.BuGn_r)
+
+        axes[5].set_title('Contour')
+        axes[5].pcolormesh(xi, yi, zi.reshape(xi.shape), shading='gourand', cmap=plt.cm.BuGn_r)
+        axes[5].contour(xi, yi, zi.reshape(xi.shape))
 
     def get_crop_amt(self):
         return (self.array == 1).sum()
