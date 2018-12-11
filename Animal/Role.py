@@ -339,7 +339,7 @@ class Pollinator:
             else:
                 raise ValueError("Direction not recognized")
 
-    def seek_resource(self, resource: str) -> int:
+    def seek_resource(self, resource: str, incremental: bool=False) -> int:
         """
         The pollinator seeks the designated resource
         :param resource: A resource to seek must be declared
@@ -364,7 +364,10 @@ class Pollinator:
         if self.status == 'dead':
             return
 
-        times = np.random.randint(1, 11)
+        if incremental:
+            times = 1
+        else:
+            times = np.random.randint(1, 11)
         if resource == 'shelter':
             if not self.shelter_indices:
                 # There's no shelter, so it just wanders :(
