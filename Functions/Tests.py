@@ -1,8 +1,7 @@
 #!/home/joshua/anaconda3/bin/python
 
 from Earth.Crust.Developed.farm import *
-from Animal.Role import *
-from Animal.Arthropod.Insect.Lepidoptera.Danaus.plexippus import *
+from Animal.Arthropod.Insect.Lepidoptera.Nymphalidae.Danaus.plexippus import *
 import time
 import pandas as pd
 import copy

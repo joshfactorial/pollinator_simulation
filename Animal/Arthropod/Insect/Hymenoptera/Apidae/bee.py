@@ -21,13 +21,14 @@ class Bee(Pollinator):
     """
 
     food_unit = .225
-    __death_factor = 0.01
-    __can_exit = True
-    __exit_chance = 0.1
-    __shelter_chance = 0.5
+    death_factor = 0.01
+    can_exit = True
+    exit_chance = 0.1
+    shelter_chance = 0.5
 
-    def __init__(self, area: CropField):
-        Pollinator.__init__(self, area)
+    def __init__(self, area: Area = Area([[1, 1, 1, 1], [1, 1, 1, 1], [1, 1, 1, 1], [4, 4, 4, 4]]),
+                 days: int = 0, hours: int = 4, seconds: int = 0, position: tuple = (0, 0)):
+        Pollinator.__init__(self, area, days, hours, seconds, position)
         self.sheltered = True
         # This gives the position of the nest. I'll assume the nest must be close to either food or shelter
         # One problem most bees have is destruction of their habitat means they won't make nests, so this seems
