@@ -2,7 +2,7 @@
 
 from Animal.Role import Pollinator
 import numpy as np
-from Earth.Crust.Land import *
+from Land_Use.Land import *
 
 
 class Monarch(Pollinator):
@@ -88,7 +88,7 @@ class Monarch(Pollinator):
         if self.sheltered:
             # number of times it will move randomly
             times = np.random.randint(10)
-            # Just a check to make sure it is actually in a tree Earth and marked as sheltered...
+            # Just a check to make sure it is actually in a tree Land_Use and marked as sheltered...
             if self.area.array[self.position[0]][self.position[1]] not in [3, 4]:
                 self.sheltered = False
                 self.random_move(times)
@@ -136,7 +136,7 @@ class Monarch(Pollinator):
         if self.sheltered:
             # number of times it moves randomly
             times = np.random.randint(10)
-            # Just a check to make sure it is actually in a tree Earth and marked as sheltered...
+            # Just a check to make sure it is actually in a tree Land_Use and marked as sheltered...
             if self.area.array[self.position[0]][self.position[1]] not in [3, 4]:
                 self.sheltered = False
                 self.random_move(times)

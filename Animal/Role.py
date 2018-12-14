@@ -1,13 +1,13 @@
 #!/home/joshua/anaconda3/bin/python
 
-from Earth.Crust.Land import Area
+from Land_Use.Land import Area
 from Functions.Operations import manhattan_distance
 import numpy as np
 
 
 class Pollinator:
     """
-    Generic Pollinator class which the others will be based on. All animals are tied to an Earth, so there must be an
+    Generic Pollinator class which the others will be based on. All animals are tied to an Land_Use, so there must be an
 
     >>> b1 = Pollinator()
     >>> b1.food_level = 50
@@ -547,7 +547,7 @@ class Pollinator:
                                         p=[self.shelter_chance, 1 - self.shelter_chance]):
                         self.sheltered = True
 
-                # slightly less chance of taking shelter in a mixed food/shelter Earth
+                # slightly less chance of taking shelter in a mixed food/shelter Land_Use
                 elif self.area.array[self.position[0]][self.position[1]] == 4 and self.sheltered is False:
                     if np.random.choice([True, False], p=[.9 * self.shelter_chance,
                                                           1 - (.9 * self.shelter_chance)]):
@@ -560,7 +560,7 @@ class Pollinator:
                 if np.random.choice([True, False], p=[0.99, 0.01]):
                     self.food_level += 25
 
-            # Less chance of eating in a mixed food/shelter Earth due to less food availability
+            # Less chance of eating in a mixed food/shelter Land_Use due to less food availability
             if self.area.array[self.position[0]][self.position[1]] == 4:
                 if np.random.choice([True, False], p=[0.80, 0.2]):
                     self.food_level += 25

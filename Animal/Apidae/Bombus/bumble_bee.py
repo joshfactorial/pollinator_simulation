@@ -1,5 +1,4 @@
-from Animal.Arthropod.Insect.Hymenoptera.Apidae.bee import *
-import numpy as np
+from Animal.Apidae.bee import *
 
 
 class BumbleBee(Bee):

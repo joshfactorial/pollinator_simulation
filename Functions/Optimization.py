@@ -2,7 +2,7 @@
 #!/home/joshua/anaconda3/bin/python
 
 from Animal.Role import *
-from Earth.Crust.Developed.farm import *
+from Land_Use.Developed.farm import *
 
 
 def iterate_field(group: list, type: str = None) -> CropField:

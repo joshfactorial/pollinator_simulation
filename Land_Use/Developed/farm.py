@@ -1,4 +1,4 @@
-from Earth.Crust.Land import *
+from Land_Use.Land import *
 import math
 import matplotlib.pyplot as plt
 from scipy.stats import kde

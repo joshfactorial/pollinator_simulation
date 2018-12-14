@@ -1,9 +1,6 @@
 #!/home/joshua/anaconda3/bin/python
 
-import numpy as np
-from Earth.Crust.Land import *
-from Functions.Operations import *
-from Animal.Role import *
+from Land_Use.Developed.farm import *
 
 
 def graphic_display(field: Area, array: np.array) -> None:

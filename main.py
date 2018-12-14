@@ -1,8 +1,8 @@
 #!/home/joshua/anaconda3/bin/python
 
 from Animal.Role import Pollinator
-from Earth.Crust.Land import *
-from Earth.Crust.Developed.farm import *
+from Land_Use.Land import *
+from Land_Use.Developed.farm import *
 
 
 
