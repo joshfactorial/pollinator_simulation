@@ -116,10 +116,12 @@ def create_middle_shelter_windbreak_test(iterations: int) -> CropField:
     return CropField(construction)
 
 
-def create_test_food_test(iterations: int) -> CropField:
+def create_fallow_test(iterations: int) -> CropField:
     # fields are assumed to have a scale 1 cell has dimension 15 meters x 15 meters
     # create the top and bottom row_len of the field
     base_field_base_rows = [4] * 100
+    base_field_base_rows[0] = 3
+    base_field_base_rows[99] = 3
     # Build up a single standard field
     standard_field = [base_field_base_rows]
     for j in range(0, 98):
