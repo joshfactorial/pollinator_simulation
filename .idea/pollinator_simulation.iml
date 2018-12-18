@@ -5,7 +5,7 @@
       <excludeFolder url="file://$MODULE_DIR$/../monarch_simulation/otr" />
       <excludeFolder url="file://$MODULE_DIR$/../monarch_simulation/venv" />
     </content>
-    <orderEntry type="jdk" jdkName="Python 3.6 (Python Projects)" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="Python 3.7 (monarch_simulation)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
 </module>
