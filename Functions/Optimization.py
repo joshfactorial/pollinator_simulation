@@ -9,7 +9,7 @@ import pandas as pd
 from Functions.Tests import *
 
 
-def iterate_field(group: list=None, number_fields: int=2) -> CropField:
+def iterate_field(group: list = None, number_fields: int = 2) -> CropField:
     """
     Iterate groups of fields to find optimal arrangements. Group is a list of
     CropField objects, or we'll create some from the standard tests.
@@ -46,7 +46,7 @@ def iterate_field(group: list=None, number_fields: int=2) -> CropField:
     return total
 
 
-def optimize_field_group(field_group: list, dead_goal: int = 100, exit_goal: int = 0,
+def optimize_field_group(field_group: list, dead_goal: int = 25, exit_goal: int = 50,
                    num_iters: int = 25, total_iters: int = math.inf) -> CropField:
     '''
     The goal of this function is to find an optimal arrangement of fields. It will start with a single field and repeat
@@ -60,7 +60,24 @@ def optimize_field_group(field_group: list, dead_goal: int = 100, exit_goal: int
     :param total_iters:
     :return:
     '''
-    arrangement = iterate_field(field_group)
+    master_list = []
+    result_list = []
+    exit = 0
+    dead = 100
+    iters = 0
+    while exit <= exit_goal or dead >= dead_goal or iters <= num_iters:
+        arrangement = iterate_field(field_group)
+        master_field = arrangement[0]
+        for i in range(1, len(arrangement)+1):
+            master_field.concatenate(arrangement[i].array)
+        # Simulate to see how well the field does
+        for i in range(100):
+            b1 = Monarch(master_field)
+            while b1.status == 'alive':
+                b1.move_one_day()
+            result_list.append(b1.status)
+        dead = result_list.count("dead")
+        exit = result_list.count("exit")
+        master_list.append((iters, master_field, dead, exit))
+        iters += 1
 
-    # Simulate to see how well the field does
-pass

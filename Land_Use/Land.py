@@ -66,3 +66,7 @@ class Area:
         return "Area('{} m x {} m')".format(
             self.row_len * 15, self.col_len * 15)
 
+    def concatenate(self, area2):
+        new_array = np.concatenate((self.array, area2.array))
+        return Area(new_array)
+
