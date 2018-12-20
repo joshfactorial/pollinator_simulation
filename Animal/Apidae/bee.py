@@ -1,5 +1,3 @@
-#!/home/joshua/anaconda3/bin/python
-
 from Animal.Role import *
 from Land_Use.Developed.farm import *
 import numpy as np

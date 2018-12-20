@@ -30,16 +30,16 @@ class Monarch(Pollinator):
     6
     """
     food_unit = 0.0225
-    death_factor = 0.01
+    death_factor = 0.0000009
     can_exit_north = True
     exit_chance = 0.9
     shelter_chance = 0.01
 
     def __init__(self, area: Area = Area([[1, 1, 1, 1], [1, 1, 1, 1], [1, 1, 1, 1], [4, 4, 4, 4]]),
-                 days: int = 0, hours: int = 4, seconds: int = 0, position: list=[0, 0]):
+                 days: int = 0, hours: int = 4, seconds: int = 0, position: list = [0, 0]):
         Pollinator.__init__(self, area, days, hours, seconds)
         # This gives the starting position, unless starting position was already declared
-        if self.position == [0, 0]:
+        if position == [0, 0]:
             __variable = np.random.choice([0, 1, 2, 3], p=[0.625, 0.125, 0.125, 0.125])
             if __variable == 0:
                 temp_position = [self.area_length - 1, np.random.randint(self.area_width)]
@@ -226,8 +226,23 @@ class Monarch(Pollinator):
             self.decrement_food(self.food_unit)
             self.turns += times
         else:
-            # otherwise it's going to look for food to fill its belly before sleep
-            self.seek_resource('food')
+            # otherwise it's going to look for food to fill its belly before sleep, unless it's full
+            if self.food_level <= 75 and self.food_indices:
+                self.seek_resource('food')
+            else:
+                moves_possible = int(self.food_level // self.food_unit)
+                move_die = np.random.choice(int(moves_possible // 2))
+
+                for i in range(move_die):
+                    direction_die = np.random.choice(['north', 'south', 'east', 'west'],
+                                                     p=[0.925, 0.025, 0.025, 0.025])
+                    random_chance = np.random.choice([0, 1], p=[.995, 0.005])
+                    if random_chance:
+                        self.random_move()
+                    else:
+                        self.simple_move(direction_die)
+
+                    self.turns += 1
         return
 
     def night_time_activity(self):
@@ -267,7 +282,12 @@ class Monarch(Pollinator):
 
         else:
             # otherwise it's going to look for shelter
-            self.seek_resource('shelter')
+            if self.shelter_indices:
+                self.seek_resource('shelter')
+            else:
+                for i in range(times):
+                    self.simple_move("North")
+                    self.turns += 1
         return
 
     def mating(self):

@@ -1,5 +1,3 @@
-#!/home/joshua/anaconda3/bin/python
-
 import numpy as np
 import sys
 
@@ -67,6 +65,6 @@ class Area:
             self.row_len * 15, self.col_len * 15)
 
     def concatenate(self, area2):
-        new_array = np.concatenate((self.array, area2.array))
+        new_array = np.concatenate((self.array, area2))
         return Area(new_array)
 

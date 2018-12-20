@@ -1,5 +1,3 @@
-#!/home/joshua/anaconda3/bin/python
-
 from Land_Use.Land import Area
 from Functions.Operations import manhattan_distance
 import numpy as np
@@ -77,7 +75,7 @@ class Pollinator:
         :return: None | self
         """
         roll_die = np.random.random_sample()
-        if self.food_level > 90 and roll_die < self.death_factor / 1000:
+        if self.food_level > 90 and roll_die < self.death_factor / 10000:
             self.kill_it()
             return
         elif 50.0 < self.food_level <= 90 and roll_die < self.death_factor / 100:
@@ -86,10 +84,10 @@ class Pollinator:
         elif 25.0 < self.food_level <= 50.0 and roll_die <= self.death_factor:
             self.kill_it()
             return
-        elif 0.01 <= self.food_level <= 25.0 and roll_die < self.death_factor * 50:
+        elif 0.01 <= self.food_level <= 25.0 and roll_die < self.death_factor * 100:
             self.kill_it()
             return
-        elif self.food_level < 0.01 and roll_die < self.death_factor * 99:
+        elif self.food_level < 0.01 and roll_die < self.death_factor * 1000:
             self.status == 'dead'
             return
         else:
@@ -423,13 +421,45 @@ class Pollinator:
             self.record_moves(x, y)
             self.position = (x, y)
             self.decrement_food(self.turns * self.food_unit)
-            return
 
         # Moves randomly instead of seeking resource. Better luck next time.
         else:
             self.random_move(times)
             self.food_level -= self.food_unit * times
             self.turns += times
+
+        # now that it has moved, if it's near shelter and not already in shelter
+        # there's a chance it may take shelter, assuming it's not too hungry
+        if self.food_level >= 25.0:
+            if self.area.array[self.position[0]][self.position[1]] == 3 and self.sheltered is False:
+                if np.random.choice([True, False],
+                                    p=[self.shelter_chance, 1 - self.shelter_chance]):
+                    self.sheltered = True
+                return
+
+            # slightly less chance of taking shelter in a mixed food/shelter Land_Use
+            elif self.area.array[self.position[0]][self.position[1]] == 4 and self.sheltered is False:
+                if np.random.choice([True, False], p=[.9 * self.shelter_chance,
+                                                      1 - (.9 * self.shelter_chance)]):
+                    self.sheltered = True
+                return
+
+        # if it's near food, it will most likely try to eat
+        # There's no class-level variable for this since all pollinator_types have to eat
+        # and actively seek food sources in flowers.
+        if self.area.array[self.position[0]][self.position[1]] == 2:
+            if np.random.choice([True, False], p=[0.99, 0.01]):
+                self.food_level += 25.0
+                if self.food_level > 100.0:
+                    self.food_level = 100.0
+            return
+
+        # Less chance of eating in a mixed food/shelter Land_Use due to less food availability
+        if self.area.array[self.position[0]][self.position[1]] == 4:
+            if np.random.choice([True, False], p=[0.80, 0.2]):
+                self.food_level += 25
+                if self.food_level > 100.0:
+                    self.food_level = 100.0
             return
 
     def increment_time(self):
@@ -504,30 +534,40 @@ class Pollinator:
             # Early morning activity
             if 4 <= self.hours < 6:
                 self.morning_activity()
+                if self.seconds == 0:
+                    print(self.hours)
                 # make sure it's not a zombie butterfly
                 if self.status == 'dead':
                     break
 
             elif 6 <= self.hours < 12:
                 self.late_morning_activity()
+                if self.seconds == 0:
+                    print(self.hours)
                 # make sure it's not a zombie butterfly
                 if self.status == 'dead':
                     break
 
-            elif 12 <= self.hours < 19:
+            elif 12 <= self.hours < 18:
                 self.afternoon_activity()
+                if self.seconds == 0:
+                    print(self.hours)
                 # make sure it's not a zombie butterfly
                 if self.status == 'dead':
                     break
 
-            elif 19 <= self.hours < 21:
+            elif 18 <= self.hours < 20:
                 self.late_afternoon_activity()
+                if self.seconds == 0:
+                    print(self.hours)
                 # make sure it's not a zombie butterfly
                 if self.status == 'dead':
                     break
 
-            elif 21 <= self.hours < 24 or 0 <= self.hours < 4:
+            elif 20 <= self.hours < 24 or 0 <= self.hours < 4:
                 self.night_time_activity()
+                if self.seconds == 0:
+                    print(self.hours)
                 # make sure it's not a zombie butterfly
                 if self.status == 'dead':
                     break
@@ -538,32 +578,6 @@ class Pollinator:
             # make sure it's not a zombie butterfly
             if self.status == 'dead':
                 break
-
-            # now that it has moved, if it's near shelter and not already in shelter
-            # there's a chance it may take shelter, assuming it's not too hungry
-            if self.food_level >= 25.0:
-                if self.area.array[self.position[0]][self.position[1]] == 3 and self.sheltered is False:
-                    if np.random.choice([True, False],
-                                        p=[self.shelter_chance, 1 - self.shelter_chance]):
-                        self.sheltered = True
-
-                # slightly less chance of taking shelter in a mixed food/shelter Land_Use
-                elif self.area.array[self.position[0]][self.position[1]] == 4 and self.sheltered is False:
-                    if np.random.choice([True, False], p=[.9 * self.shelter_chance,
-                                                          1 - (.9 * self.shelter_chance)]):
-                        self.sheltered = True
-
-            # if it's near food, it will most likely try to eat
-            # There's no class-level variable for this since all pollinator_types have to eat
-            # and actively seek food sources in flowers.
-            if self.area.array[self.position[0]][self.position[1]] == 2:
-                if np.random.choice([True, False], p=[0.99, 0.01]):
-                    self.food_level += 25
-
-            # Less chance of eating in a mixed food/shelter Land_Use due to less food availability
-            if self.area.array[self.position[0]][self.position[1]] == 4:
-                if np.random.choice([True, False], p=[0.80, 0.2]):
-                    self.food_level += 25
 
             # Increment time
             self.seconds += 25 * self.turns

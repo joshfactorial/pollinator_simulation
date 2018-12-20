@@ -53,41 +53,42 @@ class CropField(Area):
         return string_version
 
     def __str__(self) -> str:
-        return self.__to_string()
+        return '{} m x {} m'.format(self.row_len * 15, self.col_len * 15)
 
     def __repr__(self) -> str:
-        return self.__to_string()
+        return '{} m x {} m'.format(
+            self.row_len * 15, self.col_len * 15)
 
-    def graphical_view(self):
-        data = pd.DataFrame(self.array)
-
-
-        # Create a firue with 4 plot areas
-        fig, axes = plt.subplots(ncols=4, nrows=1, figsize=(21,5))
-
-        axes[0].set.title('Scatterplot')
-        axes[0].plot(x, y, 'ko')
-
-        nbins = 10
-        axes[1].set.title('Hexbin')
-        axes[1].hexbin(x, y, gridsize=nbins, cmap=plt.cm.BuGn_r)
-
-        axes[2].set_title('2D Histogram')
-        axes[2].hist2d(x, y, bins=nbins, cmap=plt.cm.Bugn_r)
-
-        k = kde.gaussian_kde(data)
-        xi, yi = np.mgrid[x.min():x.max():nbins*1j, y.min():y.max():nbins*1j]
-        zi = k(np.vstack([xi.flatten(), yi.flatten()]))
-
-        axes[3].set_title('Calculate Gaussian KDE')
-        axes[3].pcolormesh(xi, yi, zi.reshape(xi.shape), cmap=plt.cm.BuGn_r)
-
-        axes[4].set_title('2D Density with shading')
-        axes[4].pcolormesh(xi, yi, zi.reshape(xi.shape), shaping='gouraud', cmap=plt.cm.BuGn_r)
-
-        axes[5].set_title('Contour')
-        axes[5].pcolormesh(xi, yi, zi.reshape(xi.shape), shading='gourand', cmap=plt.cm.BuGn_r)
-        axes[5].contour(xi, yi, zi.reshape(xi.shape))
+    # def graphical_view(self):
+    #     data = pd.DataFrame(self.array)
+    #
+    #
+    #     # Create a firue with 4 plot areas
+    #     fig, axes = plt.subplots(ncols=4, nrows=1, figsize=(21,5))
+    #
+    #     axes[0].set.title('Scatterplot')
+    #     axes[0].plot(x, y, 'ko')
+    #
+    #     nbins = 10
+    #     axes[1].set.title('Hexbin')
+    #     axes[1].hexbin(x, y, gridsize=nbins, cmap=plt.cm.BuGn_r)
+    #
+    #     axes[2].set_title('2D Histogram')
+    #     axes[2].hist2d(x, y, bins=nbins, cmap=plt.cm.Bugn_r)
+    #
+    #     k = kde.gaussian_kde(data)
+    #     xi, yi = np.mgrid[x.min():x.max():nbins*1j, y.min():y.max():nbins*1j]
+    #     zi = k(np.vstack([xi.flatten(), yi.flatten()]))
+    #
+    #     axes[3].set_title('Calculate Gaussian KDE')
+    #     axes[3].pcolormesh(xi, yi, zi.reshape(xi.shape), cmap=plt.cm.BuGn_r)
+    #
+    #     axes[4].set_title('2D Density with shading')
+    #     axes[4].pcolormesh(xi, yi, zi.reshape(xi.shape), shaping='gouraud', cmap=plt.cm.BuGn_r)
+    #
+    #     axes[5].set_title('Contour')
+    #     axes[5].pcolormesh(xi, yi, zi.reshape(xi.shape), shading='gourand', cmap=plt.cm.BuGn_r)
+    #     axes[5].contour(xi, yi, zi.reshape(xi.shape))
 
     def get_crop_amt(self):
         return (self.array == 1).sum()
@@ -167,3 +168,239 @@ class CropField(Area):
                     random_f[temp_length][temp_width] = 2
                     number_food_cells -= 1
         return cls(random_f)
+
+# The following are a collection of pre-defined fields that made sense to test. More can be added by constructing the
+# field in a similar manner. One could also think of 'crop' land as generic "developed area' and use the same basic
+# template to construct urban models
+class StandardTest(CropField):
+    """
+    Standard test field. This is multiple iterations of 1 acre fields arranged with buffors along the borders, basically
+    wind breaks with some food along the border.
+    """
+
+    def __init__(self, iterations):
+        # Create the base array:
+        # create the top row of the field
+        base_field_base_rows = [2] * 100
+        base_field_base_rows[0] = 3
+        base_field_base_rows[99] = 3
+        # create the bottom row_len of the field
+        base_field_bottom_rows = [3] * 100
+        # create the standard middle row
+        base_field_middle_rows = [1] * 100
+        base_field_middle_rows[0] = 3
+        base_field_middle_rows[99] = 3
+        # Build up a single standard acre field
+        standard_field = [base_field_base_rows]
+        for j in range(98):
+            standard_field.append(base_field_middle_rows)
+        standard_field.append(base_field_bottom_rows)
+        # create the standard test site\
+        construction = []
+        for j in range(0, iterations + 1):
+            construction += standard_field
+        CropField.__init__(self, construction)
+
+    def __str__(self) -> str:
+        return 'Standard Field Test'
+
+    def __repr__(self) -> str:
+        return 'Standard Field Test'
+
+
+class HeavyFoodTest(CropField):
+    """
+    food heavy test field
+    This field has a southern windbreak along the edges with food-type wild plants along the east and west sides and
+    breaking up each section along the middle. The idea being give the butterfly an avenue of food on the edges to work
+    its way north
+    """
+    def __init__(self, iterations):
+        # create the top and bottom row_len of the field
+        base_field_base_rows = [2] * 100
+        # create the standard middle row
+        base_field_middle_rows = [1] * 100
+        base_field_middle_rows[0] = 2
+        base_field_middle_rows[99] = 2
+        base_bottom_row = [3] * 100
+        # Build up a single standard field
+        standard_field = [base_field_base_rows]
+        for j in range(0, 98):
+            standard_field.append(base_field_middle_rows)
+        standard_field.append(base_bottom_row)
+        # create the standard test site
+        construction = []
+        for j in range(0, iterations + 1):
+            construction += standard_field
+        CropField.__init__(self, construction)
+
+    def __str__(self) -> str:
+        return 'Food Heavy Test'
+
+    def __repr__(self) -> str:
+        return 'Food Heavy Test'
+
+
+class ShelterHeavyTest(CropField):
+    """
+    Shelter heavy test field
+    This field features a break in the middle running east-west that provides shelter and food along the edges. The idea
+    being that they might need a break when they get halfway.
+    """
+    def __init__(self, iterations):
+        # create the top and bottom row_len of the field
+        base_field_base_rows = [3] * 100
+        base_field_base_rows[0] = 3
+        base_field_base_rows[99] = 3
+        # create the standard middle row
+        base_field_middle_rows = [1] * 100
+        base_field_middle_rows[0] = 2
+        base_field_middle_rows[99] = 2
+        # Build up a single standard field
+        standard_field = [base_field_base_rows]
+        for j in range(0, 98):
+            standard_field.append(base_field_middle_rows)
+        standard_field.append(base_field_base_rows)
+        # create the standard test site
+        construction = []
+        for j in range(0, iterations + 1):
+            construction += standard_field
+        CropField.__init__(self, construction)
+
+    def __str__(self) -> str:
+        return 'Shelter Heavy Test'
+
+    def __repr__(self) -> str:
+        return 'Shelter Heavy Test'
+
+
+class MiddleFoodWindbreakTest(CropField):
+    """
+    Food on the borders with a windbreak down the middle
+    In my simulations, this has been the most successful. It has food along the middle running north/south, trees around
+    the borders and a row of trees running east-west in the middle. The idea being that wherever the butterfly finds
+    itself initially, it is always fairly close to food. The trees in the middle provide shelter at night.
+    """
+    def __init__(self, iterations):
+        # create the top and bottom row_len of the field
+        base_field_base_rows = [3] * 100
+        # create the standard middle row
+        base_field_middle_rows = [1] * 100
+        base_field_middle_rows[0] = 3
+        base_field_middle_rows[99] = 3
+        base_field_middle_rows[49] = 2
+        # Build up a single standard field
+        standard_field = [base_field_base_rows]
+        for j in range(0, 98):
+            standard_field.append(base_field_middle_rows)
+        standard_field.append(base_field_base_rows)
+        # create the standard test site
+        construction = []
+        for j in range(0, iterations + 1):
+            construction += standard_field
+        CropField.__init__(self, construction)
+
+    def __str__(self) -> str:
+        return 'Food Heavy Middle Windbreak'
+
+    def __repr__(self) -> str:
+        return 'Food Heavy Middle Windbreak'
+
+
+class MiddleShelterWindbreakTest(CropField):
+    """
+    Shelter heavy middle windbreak test field
+    Similar to above, but with food on the outside, trees in the middle
+    """
+    def __init__(self, iterations):
+        # create the top and bottom row_len of the field
+        base_field_base_rows = [2] * 100
+        # create the standard middle row
+        base_field_middle_rows = [1] * 100
+        base_field_middle_rows[0] = 2
+        base_field_middle_rows[99] = 2
+        base_field_middle_rows[49] = 3
+        # Build up a single standard field
+        standard_field = [base_field_base_rows]
+        for j in range(0, 98):
+            standard_field.append(base_field_middle_rows)
+        standard_field.append(base_field_base_rows)
+        # create the standard test site
+        construction = []
+        for j in range(0, iterations + 1):
+            construction += standard_field
+        CropField.__init__(self, construction)
+
+    def __str__(self) -> str:
+        return 'Shelter heavy middle windbreak'
+
+    def __repr__(self) -> str:
+        return 'Shelter heavy middle windbreak'
+
+
+class FallowTest(CropField):
+    """
+    Fallow test field
+    A field entirely of food that has been left to go fallow for the season. Farmers often do this to help recover
+    nitrogen in the soil. The columns of food go every other row
+    """
+    def __init__(self, iterations):
+        # create the top and bottom row_len of the field
+        base_field_base_rows = [4] * 100
+        base_field_base_rows[0] = 3
+        base_field_base_rows[99] = 3
+        # Build up a single standard field
+        standard_field = [base_field_base_rows]
+        for j in range(0, 98):
+            standard_field.append(base_field_base_rows)
+        standard_field.append(base_field_base_rows)
+        # create the standard test site
+        construction = []
+        for j in range(0, iterations + 1):
+            construction += standard_field
+        CropField.__init__(self, construction)
+
+    def __str__(self) -> str:
+        return 'Fallow test field'
+
+    def __repr__(self) -> str:
+        return 'Fallow test field'
+
+
+class MiddleShelterWindbreakTest2(CropField):
+    """
+    Shelter heavy middle windbreak test field 2
+    Like the previous, but the line of food is unbroken.
+    """
+    def __init__(self, iterations):
+        # create the top and bottom row_len of the field
+        base_field_base_rows = [2] * 100
+        # create the standard middle row
+        base_field_middle_rows = [1] * 100
+        base_field_middle_rows[0] = 2
+        base_field_middle_rows[99] = 2
+        base_field_middle_rows[49] = 3
+        base_field_middle_rows_variant = [1] * 100
+        base_field_middle_rows_variant[49] = 3
+        # Build up a single standard field
+        standard_field = [base_field_base_rows]
+        for j in range(0, 24):
+            standard_field.append(base_field_middle_rows_variant)
+            standard_field.append(base_field_middle_rows_variant)
+            standard_field.append(base_field_middle_rows)
+            standard_field.append(base_field_middle_rows)
+        standard_field.append(base_field_middle_rows_variant)
+        standard_field.append(base_field_base_rows)
+        # create the standard test site
+        construction = []
+        for j in range(0, iterations + 1):
+            construction += standard_field
+        CropField.__init__(self, construction)
+
+    def __str__(self) -> str:
+        return 'Shelter heavy windbreak middle 2'
+
+    def __repr__(self) -> str:
+        return 'Shelter heavy windbreak middle 2'
+
+

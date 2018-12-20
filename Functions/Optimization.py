@@ -1,6 +1,3 @@
-
-#!/home/joshua/anaconda3/bin/python
-
 from Animal.Role import *
 from Animal.Danaus.plexippus import *
 from Land_Use.Developed.farm import *
@@ -27,33 +24,33 @@ def iterate_field(group: list = None, number_fields: int = 2) -> CropField:
     for i in range(number_fields):
         temp = np.random.choice(group)
         if temp == 'standard':
-            created = create_standard_test(34)
+            created = StandardTest(34)
         elif temp == 'food heavy':
-            created = create_food_heavy_test(34)
+            created = HeavyFoodTest(34)
         elif temp == 'shelter heavy':
-            created = create_shelter_heavy_test(34)
+            created = ShelterHeavyTest(34)
         elif temp == 'middle food windbreak':
-            created = create_middle_food_windbreak_test(34)
+            created = MiddleFoodWindbreakTest(34)
         elif temp == 'middle shelter windbreak':
-            created = create_middle_shelter_windbreak_test(34)
+            created = MiddleShelterWindbreakTest(34)
         elif temp == 'middle shelter windbreak 2':
-            created = create_middle_shelter_windbreak_test_2(34)
+            created = MiddleShelterWindbreakTest2(34)
         elif temp == 'fallow':
-            created = create_fallow_test(34)
+            created = FallowTest(34)
         else:
             created = temp
         total.append(created)
     return total
 
 
-def optimize_field_group(field_group: list, dead_goal: int = 25, exit_goal: int = 50,
-                   num_iters: int = 25, total_iters: int = math.inf) -> CropField:
+def optimize_field_group(number_of_fields: int=5, dead_goal: int = 25, exit_goal: int = 50,
+                   num_iters: int = 1000, total_iters: int=100) -> tuple:
     '''
     The goal of this function is to find an optimal arrangement of fields. It will start with a single field and repeat
     it across several rows and columns, then run butterflies through the entire set and see if we can find an optimal
     arrangement of fields. For example, maybe a fallow field in the middle is best, or maybe if there are food borders
     around each field works best.
-    :param field:
+    :param number_of_fields:
     :param dead_goal:
     :param exit_goal:
     :param num_iters:
@@ -62,22 +59,27 @@ def optimize_field_group(field_group: list, dead_goal: int = 25, exit_goal: int 
     '''
     master_list = []
     result_list = []
-    exit = 0
-    dead = 100
+    exit_pct = 0
+    dead_pct = 100
     iters = 0
-    while exit <= exit_goal or dead >= dead_goal or iters <= num_iters:
-        arrangement = iterate_field(field_group)
+    while exit_pct <= exit_goal and dead_pct >= dead_goal and iters <= total_iters:
+        arrangement = iterate_field(number_fields=number_of_fields)
         master_field = arrangement[0]
-        for i in range(1, len(arrangement)+1):
+        for i in range(1, len(arrangement)):
             master_field.concatenate(arrangement[i].array)
         # Simulate to see how well the field does
-        for i in range(100):
+        for i in range(num_iters):
             b1 = Monarch(master_field)
             while b1.status == 'alive':
                 b1.move_one_day()
             result_list.append(b1.status)
-        dead = result_list.count("dead")
-        exit = result_list.count("exit")
-        master_list.append((iters, master_field, dead, exit))
+        dead_pct = result_list.count("dead")/len(result_list) * 100
+        exit_pct = result_list.count("exit")/len(result_list) * 100
+        master_list.append((iters, master_field, dead_pct, exit_pct))
         iters += 1
+    dead_pct = []
+    for item in master_list:
+        dead_pct.append(item[2])
+    min_index = dead_pct.index(min(dead_pct))
+    return master_list[min_index]
 

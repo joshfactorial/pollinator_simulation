@@ -1,5 +1,3 @@
-#!/home/joshua/anaconda3/bin/python
-
 from Land_Use.Developed.farm import *
 
 

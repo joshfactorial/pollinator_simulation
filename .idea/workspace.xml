@@ -5,9 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="812526e5-33df-4d5a-97da-0afe3e5f1c60" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/pollinator_simulation.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/pollinator_simulation.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Animal/Apidae/bee.py" beforeDir="false" afterPath="$PROJECT_DIR$/Animal/Apidae/bee.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Animal/Danaus/plexippus.py" beforeDir="false" afterPath="$PROJECT_DIR$/Animal/Danaus/plexippus.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Animal/Role.py" beforeDir="false" afterPath="$PROJECT_DIR$/Animal/Role.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Functions/GUI.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Functions/Optimization.py" beforeDir="false" afterPath="$PROJECT_DIR$/Functions/Optimization.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Functions/Tests.py" beforeDir="false" afterPath="$PROJECT_DIR$/Functions/Tests.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Functions/Visualizations.py" beforeDir="false" afterPath="$PROJECT_DIR$/Functions/Visualizations.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Functions/run_tests.py" beforeDir="false" afterPath="$PROJECT_DIR$/Functions/run_tests.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Land_Use/Developed/farm.py" beforeDir="false" afterPath="$PROJECT_DIR$/Land_Use/Developed/farm.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Land_Use/Land.py" beforeDir="false" afterPath="$PROJECT_DIR$/Land_Use/Land.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chess.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scratch.py" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -17,9 +28,10 @@
   </component>
   <component name="CoverageDataManager">
     <SUITE FILE_PATH="coverage/monarch_simulation$Doctests_in_Monarch.coverage" NAME="Doctests in Monarch Coverage Results" MODIFIED="1542263807566" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/pollinator_simulation$main.coverage" NAME="main Coverage Results" MODIFIED="1545303629367" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/monarch_simulation$Butterflies.coverage" NAME="Butterflies Coverage Results" MODIFIED="1544074215460" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/monarch_simulation$Butterflies2.coverage" NAME="Butterflies2 Coverage Results" MODIFIED="1543679289400" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/pollinator_simulation$run_pollinator_simulation.coverage" NAME="run_pollinator_simulation Coverage Results" MODIFIED="1544260325526" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/pollinator_simulation$run_pollinator_simulation.coverage" NAME="run_pollinator_simulation Coverage Results" MODIFIED="1545254121979" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/pollinator_simulation$Butterflies_scratch.coverage" NAME="Butterflies_scratch Coverage Results" MODIFIED="1544247136300" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/monarch_simulation$Doctest_Pollinator_simple_move.coverage" NAME="Doctest Pollinator.simple_move Coverage Results" MODIFIED="1542263765473" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/monarch_simulation$Doctests_in_Butterflies.coverage" NAME="Doctests in Butterflies Coverage Results" MODIFIED="1542267604552" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
@@ -40,71 +52,25 @@
     <expand />
     <select />
   </component>
-  <component name="FUSProjectUsageTrigger">
-    <session id="431245202">
-      <usages-collector id="statistics.lifecycle.project">
-        <counts>
-          <entry key="project.closed" value="4" />
-          <entry key="project.open.time.18" value="1" />
-          <entry key="project.open.time.19" value="1" />
-          <entry key="project.open.time.21" value="1" />
-          <entry key="project.open.time.26" value="1" />
-          <entry key="project.open.time.3" value="1" />
-          <entry key="project.opened" value="5" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.extensions.open">
-        <counts>
-          <entry key="py" value="6" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.types.open">
-        <counts>
-          <entry key="Python" value="6" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.extensions.edit">
-        <counts>
-          <entry key="Python Console" value="153" />
-          <entry key="py" value="1301" />
-          <entry key="txt" value="60" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.types.edit">
-        <counts>
-          <entry key="PLAIN_TEXT" value="60" />
-          <entry key="Python" value="1454" />
-        </counts>
-      </usages-collector>
-    </session>
-  </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/chess.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="12" column="33" selection-start-line="12" selection-start-column="33" selection-end-line="12" selection-end-column="33" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Animal/Role.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="405">
-              <caret line="29" column="90" selection-start-line="28" selection-start-column="23" selection-end-line="29" selection-end-column="90" />
+            <state relative-caret-position="160">
+              <caret line="569" column="37" selection-start-line="569" selection-start-column="37" selection-end-line="569" selection-end-column="37" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Animal/Danaus/plexippus.py">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="585">
-              <caret line="41" column="20" selection-start-line="41" selection-start-column="20" selection-end-line="41" selection-end-column="20" />
+            <state relative-caret-position="330">
+              <caret line="24" column="31" lean-forward="true" selection-start-line="24" selection-start-column="31" selection-end-line="24" selection-end-column="31" />
               <folding>
-                <element signature="e#37#71#0" expanded="true" />
+                <element signature="e#0#36#0" expanded="true" />
+                <element signature="e#293#341#0" />
               </folding>
             </state>
           </provider>
@@ -113,17 +79,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Functions/run_tests.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="30">
-              <caret line="2" column="20" selection-start-line="2" selection-start-column="20" selection-end-line="2" selection-end-column="20" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Functions/Optimization.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="19" column="24" selection-start-line="19" selection-start-column="24" selection-end-line="19" selection-end-column="24" />
+            <state relative-caret-position="1">
+              <caret line="20" column="14" selection-start-line="20" selection-start-column="14" selection-end-line="20" selection-end-column="14" />
             </state>
           </provider>
         </entry>
@@ -131,53 +88,50 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Functions/Tests.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="51">
-              <caret line="3" selection-start-line="3" selection-end-line="3" />
+            <state relative-caret-position="300">
+              <caret line="24" selection-start-line="24" selection-end-line="24" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Animal/Apidae/Bombus/bumble_bee.py">
+        <entry file="file://$PROJECT_DIR$/Animal/Danaus/plexippus.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="391">
-              <caret line="23" selection-start-line="23" selection-end-line="23" />
+            <state relative-caret-position="-15">
+              <caret line="32" column="28" selection-start-line="32" selection-start-column="28" selection-end-line="32" selection-end-column="28" />
               <folding>
-                <element signature="e#0#60#0" expanded="true" />
+                <element signature="e#37#71#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Functions/GUI.py">
+        <entry file="file://$USER_HOME$/anaconda3/lib/python3.7/site-packages/numpy/core/getlimits.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1411">
-              <caret line="85" column="22" selection-start-line="85" selection-start-column="22" selection-end-line="85" selection-end-column="22" />
+            <state relative-caret-position="263">
+              <caret line="384" selection-start-line="384" selection-end-line="384" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Land_Use/Developed/farm.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-614">
+              <caret line="344" column="64" selection-start-line="344" selection-start-column="64" selection-end-line="344" selection-end-column="64" />
               <folding>
-                <element signature="e#0#14#0" expanded="true" />
+                <element signature="e#0#27#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Animal/Apidae/bee.py">
+        <entry file="file://$PROJECT_DIR$/Functions/Optimization.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="35" selection-start-column="35" selection-end-column="35" />
-              <folding>
-                <element signature="e#37#62#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Functions/Visualizations.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="5" selection-start-line="5" selection-end-line="5" />
+            <state relative-caret-position="30">
+              <caret line="2" selection-start-line="2" selection-end-line="2" />
             </state>
           </provider>
         </entry>
@@ -194,14 +148,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>self.position</find>
-      <find>simple_move</find>
-      <find>simple</find>
-      <find>random_</find>
-      <find>record_moves</find>
-      <find>print</find>
-      <find>record_mov</find>
-      <find>basi_te</find>
       <find>1, 0],</find>
       <find>starved</find>
       <find>record_move</find>
@@ -224,6 +170,14 @@
       <find>increment</find>
       <find>pickle</find>
       <find>incremental</find>
+      <find>food_level</find>
+      <find>seek</find>
+      <find>moves_p</find>
+      <find>test_f</find>
+      <find>shelter</find>
+      <find>seek_resourc</find>
+      <find>move_one</find>
+      <find>seek_res</find>
     </findStrings>
     <replaceStrings>
       <replace>array</replace>
@@ -276,31 +230,29 @@
         <option value="$PROJECT_DIR$/area/super.py" />
         <option value="$PROJECT_DIR$/run_pollinator_simulation.py" />
         <option value="$PROJECT_DIR$/Earth/Crust.py" />
-        <option value="$PROJECT_DIR$/main.py" />
-        <option value="$PROJECT_DIR$/Animal/Role.py" />
         <option value="$PROJECT_DIR$/Animal/Arthropod/Insect/Hymenoptera/Apoidea/bee.py" />
-        <option value="$PROJECT_DIR$/Functions/GUI.py" />
-        <option value="$PROJECT_DIR$/Functions/Optimization.py" />
-        <option value="$PROJECT_DIR$/Functions/run_tests.py" />
-        <option value="$PROJECT_DIR$/Functions/Tests.py" />
         <option value="$PROJECT_DIR$/Animal/Arthropod/Insect/Hymenoptera/Apoidea/Bombus/bumble_bee.py" />
         <option value="$PROJECT_DIR$/Animal/Arthropod/Insect/Hymenoptera/Apidae/bee.py" />
         <option value="$PROJECT_DIR$/Animal/Arthropod/Insect/Hymenoptera/Apidae/Bombus/bumble_bee.py" />
+        <option value="$PROJECT_DIR$/Functions/GUI.py" />
+        <option value="$PROJECT_DIR$/Animal/Apidae/bee.py" />
         <option value="$PROJECT_DIR$/Functions/Visualizations.py" />
+        <option value="$PROJECT_DIR$/Land_Use/Land.py" />
+        <option value="$PROJECT_DIR$/Functions/Optimization.py" />
+        <option value="$PROJECT_DIR$/Functions/run_tests.py" />
+        <option value="$PROJECT_DIR$/Functions/Tests.py" />
+        <option value="$PROJECT_DIR$/Land_Use/Developed/farm.py" />
+        <option value="$PROJECT_DIR$/Animal/Role.py" />
+        <option value="$PROJECT_DIR$/Animal/Danaus/plexippus.py" />
+        <option value="$PROJECT_DIR$/main.py" />
       </list>
     </option>
   </component>
-  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
-  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
-  <component name="JsGulpfileManager">
-    <detection-done>true</detection-done>
-    <sorting>DEFINITION_ORDER</sorting>
-  </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="66" />
-    <option name="y" value="27" />
-    <option name="width" value="759" />
-    <option name="height" value="654" />
+    <option name="x" value="67" />
+    <option name="y" value="25" />
+    <option name="width" value="1533" />
+    <option name="height" value="875" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -308,6 +260,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -315,11 +268,26 @@
               <item name="pollinator_simulation" type="b2602c69:ProjectViewProjectNode" />
               <item name="pollinator_simulation" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="pollinator_simulation" type="b2602c69:ProjectViewProjectNode" />
+              <item name="pollinator_simulation" type="462c0819:PsiDirectoryNode" />
+              <item name="Functions" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="pollinator_simulation" type="b2602c69:ProjectViewProjectNode" />
+              <item name="pollinator_simulation" type="462c0819:PsiDirectoryNode" />
+              <item name="Land_Use" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="pollinator_simulation" type="b2602c69:ProjectViewProjectNode" />
+              <item name="pollinator_simulation" type="462c0819:PsiDirectoryNode" />
+              <item name="Land_Use" type="462c0819:PsiDirectoryNode" />
+              <item name="Developed" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -361,7 +329,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.run_pollinator_simulation">
+  <component name="RunManager" selected="Python.main">
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
       <module name="pollinator_simulation" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -376,6 +344,28 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Butterflies.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="pollinator_simulation" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="$USER_HOME$/anaconda3/envs/pycharm-default/bin/python" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -427,10 +417,12 @@
     </configuration>
     <list>
       <item itemvalue="Python.run_pollinator_simulation" />
+      <item itemvalue="Python.main" />
       <item itemvalue="Python tests.Doctests in Butterflies" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.main" />
         <item itemvalue="Python tests.Doctests in Butterflies" />
       </list>
     </recent_temporary>
@@ -455,6 +447,9 @@
       <workItem from="1544363808819" duration="1281000" />
       <workItem from="1544424225124" duration="1263000" />
       <workItem from="1544554405933" duration="4786000" />
+      <workItem from="1545108238403" duration="3483000" />
+      <workItem from="1545252518394" duration="5839000" />
+      <workItem from="1545264168427" duration="16791000" />
     </task>
     <task id="LOCAL-00001" summary="Making the validation run faster via the np.isin method">
       <created>1539723306275</created>
@@ -561,7 +556,14 @@
       <option name="project" value="LOCAL" />
       <updated>1544081640560</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="Working on optimizing fields">
+      <created>1545112975128</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1545112975129</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -597,7 +599,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="94736000" />
+    <option name="totallyTimeSpent" value="120849000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -609,15 +611,15 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1295" height="695" extended-state="6" />
+    <frame x="67" y="25" width="1533" height="875" extended-state="6" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2242915" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.16274378" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49831876" weight="0.32740214" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.5016812" side_tool="true" weight="0.29758713" />
-      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.7195696" weight="0.57372653" />
+      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49831876" weight="0.32707775" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.2817754" visible="true" weight="0.386059" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.7182246" weight="0.386059" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.3297587" />
@@ -627,45 +629,17 @@
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5003362" side_tool="true" weight="0.32841823" />
       <window_info anchor="bottom" id="Terminal" order="11" sideWeight="0.49966374" weight="0.32841823" />
       <window_info anchor="bottom" id="Inspection Results" order="12" weight="0.32968536" />
-      <window_info anchor="bottom" id="Python Console" order="13" sideWeight="0.5595158" weight="0.29758713" />
+      <window_info anchor="bottom" id="Python Console" order="13" sideWeight="0.5581708" weight="0.36461127" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.24949563" />
       <window_info anchor="right" id="SciView" order="3" weight="0.32952252" />
       <window_info anchor="right" id="Database" order="4" weight="0.28244787" />
-      <window_info anchor="right" x="0" y="0" width="139" height="673" id="Documentation" order="5" side_tool="true" visible="true" weight="0.2" />
+      <window_info anchor="right" x="0" y="0" width="139" height="673" id="Documentation" order="5" side_tool="true" weight="0.41192788" />
     </layout>
-    <layout-to-restore>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2784129" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49831876" weight="0.32841823" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.5016812" side_tool="true" weight="0.29758713" />
-      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.7195696" weight="0.57372653" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" weight="0.3297587" />
-      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="8" weight="0.3119015" />
-      <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5003362" side_tool="true" weight="0.32841823" />
-      <window_info anchor="bottom" id="Terminal" order="11" sideWeight="0.49966374" visible="true" weight="0.32841823" />
-      <window_info anchor="bottom" id="Inspection Results" order="12" weight="0.32968536" />
-      <window_info anchor="bottom" id="Python Console" order="13" sideWeight="0.5595158" weight="0.29758713" />
-      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.24949563" />
-      <window_info anchor="right" id="SciView" order="3" weight="0.32952252" />
-      <window_info anchor="right" id="Database" order="4" weight="0.28244787" />
-      <window_info anchor="right" x="0" y="0" width="139" height="673" id="Documentation" order="5" side_tool="true" weight="0.556962" />
-    </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
-  </component>
-  <component name="VcsContentAnnotationSettings">
-    <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="MAXIMUM_HISTORY_ROWS" value="10180" />
@@ -688,15 +662,21 @@
     <MESSAGE value="This file is purely exemplary for my own benefit and will eventually be&#10;deleted" />
     <MESSAGE value="Adding a couple scratch files and such that vill eventually be deleted" />
     <MESSAGE value="Restructured a little more to make it more straightforward" />
-    <option name="LAST_COMMIT_MESSAGE" value="Restructured a little more to make it more straightforward" />
+    <MESSAGE value="Working on optimizing fields" />
+    <option name="LAST_COMMIT_MESSAGE" value="Working on optimizing fields" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/Animal/Role.py</url>
-          <line>2</line>
-          <option name="timeStamp" value="1" />
+          <url>file://$PROJECT_DIR$/Animal/Danaus/plexippus.py</url>
+          <line>222</line>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/main.py</url>
+          <line>28</line>
+          <option name="timeStamp" value="8" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -751,8 +731,6 @@
       </provider>
     </entry>
     <entry file="file://$USER_HOME$/anaconda3/lib/python3.7/codecs.py" />
-    <entry file="file://$USER_HOME$/anaconda3/lib/python3.7/site-packages/numpy/core/numeric.py" />
-    <entry file="file://$USER_HOME$/anaconda3/lib/python3.7/site-packages/numpy/lib/arraysetops.py" />
     <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/_pydev_imps/_pydev_execfile.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
@@ -762,7 +740,6 @@
     </entry>
     <entry file="file://$USER_HOME$/anaconda3/lib/python3.7/site-packages/numpy/core/numerictypes.py" />
     <entry file="file://$USER_HOME$/anaconda3/lib/python3.7/copy.py" />
-    <entry file="file://$USER_HOME$/anaconda3/lib/python3.7/site-packages/numpy/core/getlimits.py" />
     <entry file="file://$PROJECT_DIR$/Area.ipynb" />
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
@@ -783,13 +760,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/scratch.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="14" column="31" selection-start-line="14" selection-start-column="31" selection-end-line="14" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/util/tests.py" />
     <entry file="file://$PROJECT_DIR$/util/vizualizations.py" />
     <entry file="file://$PROJECT_DIR$/__init__.py" />
@@ -801,56 +771,22 @@
     <entry file="file://$PROJECT_DIR$/pollinator/pollinator.py" />
     <entry file="file://$PROJECT_DIR$/pollinator/pollinator_types/monarch.py" />
     <entry file="file://$PROJECT_DIR$/Earth/land_usage/cropfield.py" />
-    <entry file="file://$PROJECT_DIR$/Land_Use/Land.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-145" />
-      </provider>
+    <entry file="file://$PROJECT_DIR$/chess.py" />
+    <entry file="file://$PROJECT_DIR$/scratch.py" />
+    <entry file="file://$PROJECT_DIR$/requirements.txt">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/Functions/Optimization.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-345">
-          <caret line="4" column="40" selection-start-line="4" selection-start-column="40" selection-end-line="4" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/chess.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" column="33" selection-start-line="12" selection-start-column="33" selection-end-line="12" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Functions/Tests.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" selection-start-line="3" selection-end-line="3" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/Functions/GUI.py" />
     <entry file="file://$PROJECT_DIR$/Animal/Apidae/Bombus/bumble_bee.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
+        <state relative-caret-position="345">
           <caret line="23" selection-start-line="23" selection-end-line="23" />
-          <folding>
-            <element signature="e#0#60#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Functions/GUI.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1411">
-          <caret line="85" column="22" selection-start-line="85" selection-start-column="22" selection-end-line="85" selection-end-column="22" />
-          <folding>
-            <element signature="e#0#14#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Animal/Apidae/bee.py">
       <provider selected="true" editor-type-id="text-editor">
         <state>
-          <caret column="35" selection-start-column="35" selection-end-column="35" />
           <folding>
             <element signature="e#37#62#0" expanded="true" />
           </folding>
@@ -858,36 +794,74 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Functions/Visualizations.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Functions/Operations.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Land_Use/Land.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" selection-start-line="5" selection-end-line="5" />
+        <state relative-caret-position="825">
+          <caret line="56" column="49" selection-start-line="55" selection-start-column="8" selection-end-line="56" selection-end-column="49" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main.py">
+    <entry file="file://$USER_HOME$/anaconda3/lib/python3.7/site-packages/numpy/lib/arraysetops.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="476">
-          <caret line="28" column="80" selection-start-line="28" selection-start-column="80" selection-end-line="28" selection-end-column="80" />
+        <state relative-caret-position="9510">
+          <caret line="636" selection-start-line="636" selection-end-line="636" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/anaconda3/lib/python3.7/site-packages/numpy/core/numeric.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="7500">
+          <caret line="500" selection-start-line="500" selection-end-line="500" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Land_Use/Developed/farm.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-614">
+          <caret line="344" column="64" selection-start-line="344" selection-start-column="64" selection-end-line="344" selection-end-column="64" />
           <folding>
-            <element signature="e#37#71#0" expanded="true" />
+            <element signature="e#0#27#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Functions/Tests.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="24" selection-start-line="24" selection-end-line="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Functions/Optimization.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" selection-start-line="2" selection-end-line="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/anaconda3/lib/python3.7/site-packages/numpy/core/getlimits.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="263">
+          <caret line="384" selection-start-line="384" selection-end-line="384" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Animal/Role.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="29" column="90" selection-start-line="28" selection-start-column="23" selection-end-line="29" selection-end-column="90" />
-          <folding>
-            <element signature="e#37#70#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="160">
+          <caret line="569" column="37" selection-start-line="569" selection-start-column="37" selection-end-line="569" selection-end-column="37" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Animal/Danaus/plexippus.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="697">
-          <caret line="41" column="20" lean-forward="true" selection-start-line="41" selection-start-column="20" selection-end-line="41" selection-end-column="20" />
+        <state relative-caret-position="-15">
+          <caret line="32" column="28" selection-start-line="32" selection-start-column="28" selection-end-line="32" selection-end-column="28" />
           <folding>
             <element signature="e#37#71#0" expanded="true" />
           </folding>
@@ -896,8 +870,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Functions/run_tests.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="20" selection-start-line="2" selection-start-column="20" selection-end-line="2" selection-end-column="20" />
+        <state relative-caret-position="1">
+          <caret line="20" column="14" selection-start-line="20" selection-start-column="14" selection-end-line="20" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="24" column="31" lean-forward="true" selection-start-line="24" selection-start-column="31" selection-end-line="24" selection-end-column="31" />
+          <folding>
+            <element signature="e#0#36#0" expanded="true" />
+            <element signature="e#293#341#0" />
+          </folding>
         </state>
       </provider>
     </entry>
