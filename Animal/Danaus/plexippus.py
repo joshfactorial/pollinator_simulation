@@ -1,7 +1,6 @@
 #!/home/joshua/anaconda3/bin/python
 
 from Animal.Role import Pollinator
-import numpy as np
 from Land_Use.Land import *
 
 
@@ -30,28 +29,28 @@ class Monarch(Pollinator):
     6
     """
     food_unit = 0.0225
-    death_factor = 0.0000009
+    death_factor = 0.003
     can_exit_north = True
     exit_chance = 0.9
     shelter_chance = 0.01
 
     def __init__(self, area: Area = Area([[1, 1, 1, 1], [1, 1, 1, 1], [1, 1, 1, 1], [4, 4, 4, 4]]),
-                 days: int = 0, hours: int = 4, seconds: int = 0, position: list = [0, 0]):
+                 days: int = 0, hours: int = 4, seconds: int = 0, position: list = (0, 0)):
         Pollinator.__init__(self, area, days, hours, seconds)
         # This gives the starting position, unless starting position was already declared
-        if position == [0, 0]:
+        if position == (0, 0):
             __variable = np.random.choice([0, 1, 2, 3], p=[0.625, 0.125, 0.125, 0.125])
             if __variable == 0:
-                temp_position = [self.area_length - 1, np.random.randint(self.area_width)]
+                temp_position = (self.area_length - 1, np.random.randint(self.area_width))
             elif __variable == 1:
-                temp_position = [np.random.randint(int(self.area_length/2), self.area_length-1), 0]
+                temp_position = (np.random.randint(int(self.area_length/2), self.area_length-1), 0)
             elif __variable == 2:
-                temp_position = [np.random.randint(int(self.area_length/2), self.area_length-1), self.area_width-1]
+                temp_position = (np.random.randint(int(self.area_length/2), self.area_length-1), self.area_width-1)
             else:
                 if self.shelter_indices:
                     temp_position = list(self.shelter_indices[np.random.choice(len(self.shelter_indices))])
                 else:
-                    temp_position = [self.area_length - 1, 0]
+                    temp_position = (self.area_length - 1, 0)
             self.position = temp_position
             self.moves = [temp_position]
         else:
@@ -91,18 +90,26 @@ class Monarch(Pollinator):
             # Just a check to make sure it is actually in a tree Land_Use and marked as sheltered...
             if self.area.array[self.position[0]][self.position[1]] not in [3, 4]:
                 self.sheltered = False
-                self.random_move(times)
+                # 50/50 chance that the butterfly soars instead of moving randomly
+                if np.random.choice([True, False]):
+                    self.random_move(times)
+                else:
+                    self.soar()
                 self.turns += times
             # if it's still sheltered but it's food level is low, or random chance kicks in, it will leave shelter
             elif self.food_level < 25 or np.random.choice([True, False], p=[0.1, 0.9]):
                 self.sheltered = False
-                self.random_move(times)
+                # 50/50 chance that the butterfly soars instead of moving randomly
+                if np.random.choice([True, False]):
+                    self.random_move(times)
+                else:
+                    self.soar()
                 self.seconds += times
             else:
                 # just stay sheltered if those conditions fail
                 # Consume half a unit of food
-                self.decrement_food(self.food_unit / 2)
-                self.turns += 1
+                self.decrement_food(self.food_unit / 5)
+                self.turns += 10
         else:
             self.seek_resource('food')
 
@@ -139,57 +146,67 @@ class Monarch(Pollinator):
             # Just a check to make sure it is actually in a tree Land_Use and marked as sheltered...
             if self.area.array[self.position[0]][self.position[1]] not in [3, 4]:
                 self.sheltered = False
-                self.random_move(times)
+                # 50/50 chance that the butterfly soars instead of moving randomly
+                if np.random.choice([True, False]):
+                    self.random_move(times)
+                else:
+                    self.soar()
                 self.turns += times
 
             # If it's still sheltered, meaning its in a legal shelter site, then most likely it will move
             elif self.food_level < 25 or np.random.choice([True, False], p=[.9, .1]):
                 self.sheltered = False
-                self.random_move(times)
+                # 50/50 chance that the butterfly soars instead of moving randomly
+                if np.random.choice([True, False]):
+                    self.soar()
+                else:
+                    self.soar()
                 self.turns += times
 
             # stay sheltered if those conditions fail
             else:
-                self.decrement_food(self.food_unit / 2)
+                self.decrement_food(self.food_unit / 5)
+                self.turns += 10
+
+        elif self.food_level >= 75:
+            self.soar()
+        # Above a 50% food level, we'll consider it to be full
+        elif self.food_level >= 50.0:
+            # Usually, it will try to move north
+
+            move_die = np.random.choice(int(moves_possible // 2))
+
+            for i in range(move_die):
+                direction_die = np.random.choice(['north', 'south', 'east', 'west'],
+                                                 p=[0.925, 0.025, 0.025, 0.025])
+                random_chance = np.random.choice([False, True], p=[.995, 0.005])
+                if random_chance:
+                    self.random_move()
+                else:
+                    self.simple_move(direction_die)
+
                 self.turns += 1
-        else:
-            # Above a 50% food level, we'll consider it
-            if self.food_level >= 50.0:
-                # Usually, it will try to move north
 
-                move_die = np.random.choice(int(moves_possible // 2))
+        # if it's a little hungry, it may seek food
+        elif 25.0 <= self.food_level < 50.0:
+            if np.random.choice([True, False], p=[0.001, 0.999]):
+                # slight chance of moving randomly instead
+                self.random_move()
 
-                for i in range(move_die):
-                    direction_die = np.random.choice(['north', 'south', 'east', 'west'],
-                                                     p=[0.925, 0.025, 0.025, 0.025])
-                    random_chance = np.random.choice([0, 1], p=[.995, 0.005])
-                    if random_chance:
-                        self.random_move()
-                    else:
-                        self.simple_move(direction_die)
+            else:
+                # usually look for food
+                self.seek_resource('food')
+                return
 
-                    self.turns += 1
+        # now it's very hungry and will almost certainly seek food
+        elif self.food_level < 25.0:
+            if np.random.choice([True, False], p=[0.0001, 0.9999]):
+                self.random_move()
 
-            # if it's a little hungry, it may seek food
-            elif 25.0 <= self.food_level < 50.0:
-                if np.random.choice([True, False], p=[0.001, 0.999]):
-                    # slight chance of moving randomly instead
-                    self.random_move()
-
-                else:
-                    # usually look for food
-                    self.seek_resource('food')
-                    return
-
-            # now it's very hungry and will almost certainly seek food
-            elif self.food_level < 25.0:
-                if np.random.choice([True, False], p=[0.0001, 0.9999]):
-                    self.random_move()
-
-                # otherwise look for food
-                else:
-                    self.seek_resource('food')
-                    return
+            # otherwise look for food
+            else:
+                self.seek_resource('food')
+                return
 
     # For the afternoon, it will repeat the late-morning activity
     def afternoon_activity(self):
@@ -197,7 +214,22 @@ class Monarch(Pollinator):
         Butterflies continue moving north into the afternoon
         :return: None | self
         """
-        self.late_morning_activity()
+        # Number of times to randomly move
+        times = np.random.randint(10)
+
+        # If it's still sheltered at this point, break shelter
+        if self.sheltered:
+            self.sheltered = False
+            # 50/50 chance that the butterfly soars instead of moving randomly
+            if np.random.choice([True, False]):
+                self.random_move(times)
+            else:
+                self.soar()
+            self.decrement_food(self.food_unit)
+            self.turns += times
+
+        else:
+            self.late_morning_activity()
         return
 
     def late_afternoon_activity(self):
@@ -217,18 +249,13 @@ class Monarch(Pollinator):
         >>> b4
         Monarch: 24.8% food at (3, 1), status: exit
         """
-        # Number of times to randomly move
-        times = np.random.randint(10)
-        # If it's still sheltered at this point, break shelter
-        if self.sheltered:
-            self.sheltered = False
-            self.random_move(times)
-            self.decrement_food(self.food_unit)
-            self.turns += times
+
+        # otherwise it's going to look for food to fill its belly before sleep, unless it's full
+        if self.food_level <= 75 and self.food_indices:
+            self.seek_resource('food')
         else:
-            # otherwise it's going to look for food to fill its belly before sleep, unless it's full
-            if self.food_level <= 75 and self.food_indices:
-                self.seek_resource('food')
+            if np.random.choice([True, False]):
+                self.soar()
             else:
                 moves_possible = int(self.food_level // self.food_unit)
                 move_die = np.random.choice(int(moves_possible // 2))
@@ -236,13 +263,13 @@ class Monarch(Pollinator):
                 for i in range(move_die):
                     direction_die = np.random.choice(['north', 'south', 'east', 'west'],
                                                      p=[0.925, 0.025, 0.025, 0.025])
-                    random_chance = np.random.choice([0, 1], p=[.995, 0.005])
+                    random_chance = np.random.choice([False, True], p=[.995, 0.005])
                     if random_chance:
                         self.random_move()
                     else:
                         self.simple_move(direction_die)
-
                     self.turns += 1
+                    # At this time a day, 50/50 chance it soars
         return
 
     def night_time_activity(self):
@@ -268,18 +295,24 @@ class Monarch(Pollinator):
             # If for whatever reason it is marked as sheltered but isn't in a tree...
             if self.area.array[self.position[0]][self.position[1]] not in [3, 4]:
                 self.sheltered = False
-                self.random_move(times)
+                # 50/50 chance that the butterfly soars instead of moving randomly
+                if np.random.choice([True, False]):
+                    self.random_move(times)
+                else:
+                    self.soar()
                 self.turns += times
             else:
                 # if it gets here, it's sheltered and in a tree, so just decrement half a food unit
                 # and move aling without taking further action
-                self.decrement_food(self.food_unit / 2)
+                self.decrement_food(self.food_unit / 5)
+                self.turns += 144
                 return
         # This is the case that it is alive and near shelter. At this time it will take shelter
         elif self.area.array[self.position[0]][self.position[1]] in [3, 4]:
             self.sheltered = True
             self.decrement_food(self.food_unit / 2)
-
+            self.turns += 144
+            return
         else:
             # otherwise it's going to look for shelter
             if self.shelter_indices:
@@ -288,7 +321,7 @@ class Monarch(Pollinator):
                 for i in range(times):
                     self.simple_move("North")
                     self.turns += 1
-        return
+            return
 
     def mating(self):
         """
@@ -364,3 +397,22 @@ class Monarch(Pollinator):
         if self.status == 'pupa':
             # If it survives the gauntlet, it is set to 'alive,' the default status for an adult butterfly! Yay!
             self.status == 'alive'
+
+    def soar(self):
+        """
+        A monarch is capable of catching a windstream and soaring quite a ways. This will help it move north
+
+        """
+        if self.position[0] > 10:
+            moves = np.random.randint(10, self.position[0])
+            self.record_moves(self.position[0]-moves, self.position[1])
+            drift = np.random.randint(-5, high=5)
+            if self.area_width >= self.position[1] + drift >= 0:
+                y1 = self.position[1] + drift
+            else:
+                y1 = self.position[1]
+            self.position = (self.position[0]-moves, y1)
+        else:
+            self.record_moves(0, self.position[1])
+            self.position = (0, self.position[1])
+            self.check_if_exit()

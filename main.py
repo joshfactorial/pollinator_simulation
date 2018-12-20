@@ -22,16 +22,19 @@ if __name__ == "__main__":
             field = FallowTest(34)
             results = []
             results_test = []
-            for i in range(10):
+            results_test_2 = []
+            results_test_3 = []
+            for i in range(5):
                 b1 = Monarch(field)
                 while b1.status == 'alive':
-                    print("pre-move: {}".format(b1))
+                    print(b1)
                     b1.move_one_day()
-                    print("post-move: {}".format(b1))
-                # if i % 10 == 0:
-                #     print(b1)
+                    print(b1)
+                print(b1)
                 results.append(b1.status)
                 results_test.append((b1.days, b1.hours, b1.seconds))
+                results_test_2.append(b1)
+                results_test_3.append(b1.moves)
             print("Exit: {}".format(100 * results.count('exit')/len(results)))
             print("Dead: {}".format(100 * results.count('dead') / len(results)))
             print(results)

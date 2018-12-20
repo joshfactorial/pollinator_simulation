@@ -87,7 +87,7 @@ class Pollinator:
         elif 0.01 <= self.food_level <= 25.0 and roll_die < self.death_factor * 100:
             self.kill_it()
             return
-        elif self.food_level < 0.01 and roll_die < self.death_factor * 1000:
+        elif self.food_level < 0.01 and roll_die < self.death_factor * 10000:
             self.status == 'dead'
             return
         else:
@@ -235,7 +235,7 @@ class Pollinator:
                 self.turns += 1
                 self.decrement_food(self.food_unit)
                 x0 = x1 = self.position[0]
-                y0 = y1 =self.position[1]
+                y0 = y1 = self.position[1]
                 if x0 - 1 >= 0:
                     x1 = x0 - 1
                 elif y0 - 1 >= 0:
@@ -449,17 +449,17 @@ class Pollinator:
         # and actively seek food sources in flowers.
         if self.area.array[self.position[0]][self.position[1]] == 2:
             if np.random.choice([True, False], p=[0.99, 0.01]):
-                self.food_level += 25.0
-                if self.food_level > 100.0:
-                    self.food_level = 100.0
+                self.food_level = 100.0
+                if self.food_level >= 100:
+                    self.food_level = 100
             return
 
         # Less chance of eating in a mixed food/shelter Land_Use due to less food availability
         if self.area.array[self.position[0]][self.position[1]] == 4:
             if np.random.choice([True, False], p=[0.80, 0.2]):
-                self.food_level += 25
-                if self.food_level > 100.0:
-                    self.food_level = 100.0
+                self.food_level += 100.0
+                if self.food_level >= 100:
+                    self.food_level = 100
             return
 
     def increment_time(self):
@@ -531,43 +531,38 @@ class Pollinator:
             if self.hours == 3 and (3600 >= self.seconds >= 3575):
                 flag = True
 
+            # # Testing
+            # if self.seconds%10 == 0:
+            #     print(self.moves[-1])
+
+
             # Early morning activity
             if 4 <= self.hours < 6:
                 self.morning_activity()
-                if self.seconds == 0:
-                    print(self.hours)
                 # make sure it's not a zombie butterfly
                 if self.status == 'dead':
                     break
 
             elif 6 <= self.hours < 12:
                 self.late_morning_activity()
-                if self.seconds == 0:
-                    print(self.hours)
                 # make sure it's not a zombie butterfly
                 if self.status == 'dead':
                     break
 
             elif 12 <= self.hours < 18:
                 self.afternoon_activity()
-                if self.seconds == 0:
-                    print(self.hours)
                 # make sure it's not a zombie butterfly
                 if self.status == 'dead':
                     break
 
             elif 18 <= self.hours < 20:
                 self.late_afternoon_activity()
-                if self.seconds == 0:
-                    print(self.hours)
                 # make sure it's not a zombie butterfly
                 if self.status == 'dead':
                     break
 
             elif 20 <= self.hours < 24 or 0 <= self.hours < 4:
                 self.night_time_activity()
-                if self.seconds == 0:
-                    print(self.hours)
                 # make sure it's not a zombie butterfly
                 if self.status == 'dead':
                     break
