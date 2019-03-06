@@ -75,7 +75,9 @@ def optimize_field_group(number_of_fields: int=5, dead_goal: int = 25, exit_goal
             result_list.append(b1.status)
         dead_pct = result_list.count("dead")/len(result_list) * 100
         exit_pct = result_list.count("exit")/len(result_list) * 100
-        master_list.append((iters, master_field, dead_pct, exit_pct))
+        master_list.append((iters, arrangement, dead_pct, exit_pct))
+        if iters % 5 == 0:
+            print("Working on iteration {}".format(iters))
         iters += 1
     dead_pct = []
     for item in master_list:

@@ -24,12 +24,10 @@ if __name__ == "__main__":
             results_test = []
             results_test_2 = []
             results_test_3 = []
-            for i in range(5):
+            for i in range(10):
                 b1 = Monarch(field)
                 while b1.status == 'alive':
-                    print(b1)
                     b1.move_one_day()
-                    print(b1)
                 print(b1)
                 results.append(b1.status)
                 results_test.append((b1.days, b1.hours, b1.seconds))
@@ -53,10 +51,18 @@ if __name__ == "__main__":
         except ValueError:
             print("y or n only please")
 
-        if answer.lower() == 'y':
-            print(optimize_field_group(total_iters=25, number_of_fields=5))
+        if answer.lower() == 'n':
             break
-        elif answer.lower() == 'n':
+
+        number = input("\tTotal number of fields to iterate: ")
+        try:
+            number = int(number)
+            assert(number > 0)
+        except ValueError:
+            print("value must be an integer greater than zero: ")
+
+        if answer.lower() == 'y':
+            print(optimize_field_group(total_iters=25, number_of_fields=number))
             break
 
     # This test compares fields from the standard pool and sees which of the base fields is best. You can add more

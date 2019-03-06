@@ -28,6 +28,7 @@ def test_field(dictionary, number):
             monarch1.move_one_day()
         results.append(monarch1.status)
     dictionary["test_field_{}".format(number)] = [100 * results.count('dead') / len(results)]
+    print("----Test Field {}-----".format(field_to_test))
     print("Dead percentage = {:.2f}%".format(100 * results.count('dead') / len(results)))
     print("Exit percentage = {:.2f}%".format(100 * results.count('exit') / len(results)))
     print("--- %s seconds ---" % (time.time() - start_time))
@@ -39,9 +40,9 @@ def basic_test(field: Area, iterations: int) -> None:
     results = []
     for k in range(iterations):
         monarch = Monarch(field)
-        monarch.move_one_day()
-        results.append([copy.deepcopy(monarch.status), copy.deepcopy(monarch.cause_of_death),
-                        copy.deepcopy(monarch.moves)])
+        while monarch.status == 'alive':
+            monarch.move_one_day()
+        results.append([field, copy.deepcopy(monarch.status), copy.deepcopy(monarch.moves)])
 
     # basic results
     print(results)
